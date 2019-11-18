@@ -1,0 +1,89 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+       xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+  
+ <!-- 	Realizado por Maicoly Guerrero ; Contactos:maxmaicky@gmail.com ; C# 0993607298 -->
+
+	<ui:composition template="/WEB-INF/plantillaUSR.xhtml">
+				<ui:define name="pageTitle">Reportes veces marcadas</ui:define>
+			<ui:define name="titPagina"><h1>Bienvenido #{sesionController.usuario}</h1></ui:define>
+			<ui:define name="contenido">
+		
+			
+		
+			<h:form id="f1" rendered="#{sesionController.estado eq true}">
+			<p:growl id="growl2" life="1000" /> 
+				 <div class="row">
+				    <div class="nav nav-tabs" id="tab1">
+				      <ul class="tabs">
+				        <li class="tab col s3"><a class="active" href="#test1">Veces Marcadas</a></li>
+				       
+				      </ul>
+				    </div>
+				    <div id="test1" class="col s12">
+				    					 <div class="grid-example col s12 m6">
+						 			 			 	<p:panel id="pn1" header="Veces Marcadas antes de las 8 de la mañana" > 
+								 			 			 <h:panelGrid columns="2">
+								 			 			 	<p:outputLabel for="cod_fecha1" value="Fecha desde:"/>
+								 			 		   	    <p:calendar id="cod_fecha1" value="#{vecesController.fecha1}" pattern="dd-MM-yyyy" mask="true" />
+										 			    	<p:outputLabel for="cod_fecha2" value="Fecha hasta:"/>
+										 			 		<p:calendar id="cod_fecha2" value="#{vecesController.fecha2}" pattern="dd-MM-yyyy" mask="true" />
+								 			 			 </h:panelGrid>
+								 			 			 <p:commandButton value="Enviar" actionListener="#{vecesController.checkPeriodoVeces}" styleClass="ui-priority-primary"  update=":f1:growl2 :f1:pn1 :f1:png2"/>
+								 			 				 <br />
+								 			 				 <p:outputLabel id="salida1" value="#{vecesController.listaLimpia.size()} registros encontrados!!"/>
+						 			 			 	</p:panel>
+						 			 			 </div>
+				    	
+							     		<p:spacer width="25"/>
+							     		<p:panelGrid id="png2" columns="1">
+							     		<p:dataTable id="tbl2" var="tim" value="#{vecesController.listaLimpia}"   paginatorTemplate="{CurrentPageReport} {PageLinks}"  paginatorPosition="top" paginator="true" rows="20" style="margin-bottom:30px" class="responsive-table">
+												 <p:column headerText="Biométrico">
+											        <h:outputText value="#{tim.CODIGO_EMPLEADO}" />
+											     </p:column>
+											      <p:column headerText="Apellido">
+											        <h:outputText value="#{vecesController.checkRazonSocialEmpApellido(tim.CODIGO_EMPLEADO)}" />
+											     </p:column>
+											      <p:column headerText="Nombre">
+											        <h:outputText value="#{vecesController.checkRazonSocialEmpNombre(tim.CODIGO_EMPLEADO)}" />
+											     </p:column>
+											      <p:column headerText="Departamento">
+											        <h:outputText value="#{vecesController.checkDepartamento(tim.CODIGO_EMPLEADO)}" />
+											     </p:column>
+											      <p:column headerText="Veces_Marcadas">
+											        <h:outputText value="#{vecesController.nroVecesMarcadas(tim.CODIGO_EMPLEADO)}" />
+											     </p:column>
+											</p:dataTable>
+									</p:panelGrid>
+									  <h:commandLink id="excel2">
+								        <p:graphicImage url="resources/images/excel.png"/>
+								        <p:dataExporter type="xls" target="tbl2" fileName="reporteTimbreTemprano" postProcessor="#{vecesController.postProcessXLS}" />
+								    </h:commandLink>
+								 
+								    <h:commandLink id="pdf2">
+								        <p:graphicImage  url="resources/images/pdf.png" />
+								        <p:dataExporter type="pdf" target="tbl2" fileName="reporteTimbreTemprano" preProcessor="#{vecesController.preProcessPDF}" />
+								    </h:commandLink>	
+							 
+						 	 
+					</div>
+				   
+			
+				  </div>
+				
+
+			</h:form>
+			
+			
+			</ui:define>
+			
+	</ui:composition>
+
+</html>

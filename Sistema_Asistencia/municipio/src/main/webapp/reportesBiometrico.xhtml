@@ -1,0 +1,202 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+       xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+  
+ <!-- 	Realizado por Maicoly Guerrero ; Contactos:maxmaicky@gmail.com ; C# 0993607298 -->
+
+	<ui:composition template="/WEB-INF/plantillaUSR.xhtml">
+			<ui:define name="pageTitle">Reportes Parametrizados</ui:define>
+			<ui:define name="titPagina"><h1>Bienvenido #{sesionController.usuario}</h1></ui:define>
+			<ui:define name="contenido">
+		<h:head>
+					<script>
+
+
+        PrimeFaces.locales['es'] = {
+                closeText: 'Cerrar',
+                prevText: 'Anterior',
+                nextText: 'Siguiente',
+                monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+                dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+                dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                dayNamesMin: ['D','L','M','M','J','V','S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Sólo hora',
+                timeText: 'Tiempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                currentText: 'Fecha actual',
+                ampm: false,
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText : 'Todo el día'
+        };
+        
+        </script>
+		
+		
+		</h:head>	
+			
+		
+			<h:form id="f1" rendered="#{sesionController.estado eq true}">
+					<p:growl id="growl2" life="1000" /> 
+						 <div class="row">
+						 	<div class="col s12">
+						 			<p:separator />
+									<div class="nav nav-tabs" id="tab2">
+								      <ul class="tabs">
+								        <li class="tab col s3"><a class="active" href="#dtest1">Por biométrico</a></li>
+								      </ul>
+								    </div>
+						 			 <div id="dtest1">
+						 			 			 <p:spacer width="25"/>
+						 			 			 <br />
+						 			 			 <br />
+						 			 			 <div class="grid-example col s12 m6">
+						 			 			 	<p:panel id="pn1" header="Reporte de timbres dado el código del biométrico" > 
+								 			 			 	 <div class="grid-example col s12 m6">
+									 			 			 	<p:outputLabel for="cod_bio" value="Ingrese código de biómetrico" />
+									 			 			 	<!-- <p:inputText id="cod_bio" value="#{paramReportController.biometrico}" /> -->
+									 			 			 	
+									 			 			 	<p:selectOneListbox value="#{paramReportController.biometrico}" id="cod_bio" style="width:700px"  filter="true" 
+														   	   	 	 filterMatchMode="contains" scrollHeight="100" required="true" requiredMessage="Debe eligir un empleado">
+														            <f:selectItems value="#{paramReportController.empleados}" var="e" itemLabel="#{e.APELLIDO} #{e.NOMBRE}" 
+														            itemValue="#{e.CODIGO_EMPLEADO}"/>
+												        		</p:selectOneListbox>
+															  </div>
+								 			 			 <h:panelGrid columns="3">
+								 			 			 	<p:outputLabel for="cod_fecha1" value="Fecha desde:"/>
+								 			 		   	    <p:calendar id="cod_fecha1" value="#{paramReportController.fecha1}" pattern="dd-MM-yyyy" mask="true" />
+										 			    	<p:inputMask id="tiempo1" value="#{paramReportController.tiempo1}" mask="99.99" placeholder="Desde que hora..." />
+										 			    	<p:outputLabel for="cod_fecha2" value="Fecha hasta:"/>
+										 			 		<p:calendar id="cod_fecha2" value="#{paramReportController.fecha2}" pattern="dd-MM-yyyy" mask="true" />
+								 			 			 	<p:inputMask id="tiempo2" value="#{paramReportController.tiempo2}" mask="99.99" placeholder="Hasta que hora..."/>
+								 			 			 </h:panelGrid>
+								 			 			 <p:commandButton value="Enviar" actionListener="#{paramReportController.checkBiometrico}" styleClass="ui-priority-primary"  update=":f1:growl2 :f1:pn1 :f1:png1 :f1:pn2 :f1:png2 :f1:png3"/>
+								 			 				 <p:outputLabel id="salida1" value="#{paramReportController.timbres.size()} registros encontrados!!"/>
+								 			 			  <p:commandButton value="Enviar a fulltime" action="#{paramReportController.enviarFullTime()}" styleClass="ui-priority-primary" />
+						 			 			 	 	
+						 			 			 	</p:panel>
+						 			 			 </div>
+						 			 			 <div class="grid-example col s12 m6">
+						 			 			 		<p:panel id="pn2">
+							 			 			 	<p:panelGrid columns="2">
+							 			 			 	 			<p:graphicImage value="#{paramReportController.myImage}" alt="sin imagen" id="pic1" style="width:200px;width:200px" cache="false">
+																	</p:graphicImage>
+																	<div class="grid-example col s12">
+																	<span style="color:black;font-size: 200%">#{paramReportController.nombre_pdf} - #{paramReportController.nom_dept}</span>
+																	</div>
+							 			 			 	</p:panelGrid>
+						 			 			 	</p:panel>
+						 			 			 </div>
+						 			 			  <p:panelGrid id="png1" columns="1">
+							     					<p:dataTable id="tbl" var="tim" value="#{paramReportController.timbres}"   paginatorTemplate="{CurrentPageReport} {PageLinks}"  paginatorPosition="top" paginator="true" rows="20" style="margin-bottom:30px" class="responsive-table">
+														 <f:facet name="header">
+														 	#{paramReportController.nombre_pdf} - #{paramReportController.nom_dept}
+														 </f:facet>
+														 <p:column headerText="Biometrico">
+													        <h:outputText value="#{tim.CODIGO_EMPLEADO}" />
+													     </p:column>
+													      <p:column headerText="Departamento" exportable="false">
+													        <h:outputText value="#{paramReportController.nom_dept}" />
+													     </p:column>
+													     <p:column headerText="Nro_reloj">
+													        <h:outputText value="#{tim.CODIGO_RELOJ}" />
+													     </p:column>
+														 <p:column headerText="Fecha">
+													        <h:outputText value="#{paramReportController.checkTiempo(tim.FECHA)}" />
+													     </p:column>	 
+													      <p:column headerText="Hora">
+													        <h:outputText value="#{tim.FECHA_HORA_TIMBRE.hours}:#{tim.FECHA_HORA_TIMBRE.minutes}:#{tim.FECHA_HORA_TIMBRE.seconds}" />
+													      </p:column>
+													</p:dataTable>
+												  </p:panelGrid>
+												   <h:commandLink id="excel1">
+												        <p:graphicImage url="resources/images/excel.png"/>
+												        <p:dataExporter type="xls" target="tbl" fileName="reporteTimbrePersona" postProcessor="#{paramReportController.postProcessXLS}" />
+												    </h:commandLink>
+												 
+												    <h:commandLink id="pdf1">
+												        <p:graphicImage  url="resources/images/pdf.png" />
+												        <p:dataExporter type="pdf" target="tbl" fileName="reporteTimbrePersona" preProcessor="#{paramReportController.preProcessPDF}" />
+												    </h:commandLink>
+											     <p:separator />
+											     <br />
+<!-- 											     <p:commandButton  value="Actualizar " update=":f1:png2"/> -->
+											      <p:panelGrid id="png2" columns="1">
+											      	<p:dataTable id="tbl1" var="just" value="#{paramReportController.justificaciones}"   paginatorTemplate="{CurrentPageReport} {PageLinks}"  paginatorPosition="top" paginator="true" rows="20" style="margin-bottom:30px" class="responsive-table">
+											      		   	<f:facet name="header">
+														 		JUSTIFICACIONES
+															</f:facet>
+											      		    <p:column headerText="Fecha">
+													        	<h:outputText value="#{paramReportController.checkTiempo(just.FECHA)}" />
+													     	</p:column>
+											      			 <p:column headerText="Mañana Entrada">
+													        	<h:outputText value="#{just.MANENT}" />
+													     	</p:column>
+													     	<p:column headerText="Mañana Salida">
+													        	<h:outputText value="#{just.MANSAL}" />
+													     	</p:column>
+													     	<p:column headerText="Tarde Entrada">
+													        	<h:outputText value="#{just.TARENT}" />
+													     	</p:column>
+													     	<p:column headerText="Tarde Salida">
+													        	<h:outputText value="#{just.TARSAL}" />
+													     	</p:column>
+													     	<p:column headerText="Descripción">
+													        	<h:outputText value="#{just.OBSERVACIONES}" />
+													     	</p:column>
+											      	</p:dataTable>
+											      </p:panelGrid>
+											      
+											        <p:panelGrid id="png3" columns="1">
+											      	<p:dataTable id="tbl2" var="acc" value="#{paramReportController.acciones}"   paginatorTemplate="{CurrentPageReport} {PageLinks}"  paginatorPosition="top" paginator="true" rows="20" style="margin-bottom:30px" class="responsive-table">
+											      		   	<f:facet name="header">
+														 		ACCIONES DE PERSONAL
+															</f:facet>
+											      		    <p:column headerText="Servidor_Id">
+													        	<h:outputText value="#{acc.SER_CODIGO}" />
+													     	</p:column>
+											      			 <p:column headerText="Nombres">
+													        	<h:outputText value="#{paramReportController.checkNombresYapellidosServidor(acc.SER_CODIGO)}" />
+													     	</p:column>  
+													     	<p:column headerText="Motivo Permiso">
+													        	<h:outputText value="#{paramReportController.checkMotivoPermiso()}" />
+													     	</p:column>
+													     	<p:column headerText="Cargo">
+													        	<h:outputText value="#{paramReportController.checkCargo(acc.SER_CODIGO)}" />
+													     	</p:column>
+													     	<p:column headerText="Fecha Vigencia">
+													        	<h:outputText value="#{paramReportController.checkTiempo(acc.FECHA_VIGENCIA)}" />
+													     	</p:column>
+													     	<p:column headerText="Explicación">
+													        	<h:outputText value="#{acc.EXPLICACION}" />
+													     	</p:column>
+											      	</p:dataTable>
+											      </p:panelGrid>
+						 			 </div>
+						 		
+						 	</div>
+					    </div>
+			</h:form>
+			
+			
+			</ui:define>
+			
+	</ui:composition>
+
+</html>

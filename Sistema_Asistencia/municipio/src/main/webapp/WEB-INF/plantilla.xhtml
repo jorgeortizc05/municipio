@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<!-- 	Realizado por Maicoly Guerrero ; Contactos:maxmaicky@gmail.com ; C# 0993607298 -->
+
+			 <title><ui:insert name="pageTitle">Page Title plantilla</ui:insert></title>
+			    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		    
+			    <!-- Latest compiled and minified CSS -->
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+			<!-- Optional theme -->
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+		
+			<!-- Latest compiled and minified JavaScript -->
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+			  <!-- Compiled and minified CSS -->
+			  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"/>
+		
+			  <!-- Compiled and minified JavaScript -->
+			  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+			    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+		        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+           <div class="row">
+           		<div class="col s12">
+           		 <div class="grid-example col s12" style="margin:0%;height:139px; background-image: url('resources/images/alcaldia.png');background-repeat: no-repeat;background-size:10%;"><p:spacer width="165"/><font size="8"><p:spacer width="30" /><span style="font-size:100%">Dirección General de Talento Humano : Sistema de Registro de Asistencia</span></font></div>
+				</div>
+			</div>
+			 <p:menubar class="navbar navbar-inverse" style="color:black">
+		        <f:facet name="options">
+		            <div align="center"> <a class="btn tooltipped" data-position="top" data-delay="50" data-tooltip="Inicio de sesión" onclick="PF('dlg2').show();">Login</a></div>	
+			
+      			</f:facet>
+      			<f:facet name="options">
+      				<div class="col s12" align="left"><p:clock/></div>
+      			</f:facet>
+        </p:menubar>
+<!--        <nav class="navbar navbar-inverse"> -->
+<!-- 		  <div class="container-fluid"> -->
+<!-- 		    <div class="navbar-header"> -->
+<!-- 		      <a class="navbar-brand" href="#">WebSiteName</a> -->
+<!-- 		    </div> -->
+<!-- 		    <ul class="nav navbar-nav"> -->
+<!-- 		      <li class="active"><a href="#">Home</a></li> -->
+<!-- 		      <li><a href="#">Page 1</a></li> -->
+<!-- 		      <li><a href="#">Page 2</a></li> -->
+<!-- 		      <li><a href="#">Page 3</a></li> -->
+<!-- 		    </ul> -->
+<!-- 		  </div> -->
+<!-- 		</nav> -->
+
+</h:head> 
+<body> 
+
+	 <div id="layout">    
+	 
+	 	  <ui:insert name="titPagina">
+                 
+          			 <h2>Mi plantilla con css local</h2	>           
+    			  
+            </ui:insert>
+       
+        <div id="content">
+            <ui:insert name="contenido">
+                <span>Página en construcción</span>
+            </ui:insert>            
+        </div>
+         <div id="content1">
+            <ui:insert name="login">
+            <h:form>
+             <p:growl id="growl3"  life="3000" />
+                <p:dialog header="Ingrese sus datos personales" widgetVar="dlg2" visible="true" closable="false" draggable="false" modal="true" height="400" width="500" resizable="false">
+								  		<div class="row">									 
+										 		 	<h:panelGrid columns="2" cellpadding="5">
+											 		 	 <h:outputText value="Usuario: " />
+													 	 <p:inputText pt:placeholder="Ingrese usuario..." id="txtNombre1" value="#{sesionController.usuario}"  class="col s6"/>
+										 			     <h:outputText value="Contraseña: " />
+													     <p:password id="nonFeedback" value="#{sesionController.pass}" />	
+										 					<p:commandButton value="Enviar" id="ajax"  actionListener="#{sesionController.verificarLogin}" styleClass="ui-priority-primary" update="growl3" />
+					
+										 			 </h:panelGrid>							 
+										 	
+										<br></br>
+										<br></br>
+										 	
+										 	 </div>
+					 
+								</p:dialog>
+						</h:form>		
+            </ui:insert>            
+        </div>
+        <div id="footer">
+        
+           <a href='http://www.ups.edu.ec'></a>
+        </div>
+    </div>
+
+</body>
+ 
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+       xmlns:fb="http://www.facebook.com/2008/fbml">
+
+	<ui:composition template="/WEB-INF/plantilla.xhtml">
+			<ui:define name="pageTitle">Login_usuario</ui:define>
+			<ui:define name="titPagina"><h1 align="center">Inicio de Sesión</h1></ui:define>
+			<ui:define name="contenido">
+				<div class="row" align="center" style="background-image: url('resources/images/logo.png');background-repeat: no-repeat;background-position:right; height: 500px;
+				background-size: 28%;" >
+			<!-- 	Realizado por Maicoly Guerrero ; Contactos:maxmaicky@gmail.com ; C# 0993607298 -->
+				<h:form id="myForm">
+					<h:outputLink value="#{request.contextPath}/fileservlet?id=#{entity.id}" target="_blank">#{entity.filename}</h:outputLink>
+			    </h:form>
+				</div>
+			</ui:define>
+	</ui:composition>
+
+</html>

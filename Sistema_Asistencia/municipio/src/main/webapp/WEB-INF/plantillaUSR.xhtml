@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+		 <title><ui:insert name="pageTitle">Page Title plantilla</ui:insert></title>
+		    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		    
+		    <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+		
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+		
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		  <!-- Compiled and minified CSS -->
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"/>
+		
+		  <!-- Compiled and minified JavaScript -->
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+		      <!-- 	Realizado por Maicoly Guerrero ; Contactos:maxmaicky@gmail.com ; C# 0993607298 -->
+		       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+		          <div class="e8eaf6 indigo lighten-5" style="margin:0%;height:139px; background-image: url('resources/images/alcaldia.png');background-repeat: no-repeat;background-size:10%;"><p:spacer width="165"/><font size="8"><p:spacer width="30" /> <span style="font-size:100%">Dirección General de Talento Humano : Sistema de Registro de Asistencia</span></font></div>
+      <nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="/mreporte/inicio.jsf">Home</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li class="active"><a href="/mreporte/reportes.jsf">Perfil Usuario</a></li>
+		        <li class="dropdown">
+			        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reportes Parametros
+			        <span class="caret"></span></a>
+			        <ul class="dropdown-menu">
+			          <li><a href="/mreporte/reportesBiometrico.jsf">1- Reportes por Biométrico</a></li>
+			          <li><a href="/mreporte/reportesDepartamento.jsf">2- Reportes por Departamento</a></li>
+			          <li><a href="/mreporte/reportesEmpleado.jsf">3- Reportes por Empleado</a></li>
+			          <!-- <li><a href="/mreporte/reportesEmpleado.jsf">4- Servidor por Areas</a></li> -->
+			        </ul>
+		        </li>
+		         <li class="dropdown">
+			        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reportes Marcadas
+			        <span class="caret"></span></a>
+			        <ul class="dropdown-menu">
+			          <li><a href="/mreporte/reportesVecesMarcadas.jsf">1- Reportes Veces Marcadas</a></li>
+			          
+			        </ul>
+		        </li>
+		    </ul>
+		  </div>
+		</nav>
+</h:head> 
+<body> 
+
+	 <div id="layout">    
+	 
+	 	  <ui:insert name="titPagina">
+                 
+          			 <h2>Mi plantilla con css local</h2	>           
+    			  
+            </ui:insert>
+       
+        <div id="content">
+            <ui:insert name="contenido">
+                <span>Página en construcción</span>
+            </ui:insert>
+             <ui:insert name="stack">
+             <!-- 	Realizado por Maicoly Guerrero ; Contactos:maxmaicky@gmail.com ; C# 0993607298 -->
+                 <h:form id="fm2" rendered="#{sesionController.estado eq false}">
+	             	<h2>No ha iniciado sesión</h2>
+	             	<p:commandButton value="Login" action="inicio"/>
+	             </h:form>
+             <h:form id="fm1" rendered="#{sesionController.estado eq true}">
+             <p:growl id="growl2" life="1000" />
+             	   <p:stack icon="/resources/images/base.png" expanded="true">
+			  		  <p:menuitem value="Salir" icon="/resources/images/exit.png" action="#{sesionController.closeSesion()}"/>
+				   </p:stack>
+				   	  <div class="row">
+									<div class="col s1">
+												<nav>
+														  <ul class="side-nav" id="slide-out">
+														    <li>
+															    <div class="userView" style="height: 200px">
+															      <div class="background">
+															        <img src="resources/images/office.jpg" alt=""/>
+															      </div>
+															     	 <a><img class="circle" src="resources/images/user.png" alt=""/></a>
+															     <div class="container">
+															    	 <span class="white-text email" style="font-size: 30px">NAVEGACION POR REPORTERIA</span>
+															     </div>
+															    </div>
+														    </li>
+														    			<p:panel id="pn1" header="Busqueda rápida de empleado" > 					 
+																 		 	<h:panelGrid columns="2" cellpadding="5">
+																	 		 	 <h:outputText value="Ingrese codigo: " />
+																			 	 <p:inputText pt:placeholder="Codigo..." id="txtNombre1" value="#{mainReportView.codigo}"  class="col s6"/>
+																			 	 <h:outputText value="Ingrese Cédula... " />
+																			 	 <p:inputText pt:placeholder="Cédula..." id="txtNombre2" value="#{mainReportView.cedula}"  class="col s6"/>
+																			 	 <h:outputText  value="Ingrese Apellido... " />
+																			 	 <p:inputText pt:placeholder="Apellido..." id="txtNombre3" value="#{mainReportView.apellido}"  class="col s6"/>
+																 			     
+																 					<p:commandButton value="Enviar" id="ajax"  actionListener="#{mainReportView.busqNavEmpleado}" styleClass="ui-priority-primary"  update=":fm1:growl2 :fm1:pn1 :fm1:png1 "/>
+																					<h:outputText  id="reg" value="#{mainReportView.navEmpleados.size()} registros encontrados!!!" /> 
+																 			 </h:panelGrid>	
+																 		
+																 			 </p:panel>
+																 			 <p:panelGrid id="png1" columns="1">
+																 			 		<p:dataTable id="tbl" var="emp" value="#{mainReportView.navEmpleados}"   paginatorTemplate="{CurrentPageReport}  
+																								  {PageLinks}"  paginatorPosition="top" paginator="true" rows="6" style="margin-bottom:10px" class="responsive-table">
+																						 
+																						 	    <p:column headerText="Biométrico">
+																							        <h:outputText value="#{emp.CODIGO_EMPLEADO}" />
+																							    </p:column>
+																							    <p:column headerText="Cedula">
+																							        <h:outputText value="#{emp.CEDULA}" />
+																							    </p:column>
+																							     <p:column headerText="Nombre">
+																							        <h:outputText value="#{emp.NOMBRE}" />
+																							    </p:column>
+																							     <p:column headerText="Apellido">
+																							        <h:outputText value="#{emp.APELLIDO}" />
+																							    </p:column>
+																							     <p:column headerText="Departamento">
+																							        <h:outputText value="#{mainReportView.checkDepartamento(emp.DEPA_ID)}" />
+																							    </p:column>
+																						 
+																			 </p:dataTable>
+																 			 
+																 			 </p:panelGrid>
+														    </ul>
+														    
+														  <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+														  	<script>
+														  	$('.button-collapse').sideNav({
+														        menuWidth: 700,
+														        closeOnClick: true,
+														      }
+														    );
+														    $('.collapsible').collapsible();
+														  	</script>
+											</nav>
+							</div>
+					</div>    
+             </h:form>
+	         
+            </ui:insert>
+        </div>
+       
+    </div>
+     <h:form rendered="#{sesionController.estado eq true}">
+     	<div class="col s12" style="position: relative;">
+     	 
+												
+						
+     	 <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Reportes Timbres GAD Cuenca</h5>
+                <p class="grey-text text-lighten-4">Para soporte técnico dirigase a Talento Humano</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Enlaces de interés</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2017 Derechos Reservado GAD CUENCA   -  Desarrollo y Soporte Técnico: maxmaicky@gmail.com
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
+        	
+     	</div>
+</h:form>
+</body> 
+</html>
