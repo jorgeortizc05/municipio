@@ -19,14 +19,16 @@ import ec.muni.nomina.model.ServidorArea;
 /*
  * Realizado por: Jorge Ortiz
  * Fecha inicio: 14/11/2019
- * Descripcion: Sentencias sql para recuperar el servior con sus cargos y sus departamentos
+ * Descripcion: Sentencias sql para recuperar el servidor con sus cargos y sus departamentos
+ * DB: nomina
  */
 
 public class ServidorAreaDAO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	public List<ServidorArea> getServidor(int codigo){
+	//Obtiene servidor con sus cargos y departamentos getServidor(codigo servidor)
+	public List<ServidorArea> recuperarDatosServidor(int codigoServidor){
 		
 		ServidorArea item = new ServidorArea();
 		List<ServidorArea> items = new ArrayList<>();
@@ -42,7 +44,7 @@ public class ServidorAreaDAO implements Serializable{
 					"       nomina.da_secretaria (i.codigo,2) direccion,\r\n" + 
 					"       nomina.sacacargo(i.codigo) cargo\r\n" + 
 					"from nomina.servidor i\r\n" + 
-					"where i.codigo="+codigo);
+					"where i.codigo="+codigoServidor);
 			
 			Statement stmt = null;
 			stmt = con.createStatement();

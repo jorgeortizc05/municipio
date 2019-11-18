@@ -13,11 +13,18 @@ import ec.gadc.reporte.utils.DbConexionFulltime;
 import ec.muni.fulltime.model.Departamento;
 import ec.muni.nomina.model.ServidorArea;
 
+/*
+ * Realizado por: Jorge Ortiz
+ * Fecha inicio: 14/11/2019
+ * Descripcion: SQL para departamentos
+ * DB: fullitme
+ */
 public class DepartamentoDAO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public List<Departamento> getDepartamento(String descripcion){
+	//Devuelve una lista de departamentos(Busqueda por descripcion)
+	public List<Departamento> recuperarDatosDepartamento(String buscarDescripcion){
 		
 		Departamento item = new Departamento();
 		List<Departamento> items = new ArrayList<>();
@@ -26,7 +33,7 @@ public class DepartamentoDAO implements Serializable {
 		ResultSet rs;
 		con = DbConexionFulltime.getConexion();
 		try {
-			String sentencia = ("SELECT dep.depa_id as codigo, dep.descripcion FROM departamento dep WHERE dep.descripcion LIKE '%"+descripcion+"%'");
+			String sentencia = ("SELECT dep.depa_id as codigo, dep.descripcion FROM departamento dep WHERE dep.descripcion LIKE '%"+buscarDescripcion+"%'");
 			System.out.println(sentencia);
 			
 			Statement stmt = null;

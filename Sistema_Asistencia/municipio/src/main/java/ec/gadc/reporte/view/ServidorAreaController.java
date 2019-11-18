@@ -37,7 +37,7 @@ public class ServidorAreaController {
 
 	public String loadServidorCargo() {
 		
-		servidorAreas = sercBuss.getServidorCargo(vCodigoServidor);
+		servidorAreas = sercBuss.recuperarDatosServidor(vCodigoServidor);
 		
 		for(ServidorArea sc: servidorAreas) {
 			System.out.println(sc);
@@ -48,7 +48,7 @@ public class ServidorAreaController {
 	
 	public String loadDepartamentos() {
 		
-		departamentos = depBuss.getDepartamento((vDescripcion).toUpperCase());
+		departamentos = depBuss.recuperarDatosDepartamento((vDescripcion).toUpperCase());
 		
 		for(Departamento d: departamentos) {
 			System.out.println(d);
