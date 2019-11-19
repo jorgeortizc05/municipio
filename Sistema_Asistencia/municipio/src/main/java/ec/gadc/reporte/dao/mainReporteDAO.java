@@ -24,6 +24,15 @@ import ec.gadc.reporte.model.TIMBRE;
 import ec.gadc.reporte.model.TIPO_CARGO;
 import ec.gadc.reporte.model.USUARIOS;
 
+/*
+ * Realizado por: Maicoly Guerrero
+ * Edita por: Jorge Ortiz
+ * Fecha ediccion: 19/11/2019
+ * Descripcion: Dao para obtener roles, empleado, ciudad, region, reloj.
+ * Descripcion modificacion: Correccion de ingreso de parametros
+ * DB: fulltime
+ */
+
 @Stateless
 public class mainReporteDAO  implements Serializable{
 	/**
@@ -116,21 +125,21 @@ public class mainReporteDAO  implements Serializable{
 		try{
 			if (opcion==1){
 				
-				Query query=em.createQuery("select r from EMPLEADO r where "+ "r.CODIGO_EMPLEADO = ?",EMPLEADO.class);
-				query.setParameter(1, filtro);
+				Query query=em.createQuery("select r from EMPLEADO r where "+ "r.CODIGO_EMPLEADO = :filtro",EMPLEADO.class);
+				query.setParameter("filtro", filtro);
 				empleados=query.getResultList();
 				return empleados;
 			}else{
 				if (opcion==2){
-					Query query=em.createQuery("select r from EMPLEADO r where r.CEDULA = ?",EMPLEADO.class);
-					query.setParameter(1, filtro);
+					Query query=em.createQuery("select r from EMPLEADO r where r.CEDULA = :filtro1",EMPLEADO.class);
+					query.setParameter("filtro1", filtro);
 					empleados=query.getResultList();
 					return empleados;
 				}
 				else{
 					if (opcion==3){
-						Query query=em.createQuery("select r from EMPLEADO r where r.APELLIDO like CONCAT(?,'%')",EMPLEADO.class);
-						query.setParameter(1, filtro);
+						Query query=em.createQuery("select r from EMPLEADO r where r.APELLIDO like CONCAT(:filtro2,'%')",EMPLEADO.class);
+						query.setParameter("filtro2", filtro);
 						empleados=query.getResultList();
 						return empleados;
 					}
@@ -150,9 +159,9 @@ public class mainReporteDAO  implements Serializable{
 	
 	public List<TIMBRE> getTimbresDepartamento(Date fecha1, Date fecha2, Integer cod_dep) throws NullPointerException{
 		try{
-			Query query=em.createQuery("select r from TIMBRE r, EMPLEADO e, DEPARTAMENTO d where r.FECHA_HORA_TIMBRE > ? and r.FECHA_HORA_TIMBRE<? and r.CODIGO_EMPLEADO = e.CODIGO_EMPLEADO  and e.DEPA_ID = :cod_dep and d.DEPA_ID = e.DEPA_ID order by r.FECHA_HORA_TIMBRE",TIMBRE.class);
-			query.setParameter(1, fecha1);
-			query.setParameter(2, fecha2);
+			Query query=em.createQuery("select r from TIMBRE r, EMPLEADO e, DEPARTAMENTO d where r.FECHA_HORA_TIMBRE > :fecha1 and r.FECHA_HORA_TIMBRE< fecha:2 and r.CODIGO_EMPLEADO = e.CODIGO_EMPLEADO  and e.DEPA_ID = :cod_dep and d.DEPA_ID = e.DEPA_ID order by r.FECHA_HORA_TIMBRE",TIMBRE.class);
+			query.setParameter("fecha1", fecha1);
+			query.setParameter("fecha2", fecha2);
 			query.setParameter("cod_dep", cod_dep);
 			List<TIMBRE> timbres=query.getResultList();
 			return	timbres;
@@ -165,12 +174,12 @@ public class mainReporteDAO  implements Serializable{
 	}
 	public List<TIMBRE> getTimbresPeriodoVeces(Date fecha1, Date fecha2) throws NullPointerException{
 		try{
-			Query query=em.createQuery("select r from TIMBRE r, EMPLEADO e, DEPARTAMENTO d where d.DEPA_ID = e.DEPA_ID and e.CODIGO_EMPLEADO = r.CODIGO_EMPLEADO  and r.FECHA_HORA_TIMBRE > ? and r.FECHA_HORA_TIMBRE < ? and "
+			Query query=em.createQuery("select r from TIMBRE r, EMPLEADO e, DEPARTAMENTO d where d.DEPA_ID = e.DEPA_ID and e.CODIGO_EMPLEADO = r.CODIGO_EMPLEADO  and r.FECHA_HORA_TIMBRE > :fecha1 and r.FECHA_HORA_TIMBRE < :fecha2 and "
 					+ "FUNCTION('TO_CHAR',r.FECHA_HORA_TIMBRE,'HH:MI') < "+"'08:00' and "
 							+ "FUNCTION('TO_CHAR',r.FECHA_HORA_TIMBRE,'AM') = "+"'AM' order by r.CODIGO_EMPLEADO",TIMBRE.class);
 //			query.setParameter(1, mes_anio);
-			query.setParameter(1, fecha1);
-			query.setParameter(2, fecha2);
+			query.setParameter("fecha1", fecha1);
+			query.setParameter("fecha2", fecha2);
 			List<TIMBRE> timbres=query.getResultList();
 			return	timbres;
 

@@ -69,10 +69,10 @@
 						 			 			 <div class="grid-example col s12 m6">
 						 			 			 	<p:panel id="pn1" header="Reporte de timbres dado el código del biométrico" > 
 								 			 			 	 <div class="grid-example col s12 m6">
-									 			 			 	<p:outputLabel for="cod_bio" value="Ingrese código de biómetrico" />
+									 			 			 	<p:outputLabel for="cod_bio" value="Elija a la persona a consultar" />
 									 			 			 	<!-- <p:inputText id="cod_bio" value="#{paramReportController.biometrico}" /> -->
 									 			 			 	
-									 			 			 	<p:selectOneListbox value="#{paramReportController.biometrico}" id="cod_bio" style="width:700px"  filter="true" 
+									 			 			 	<p:selectOneListbox value="#{paramReportController.biometrico}" id="cod_bio" style="width:550px"  filter="true" 
 														   	   	 	 filterMatchMode="contains" scrollHeight="100" required="true" requiredMessage="Debe eligir un empleado">
 														            <f:selectItems value="#{paramReportController.empleados}" var="e" itemLabel="#{e.APELLIDO} #{e.NOMBRE}" 
 														            itemValue="#{e.CODIGO_EMPLEADO}"/>
