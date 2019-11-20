@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:uti="http://java.sun.com/jsf/composite/util"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+Autor: ING. JORGE LUIS ORTIZ CACERES
+Fecha de Creacion:27/02/2019
+Notas: Vista para el codigo de barras
+Modificaciones
+Fecha Modificacion
+Notas:
+-->
+<ui:composition
+	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
+
+	<ui:define name="cuerpo">
+		<p:growl id="growl2" life="1000" />
+
+
+		<p:spacer width="25" />
+		<br />
+		<br />
+
+		<p:panel id="pn1" header="Reporte de timbres por departamento">
+
+			<!-- <p:outputLabel value="Departamento: *" for="dep" />
+														        	<p:selectOneMenu value="#{paramReportController.filtro_dep}" id="dep">
+														   				<f:selectItems value="#{paramReportController.departamentos}" var="de"
+														   				itemLabel="#{de.DESCRIPCION}" itemValue="#{de.DEPA_ID}" />
+														   	   	 </p:selectOneMenu> -->
+			<p:selectOneListbox value="#{paramReportController.filtro_dep}"
+				id="dep" style="width:700px" filter="true"
+				filterMatchMode="contains" scrollHeight="100">
+				<f:selectItems value="#{paramReportController.departamentos}"
+					var="de" itemLabel="#{de.DESCRIPCION}" itemValue="#{de.DEPA_ID}" />
+			</p:selectOneListbox>
+			<p:message for="dep" />
+
+			<h:panelGrid columns="3">
+				<p:outputLabel for="cod_fecha11" value="Fecha desde:" />
+				<p:calendar id="cod_fecha11" value="#{paramReportController.fecha1}"
+					pattern="dd-MM-yyyy" mask="true" />
+				<p:inputMask id="tiempo11" value="#{paramReportController.tiempo1}"
+					mask="99.99" placeholder="Desde que hora..." />
+				<p:outputLabel for="cod_fecha22" value="Fecha hasta:" />
+				<p:calendar id="cod_fecha22" value="#{paramReportController.fecha2}"
+					pattern="dd-MM-yyyy" mask="true" />
+				<p:inputMask id="tiempo22" value="#{paramReportController.tiempo2}"
+					mask="99.99" placeholder="Hasta que hora..." />
+			</h:panelGrid>
+			<p:commandButton value="Enviar"
+				actionListener="#{paramReportController.checkDepartamento}"
+				update="growl2 pn1 png11" />
+			<p:outputLabel id="salida11"
+				value="#{paramReportController.timbres.size()} registros encontrados!!" />
+		</p:panel>
+
+		<p:panelGrid id="png11" columns="1">
+			<p:dataTable id="tbl1" var="tim"
+				value="#{paramReportController.timbres}"
+				paginatorTemplate="{CurrentPageReport} {PageLinks}"
+				paginatorPosition="top" paginator="true" rows="20"
+				style="margin-bottom:30px" class="responsive-table">
+				<f:facet name="header">
+															 #{paramReportController.nombre_pdf}
+														 </f:facet>
+				<p:column headerText="Biometrico">
+					<h:outputText value="#{tim.CODIGO_EMPLEADO}" />
+				</p:column>
+				<p:column headerText="Apellido">
+					<h:outputText
+						value="#{paramReportController.checkRazonSocialEmpApellido(tim.CODIGO_EMPLEADO)}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText
+						value="#{paramReportController.checkRazonSocialEmpNombre(tim.CODIGO_EMPLEADO)}" />
+				</p:column>
+				<p:column headerText="Nro_reloj">
+					<h:outputText value="#{tim.CODIGO_RELOJ}" />
+				</p:column>
+				<p:column headerText="Fecha">
+					<h:outputText
+						value="#{paramReportController.checkTiempo(tim.FECHA)}" />
+				</p:column>
+				<p:column headerText="Hora">
+					<h:outputText
+						value="#{tim.FECHA_HORA_TIMBRE.hours}:#{tim.FECHA_HORA_TIMBRE.minutes}:#{tim.FECHA_HORA_TIMBRE.seconds}" />
+				</p:column>
+			</p:dataTable>
+		</p:panelGrid>
+		<h:commandLink id="excel11">
+			<p:graphicImage url="resources/images/excel.png" />
+			<p:dataExporter type="xls" target="tbl1"
+				fileName="reporteTimbreDepartamento" pageOnly="true" />
+		</h:commandLink>
+
+		<h:commandLink id="pdf11">
+			<p:graphicImage url="resources/images/pdf.png" />
+			<p:dataExporter type="pdf" target="tbl1"
+				fileName="reporteTimbreDepartamento"
+				preProcessor="#{paramReportController.preProcessPDF}" />
+		</h:commandLink>
+		<p:separator />
+
+
+	</ui:define>
+
+
+
+</ui:composition>
+</html>

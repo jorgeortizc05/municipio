@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:uti="http://java.sun.com/jsf/composite/util"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+Autor: ING. JORGE LUIS ORTIZ CACERES
+Fecha de Creacion:27/02/2019
+Notas: Vista para el codigo de barras
+Modificaciones
+Fecha Modificacion
+Notas:
+-->
+<ui:composition
+	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
+
+	<ui:define name="cuerpo">
+		<p:growl id="growl2" life="1000" />
+
+		<p:separator />
+
+		<ul class="tabs">
+			<li class="tab col s3"><a class="active" href="#dtest1">SERVIDOR AREA</a></li>
+		</ul>
+
+
+		<p:spacer width="25" />
+		<br />
+		<br />
+
+		<p:fieldset legend="Lista de Servidor por Áreas"
+			style="margin-bottom:20px">
+			<p:inputText value="#{servidorAreaController.vCodigoServidor}" />
+			<p:commandButton value="Buscar"
+				action="#{servidorAreaController.loadServidorCargo()}" ajax="false" />
+			<p:panelGrid id="servidor">
+				<p:row>
+					<p:column>Código Servidor:</p:column>
+					<p:column>
+						<p:outputLabel
+							value="#{servidorAreaController.servidorAreaSQL.codigoServidor}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>Cédula:</p:column>
+					<p:column>
+						<p:outputLabel
+							value="#{servidorAreaController.servidorAreaSQL.cedulaServidor}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>Nombres:</p:column>
+					<p:column>
+						<p:outputLabel
+							value="#{servidorAreaController.servidorAreaSQL.nombres}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>Dirección:</p:column>
+					<p:column>
+						<p:outputLabel
+							value="#{servidorAreaController.servidorAreaSQL.direccion}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>Cargo:</p:column>
+					<p:column>
+						<p:outputLabel
+							value="#{servidorAreaController.servidorAreaSQL.cargo}" />
+					</p:column>
+				</p:row>
+
+			</p:panelGrid>
+
+
+		</p:fieldset>
+
+
+		<p:panel id="pn2">
+			<p:panelGrid columns="2">
+
+				<p:outputLabel for="cargo" value="Elija un cargo" />
+				<!-- <p:inputText id="cod_bio" value="#{paramReportController.biometrico}" /> -->
+				<p:selectOneListbox value="#{servidorAreaController.vCodigoCargo}"
+					id="cargo" style="width:550px" filter="true"
+					filterMatchMode="contains" scrollHeight="100" required="true"
+					requiredMessage="Debe eligir un cargo">
+					<f:selectItems value="#{servidorAreaController.cargos}" var="c"
+						itemLabel="#{c.CARG_ID} #{c.DESCRIPCION}" itemValue="#{c.CARG_ID}" />
+				</p:selectOneListbox>
+
+			</p:panelGrid>
+		</p:panel>
+
+
+		<p:panelGrid id="fulltime">
+
+			<p:dataTable resizableColumns="true"
+				value="#{servidorAreaController.departamentos}" var="dep"
+				id="dtDepartamentos" paginator="true" paginatorPosition="bottom"
+				rows="15" style="margin-bottom:20px">
+				<p:column>
+					<h:selectOneRadio group="foo"
+						value="#{servidorAreaController.vCodigoDepartamento}">
+						<f:selectItem itemValue="#{dep.codigoDepartamento}"
+							itemLabel="#{dep.codigoDepartamento}" />
+					</h:selectOneRadio>
+				</p:column>
+
+				<p:column headerText="Código" style="width:30px">
+					<h:outputText value="#{dep.codigoDepartamento}" />
+				</p:column>
+
+				<p:column headerText="Descripción" style="width:120px">
+					<h:outputText value="#{dep.descripcion}" />
+				</p:column>
+				<!-- oncomplete me sirve para eliminar con el filtro activado -->
+			</p:dataTable>
+
+		</p:panelGrid>
+		<p:commandButton value="Enviar"
+			action="#{servidorAreaController.enviarFullTime()}" />
+
+
+	</ui:define>
+
+
+
+</ui:composition>
+</html>
