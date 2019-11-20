@@ -36,7 +36,7 @@
     </licenses>
 
     <properties>
-    <primefaces.version>5.3</primefaces.version>
+    <primefaces.version>7.0</primefaces.version>
         <!-- Explicitly declaring the source encoding eliminates the following 
             message: -->
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
