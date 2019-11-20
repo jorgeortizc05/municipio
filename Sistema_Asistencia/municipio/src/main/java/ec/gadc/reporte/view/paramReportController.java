@@ -129,37 +129,32 @@ public class paramReportController implements Serializable{
 	}
 	
 	
-	public List<SERVIDOR> getRestServidor1(String cedula) throws ParseException{
-		List<SERVIDOR> aux = new ArrayList<SERVIDOR>();
-		myImage=new DefaultStreamedContent();
-		ClientConfig clientConfig = new DefaultClientConfig();
-		// Create Client based on Config
-	      Client client = Client.create(clientConfig);
-	      WebResource webResource = client.resource("http://localhost:8080/nominaMunicipio/srv/login/emps?a="+cedula);
-	      Builder builder = webResource.accept(MediaType.APPLICATION_XML) //
-	              .header("content-type", MediaType.APPLICATION_XML);
-	      ClientResponse response = builder.get(ClientResponse.class);
-	      // Status 200 is successful.
-	      if (response.getStatus() != 200) {
-//	          System.out.println("Failed with HTTP Error code: " + response.getStatus());
-	         String error= response.getEntity(String.class);
-//	         System.out.println("Error: "+error);
-	          return null;
-	      }
-	      GenericType<List<SERVIDOR>> generic = new GenericType<List<SERVIDOR>>() {};
-//	      System.out.println("Output from Server1 .... \n");
-	      aux = response.getEntity(generic);
-	      for(SERVIDOR c: aux){
-	    	  System.out.println(">>>>>>>>>>>>>>>>>> MI METODO >>>>>>>>>>>>>>>>>>>");
-	    	  System.out.println(">>>>>>>>>>>>>>>>>> "+c.getPRIMER_NOMBRE());
-	    	  System.out.println(">>>>>>>>>>>>>>>>>> "+c.getSEGUNDO_NOMBRE());
-	    	  System.out.println(">>>>>>>>>>>>>>>>>> "+c.getCEDULA());
-	      }
-	      
-	     return aux;
-	}
+	/*
+	 * public List<SERVIDOR> getRestServidor1(String cedula) throws ParseException{
+	 * List<SERVIDOR> aux = new ArrayList<SERVIDOR>(); myImage=new
+	 * DefaultStreamedContent(); ClientConfig clientConfig = new
+	 * DefaultClientConfig(); // Create Client based on Config Client client =
+	 * Client.create(clientConfig); WebResource webResource =
+	 * client.resource("http://localhost:8080/nominaMunicipio/srv/login/emps?a="+
+	 * cedula); Builder builder = webResource.accept(MediaType.APPLICATION_XML) //
+	 * .header("content-type", MediaType.APPLICATION_XML); ClientResponse response =
+	 * builder.get(ClientResponse.class); // Status 200 is successful. if
+	 * (response.getStatus() != 200) { //
+	 * System.out.println("Failed with HTTP Error code: " + response.getStatus());
+	 * String error= response.getEntity(String.class); //
+	 * System.out.println("Error: "+error); return null; }
+	 * GenericType<List<SERVIDOR>> generic = new GenericType<List<SERVIDOR>>() {};
+	 * // System.out.println("Output from Server1 .... \n"); aux =
+	 * response.getEntity(generic); for(SERVIDOR c: aux){
+	 * System.out.println(">>>>>>>>>>>>>>>>>> MI METODO >>>>>>>>>>>>>>>>>>>");
+	 * System.out.println(">>>>>>>>>>>>>>>>>> "+c.getPRIMER_NOMBRE());
+	 * System.out.println(">>>>>>>>>>>>>>>>>> "+c.getSEGUNDO_NOMBRE());
+	 * System.out.println(">>>>>>>>>>>>>>>>>> "+c.getCEDULA()); }
+	 * 
+	 * return aux; }
+	 */
 	
-	public String enviarFullTime() {
+	/*public String enviarFullTime() {
 		List<SERVIDOR> aux = new ArrayList<SERVIDOR>();
 		SERVIDOR auxs = new SERVIDOR();
 		
@@ -201,7 +196,7 @@ public class paramReportController implements Serializable{
 		
 		
 		return null;
-	}
+	}*/
 	
 	public void getRestBJustificaciones(String cedula) throws ParseException {
 		 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

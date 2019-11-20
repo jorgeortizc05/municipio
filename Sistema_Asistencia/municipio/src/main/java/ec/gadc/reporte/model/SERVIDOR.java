@@ -4,88 +4,167 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
-public class SERVIDOR implements Serializable {
+@Entity
+public class SERVIDOR implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	@Id	
+	@NotNull
 	private Integer CODIGO;
+	@NotNull
+	@Size(min = 10, max = 10)
+	@Pattern(regexp="/^[0-9]+$/", message="Cedula numerica con 10 digitos")
 	private String CEDULA;
+	@NotNull
 	private Date FECHA_EMISION;
+	@NotNull
+	@Size(min = 1, max = 20)
 	private String APELLIDO_PATERNO;
+	@Size(min = 1, max = 20)
 	private String APELLIDO_MATERNO;
+	@NotNull
+	@Size(min = 1, max = 20)
 	private String PRIMER_NOMBRE;
+	@Size(min = 1, max = 20)
 	private String SEGUNDO_NOMBRE;
 	private byte[]  FOTOGRAFIA;
+	@Size(min = 1, max = 1)
 	private String SEXO;
 	private Date FECHA_NACIMIENTO;
+	@Size(min = 1, max = 250)
 	private String LUGAR;
+	@NotNull
+	@Size(min = 1, max = 25)
 	private String NACIONALIDAD;
+	@NotNull
+	@Size(min = 1, max = 3)
 	private String ESTADO_CIVIL;
+	@Size(min = 1, max = 20)
 	private String LIBRETA_MILITAR;
+	@Size(min = 1, max = 15)
 	private String CARNET_IESS;
+	@Size(min = 1, max = 5)
 	private String TIPO_SANGRE;
 	private Integer ESTATURA;
+	@Size(min = 1, max = 20)
 	private String PELO;
+	@Size(min = 1, max = 15)
 	private String TEZ;
+	@NotNull
+	@Size(min = 1, max = 240)
 	private String DOMICILIO;
+	@Size(min = 1, max = 13)
 	private String TELEFONO;
+	@Size(min = 1, max = 13)
 	private String TELEFONO2;
+	@Size(min = 1, max = 50)
 	private String EMAIL;
+	@NotNull
+	@Size(min = 1, max = 1)
 	private String VIVO;
+	@NotNull
 	private Date FECHA_INGRESO;
+	@NotNull
+	@Size(min = 1, max = 1)
 	private String ACTIVO;
+	@NotNull
+	@Size(min = 1, max = 1)
 	private String AFILIADO_COLEGIO;
 	private Integer BIOMETRICO;
+	@Size(min = 1, max = 3)
 	private String PRR_CODIGO_PERTENECE_A;
+	@Size(min = 1, max = 2)
 	private String PRR_CAT_CODIGO_PERTENECE_A;
+	@Size(min = 1, max = 2)
 	private String PRR_CAT_PRV_CODIGO_PERTENECE_A;
+	@Size(min = 1, max = 3)
 	private String PRR_CODIGO;
+	@Size(min = 1, max = 2)
 	private String PRR_CAT_CODIGO;
+	@Size(min = 1, max = 2)
 	private String PRR_CAT_PRV_CODIGO;
 	private Integer PRO_CODIGO;
 	private Integer SER_CODIGO;
+	@NotNull
+	@Size(min = 1, max = 30)
 	private String CREATED_BY;
+	@NotNull
 	private Date CREATION_DATE;
+	@NotNull
+	@Size(min = 1, max = 30)
 	private String LAST_UPDATED_BY;
+	@NotNull
 	private Date LAST_UPDATE_DATE;
 	private Date FECHA_PRIMER_INGRESO;
+	@Size(min = 1, max = 30)
 	private String TIPO_DISCAPACIDAD;
 	private Integer PORC_DISCAPACIDAD;
+	@Size(min = 1, max = 4)
 	private String CLAVE;
 	private byte[]  NUEVA_FOTO;
+	@Digits(fraction = 2, integer = 12)
 	private Double TALLA_CALZADO;
+	@Digits(fraction = 2, integer = 12)
 	private Double TALLA_GUANTE_MANOS;
+	@Size(min = 1, max = 12)
 	private String TALLA_CINTURA;
+	@Size(min = 1, max = 12)
 	private String TALLA_IMPERMEABLE;
+	@Size(min = 1, max = 20)
 	private String TALLA_CASACA;
+	@Size(min = 1, max = 20)
 	private String TALLA_CHALECO_ESPE;
+	@Digits(fraction = 2, integer = 12)
 	private Double TALLA_MANDIL;
+	@Size(min = 1, max = 50)
 	private String PARTIDA_ANTICIPO;
+	@Size(min = 1, max = 30)
 	private String ID_DISCAPACIDAD;
 	private Integer NUMERO_HORAS_CURSO;
 	private Integer NUMERO_CURSOS;
+	@Size(min = 1, max = 150)
 	private String CALLE_SECUNDARIA;
+	@Size(min = 1, max = 20)
 	private String CALLE_NUMERO;
+	@Size(min = 1, max = 20)
 	private String EXTENSION_TELEFONICA;
+	@Size(min = 1, max = 25)
 	private String AUTOIDENTIFICACION;
+	@Size(min = 1, max = 25)
 	private String AUTOPUEBLO;
+	@Size(min = 1, max = 50)
 	private String EMAIL_PERSONAL;
+	@Size(min = 1, max = 2)
 	private String SUSTITUTO_DISCAPACIDAD;
+	@Size(min = 1, max = 250)
 	private String SUSTITUTO_NOMBRES;
+	@Size(min = 1, max = 2)
 	private String CONDIC_DISCAPACIDAD;
+	@Size(min = 1, max = 1)
 	private String TIPO_IDENT_DISCAPACIDAD;
+	@Size(min = 1, max = 1)
 	private String TIPO_IDENT_TRABAJ;
+	@Size(min = 1, max = 2)
 	private String RESIDENCIA_TRABAJ;
+	@Size(min = 1, max = 10)
 	private String CEDULA_DISCAPACIDAD;
 	private Integer ANIO_ACTUALIZACION_DISC;
 	private Date FECHA_ACTUALIZACION_DISC;
+	@Size(min = 1, max = 400)
 	private String NOMBRE_HOJA_VIDA;
 	private byte[]  HOJA_VIDA;
+	@Size(min = 1, max = 500)
 	private String REFERENCIA_PERSONAL;
 	public Integer getCODIGO() {
 		return CODIGO;
@@ -129,6 +208,7 @@ public class SERVIDOR implements Serializable {
 	public void setSEGUNDO_NOMBRE(String sEGUNDO_NOMBRE) {
 		SEGUNDO_NOMBRE = sEGUNDO_NOMBRE;
 	}
+	
 	public byte[] getFOTOGRAFIA() {
 		return FOTOGRAFIA;
 	}
@@ -291,12 +371,6 @@ public class SERVIDOR implements Serializable {
 	public void setPRR_CAT_PRV_CODIGO(String pRR_CAT_PRV_CODIGO) {
 		PRR_CAT_PRV_CODIGO = pRR_CAT_PRV_CODIGO;
 	}
-	public Integer getPRO_CODIGO() {
-		return PRO_CODIGO;
-	}
-	public void setPRO_CODIGO(Integer pRO_CODIGO) {
-		PRO_CODIGO = pRO_CODIGO;
-	}
 	public Integer getSER_CODIGO() {
 		return SER_CODIGO;
 	}
@@ -351,6 +425,8 @@ public class SERVIDOR implements Serializable {
 	public void setCLAVE(String cLAVE) {
 		CLAVE = cLAVE;
 	}
+
+	
 	public byte[] getNUEVA_FOTO() {
 		return NUEVA_FOTO;
 	}
@@ -519,6 +595,7 @@ public class SERVIDOR implements Serializable {
 	public void setNOMBRE_HOJA_VIDA(String nOMBRE_HOJA_VIDA) {
 		NOMBRE_HOJA_VIDA = nOMBRE_HOJA_VIDA;
 	}
+	
 	public byte[] getHOJA_VIDA() {
 		return HOJA_VIDA;
 	}
@@ -530,6 +607,15 @@ public class SERVIDOR implements Serializable {
 	}
 	public void setREFERENCIA_PERSONAL(String rEFERENCIA_PERSONAL) {
 		REFERENCIA_PERSONAL = rEFERENCIA_PERSONAL;
+	}
+	
+	
+	
+	public Integer getPRO_CODIGO() {
+		return PRO_CODIGO;
+	}
+	public void setPRO_CODIGO(Integer pRO_CODIGO) {
+		PRO_CODIGO = pRO_CODIGO;
 	}
 	@Override
 	public String toString() {
@@ -567,5 +653,6 @@ public class SERVIDOR implements Serializable {
 	}
 	
 	
+
 	
 }

@@ -12,8 +12,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import ec.gadc.reporte.model.EMPLEADO;
+import ec.gadc.reporte.model.SERVIDOR;
 import ec.gadc.reporte.utils.DbConexion;
 import ec.muni.nomina.model.ServidorArea;
 /*
@@ -23,14 +26,20 @@ import ec.muni.nomina.model.ServidorArea;
  * DB: nomina
  */
 
+@Stateless
 public class ServidorAreaDAO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@PersistenceContext(unitName = "nomina")
+	private EntityManager emN;
+	
+	@PersistenceContext(unitName = "fulltime")
+	private EntityManager emF;
 	//Obtiene servidor con sus cargos y departamentos getServidor(codigo servidor)
-	public List<ServidorArea> recuperarDatosServidor(int codigoServidor){
+	public ServidorArea recuperarServidorArea(int codigoServidor){
 		
-		ServidorArea item = new ServidorArea();
+		ServidorArea item = null;
 		List<ServidorArea> items = new ArrayList<>();
 		
 		Connection con = null;
@@ -49,17 +58,18 @@ public class ServidorAreaDAO implements Serializable{
 			Statement stmt = null;
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sentencia);
-			
 			while(rs.next()) {
+				item = new ServidorArea();
 				item.setCodigoServidor(rs.getInt(1));
 				item.setCedulaServidor(rs.getString(2));
 				item.setNombres(rs.getString(3));
 				item.setDireccion(rs.getString(4));
 				item.setCargo(rs.getString(5));
-				items.add(item);
 			}
+			
+
 			DbConexion.liberaConexion(con);
-			return items;	
+			return item;	
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -68,5 +78,36 @@ public class ServidorAreaDAO implements Serializable{
 			return null;
 		}
 						
+	}
+	
+	public SERVIDOR recuperarServidor(String cedula)throws NullPointerException{
+		try{
+			System.out.println("OOOOOOOOOOOOOOOOOOOOOO");
+			System.out.println(cedula);
+			Query query=emN.createQuery("select s from SERVIDOR s where s.CEDULA = :cedula",SERVIDOR.class);
+			query.setParameter("cedula", cedula);
+			SERVIDOR servidor=(SERVIDOR) query.getSingleResult();
+			return servidor;
+		}catch(Exception e){
+			System.out.println("nulo");
+			System.out.println(e.getMessage());
+			System.out.println(e.getLocalizedMessage());
+			return null;
+		}
+	}
+	
+	public void insertEmpleado(EMPLEADO empleado) {
+		emF.persist(empleado);
+	}
+	
+	public List<SERVIDOR> recuperarServidores()throws NullPointerException{
+		try{
+			Query query=emN.createQuery("select s from SERVIDOR s",SERVIDOR.class);
+			List<SERVIDOR> empleados=query.getResultList();
+			return empleados;
+		}catch(Exception e){
+			System.out.println("nulo");
+			return null;
+		}
 	}
 }

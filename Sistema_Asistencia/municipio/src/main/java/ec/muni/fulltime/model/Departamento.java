@@ -22,4 +22,11 @@ public class Departamento {
 		this.descripcion = descripcion;
 	}
 
+	@Override
+	public String toString() {
+		return "Departamento [codigoDepartamento=" + codigoDepartamento + ", descripcion=" + descripcion + "]";
+	}
+	
+	
+
 }

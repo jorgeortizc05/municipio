@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ec.gadc.reporte.model.USUARIOS;
@@ -18,7 +19,7 @@ public class sesionReporteDAO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	
-	@Inject
+	@PersistenceContext(unitName = "fulltime")
 	private EntityManager em;
 	
 	public USUARIOS getLoginU(String usuario,String clave) throws NullPointerException{ 

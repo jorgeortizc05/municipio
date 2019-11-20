@@ -71,10 +71,15 @@
 						 			 			 		<p:panel id="pn1" header="Reporte de timbres por empleado" > 
 								 			 			 	 <div class="grid-example col s12 m6">
 									 			 			 	<p:outputLabel value="Empleado *" for="dep" />
-														        	<p:selectOneMenu value="#{paramReportController.filtro_dep}" id="dep">
-														   				<f:selectItems value="#{paramReportController.empleados}" var="de"
-														   				itemLabel="#{de.APELLIDO} #{de.NOMBRE}" itemValue="#{de.CODIGO_EMPLEADO}" />
-														   	   	 </p:selectOneMenu>
+													        	<!-- <p:selectOneMenu value="#{paramReportController.filtro_dep}" id="dep">
+													   				<f:selectItems value="#{paramReportController.empleados}" var="de"
+													   				itemLabel="#{de.APELLIDO} #{de.NOMBRE}" itemValue="#{de.CODIGO_EMPLEADO}" />
+													   	   	 	</p:selectOneMenu> -->
+														   	   	 <p:selectOneListbox value="#{paramReportController.filtro_dep}" id="dep" style="width:550px"  filter="true" 
+														   	   	 	 filterMatchMode="contains" scrollHeight="100" required="true" requiredMessage="Debe eligir un empleado">
+														            <f:selectItems value="#{paramReportController.empleados}" var="e" itemLabel="#{e.APELLIDO} #{e.NOMBRE}" 
+														            itemValue="#{e.CODIGO_EMPLEADO}"/>
+												        		</p:selectOneListbox>
 														   		 <p:message for="dep" />
 															  </div>
 								 			 			 <h:panelGrid columns="3">

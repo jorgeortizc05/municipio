@@ -26,8 +26,8 @@ public class DepartamentoDAO implements Serializable {
 	//Devuelve una lista de departamentos(Busqueda por descripcion)
 	public List<Departamento> recuperarDatosDepartamento(String buscarDescripcion){
 		
-		Departamento item = new Departamento();
-		List<Departamento> items = new ArrayList<>();
+		Departamento item;
+		List<Departamento> items = new ArrayList<Departamento>();
 		
 		Connection con = null;
 		ResultSet rs;
@@ -41,6 +41,7 @@ public class DepartamentoDAO implements Serializable {
 			rs = stmt.executeQuery(sentencia);
 			
 			while(rs.next()) {
+				item = new Departamento();
 				item.setCodigoDepartamento(rs.getInt(1));
 				item.setDescripcion(rs.getString(2));
 				items.add(item);

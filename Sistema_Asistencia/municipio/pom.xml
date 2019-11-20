@@ -20,7 +20,7 @@
     </licenses>
 
     <properties>
-    <primefaces.version>5.3</primefaces.version>
+    <primefaces.version>7.0</primefaces.version>
         <!-- Explicitly declaring the source encoding eliminates the following 
             message: 5.3-->
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
@@ -194,10 +194,10 @@
 			</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 		<dependency>
-		    <groupId>org.apache.poi</groupId>
-		    <artifactId>poi</artifactId>
-		    <version>3.5-beta5</version>
-		</dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+        </dependency>
 			<dependency>
 			  <groupId>org.eclipse.persistence</groupId>
 			  <artifactId>eclipselink</artifactId>

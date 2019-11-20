@@ -8,9 +8,13 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 public class Resources {
-	 @Produces
-	   @PersistenceContext
-	   private EntityManager em;
+	   @Produces
+	   @PersistenceContext(unitName = "fulltime")
+	   private EntityManager emF;
+		
+	   @Produces
+	   @PersistenceContext(unitName = "nomina")
+	   private EntityManager emN;
 	   
 	   @Produces
 	   public Logger produceLog(InjectionPoint injectionPoint) {

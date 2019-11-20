@@ -3,7 +3,13 @@ package ec.gadc.reporte.bussiness;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 import ec.gadc.reporte.dao.ServidorAreaDAO;
+import ec.gadc.reporte.dao.mainReporteDAO;
+import ec.gadc.reporte.model.EMPLEADO;
+import ec.gadc.reporte.model.SERVIDOR;
 import ec.muni.nomina.model.ServidorArea;
 
 
@@ -13,23 +19,31 @@ import ec.muni.nomina.model.ServidorArea;
  * Descripcion: Servidor de areas de DB nomina
  */
 
+@Stateless
 public class ServidorAreaBussiness {
 	
-	private ServidorAreaDAO serc = new ServidorAreaDAO();
+	private ServidorAreaDAO seraDAO = new ServidorAreaDAO();
 	
-	public List<ServidorArea> recuperarDatosServidor(int codigoServidor){
-		List<ServidorArea> servidorAreas = new ArrayList<>();
+	public ServidorArea recuperarServidorArea(int codigoServidor) throws Exception{
+		ServidorArea servidorArea = seraDAO.recuperarServidorArea(codigoServidor);
 		
-		try {
-			servidorAreas = serc.recuperarDatosServidor(codigoServidor);
-			return servidorAreas;
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.err.println("Sin datos "+e.getMessage());
-			return null;
-		}
+		if(!(servidorArea == null)) {
+			return servidorArea;
+		}else 
+			throw new Exception("Sin datos de Servidor");
 		
-		
+	}
+	
+	public List<SERVIDOR> recuperarServidores() {
+		List<SERVIDOR> servidores = seraDAO.recuperarServidores();
+		return servidores;
+	}
+	
+	public void guardarEmpleado(EMPLEADO empleado) throws Exception {
+		if(!(empleado == null)) {
+			seraDAO.insertEmpleado(empleado);
+		}else
+			throw new Exception("Sin datos de empleado");
 	}
 
 }
