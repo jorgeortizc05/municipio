@@ -27,17 +27,17 @@
 </h:head>
 <h:body>
 	<header id="main-header">
- 		<link rel="shortcut icon" type="image/x-icon" href="#{resource['gimnasiosoliz/logo/gimnasiosoliz_logo.png']}"/>
+ 		<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/alcaldia.png']}"/>
 	</header><!-- / #main-header -->
 	<!-- <f:loadBundle basename="jorgeortiz.fusionsystem.web.Componente" var="componente" /> -->
 	<h:panelGroup layout="block" id="pantalla" style="font-size:14px;">
 		<p:growl id="mensajes" showDetail="true" globalOnly="true"/>
 		<h:panelGroup layout="block" id="cuerpo">
 			<h:form id="forma">
-				<p:panel>
+				
 					<p:menubar>
 							<p:menuitem>
-			        				<h:graphicImage name="gimnasiosoliz/logo/gimnasiosoliz_logo.jpg" height="50" width="150" />
+			        				<h:graphicImage url="/resources/images/alcaldia.png" height="50" width="100" />
 							</p:menuitem>
 					        <p:submenu label="Escritorio" icon="fa fa-desktop">
 					        	<p:menuitem value="Escritorio" action="escritorio" immediate="true" ajax="false"/>
@@ -52,15 +52,15 @@
 					        	<p:menuitem value="Acerca de..."  action="acerca-de" immediate="true" ajax="false"/>
 					        </p:submenu>
 					    </p:menubar>
-				</p:panel>
+				
 				
 				
 				<ui:insert name="barra">
 				</ui:insert>
-				<p:panel>
+				
 					<ui:insert name="cuerpo">
 					</ui:insert>
-				</p:panel>
+				
 			</h:form>
 			<ui:insert name="listas">
 			</ui:insert>

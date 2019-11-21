@@ -18,55 +18,55 @@ Notas:
 	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
 
 	<ui:define name="cuerpo">
-		<p:panel id="pn1"
-			header="Reporte de timbres dado el código del biométrico">
-			<div class="grid-example col s12 m6">
-				<p:outputLabel for="cod_bio" value="Elija a la persona a consultar" />
-				<!-- <p:inputText id="cod_bio" value="#{paramReportController.biometrico}" /> -->
-
-				<p:selectOneListbox value="#{paramReportController.biometrico}"
-					id="cod_bio" style="width:550px" filter="true"
-					filterMatchMode="contains" scrollHeight="100" required="true"
-					requiredMessage="Debe eligir un empleado">
-					<f:selectItems value="#{paramReportController.empleados}" var="e"
-						itemLabel="#{e.APELLIDO} #{e.NOMBRE}"
-						itemValue="#{e.CODIGO_EMPLEADO}" />
-				</p:selectOneListbox>
-			</div>
-			<h:panelGrid columns="3">
-				<p:outputLabel for="cod_fecha1" value="Fecha desde:" />
-				<p:calendar id="cod_fecha1" value="#{paramReportController.fecha1}"
-					pattern="dd-MM-yyyy" mask="true" />
-				<p:inputMask id="tiempo1" value="#{paramReportController.tiempo1}"
-					mask="99.99" placeholder="Desde que hora..." />
-				<p:outputLabel for="cod_fecha2" value="Fecha hasta:" />
-				<p:calendar id="cod_fecha2" value="#{paramReportController.fecha2}"
-					pattern="dd-MM-yyyy" mask="true" />
-				<p:inputMask id="tiempo2" value="#{paramReportController.tiempo2}"
-					mask="99.99" placeholder="Hasta que hora..." />
-			</h:panelGrid>
-			<p:commandButton value="Enviar"
-				actionListener="#{paramReportController.checkBiometrico}"
-				styleClass="ui-priority-primary"
-				update="mensajes pn1 png1 pn2 png2 png3" />
-			<p:outputLabel id="salida1"
-				value="#{paramReportController.timbres.size()} registros encontrados!!" />
-
-		</p:panel>
-
-
-		<p:panel id="pn2">
-			<p:panelGrid columns="2">
-				<p:graphicImage value="#{paramReportController.myImage}"
-					alt="sin imagen" id="pic1" style="width:200px;width:200px"
-					cache="false">
-				</p:graphicImage>
-				<div class="grid-example col s12">
-					<span style="color: black; font-size: 200%">#{paramReportController.nombre_pdf}
-						- #{paramReportController.nom_dept}</span>
-				</div>
-			</p:panelGrid>
-		</p:panel>
+		<p:panel header="Relojes Biométricos" style="margin-bottom:20px" id="fReporteBiometrico">
+		<p:panelGrid columns="2">
+			<p:panel id="pn1">
+					<p:outputLabel for="cod_bio" value="Elija a la persona a consultar" />
+					<!-- <p:inputText id="cod_bio" value="#{paramReportController.biometrico}" /> -->
+	
+					<p:selectOneListbox value="#{paramReportController.biometrico}"
+						id="cod_bio" style="width:550px" filter="true"
+						filterMatchMode="contains" scrollHeight="100" required="true"
+						requiredMessage="Debe eligir un empleado">
+						<f:selectItems value="#{paramReportController.empleados}" var="e"
+							itemLabel="#{e.APELLIDO} #{e.NOMBRE}"
+							itemValue="#{e.CODIGO_EMPLEADO}" />
+					</p:selectOneListbox>
+				<h:panelGrid columns="3">
+					<p:outputLabel for="cod_fecha1" value="Fecha desde:" />
+					<p:calendar id="cod_fecha1" value="#{paramReportController.fecha1}"
+						pattern="dd-MM-yyyy" mask="true" />
+					<p:inputMask id="tiempo1" value="#{paramReportController.tiempo1}"
+						mask="99.99" placeholder="Desde que hora..." />
+					<p:outputLabel for="cod_fecha2" value="Fecha hasta:" />
+					<p:calendar id="cod_fecha2" value="#{paramReportController.fecha2}"
+						pattern="dd-MM-yyyy" mask="true" />
+					<p:inputMask id="tiempo2" value="#{paramReportController.tiempo2}"
+						mask="99.99" placeholder="Hasta que hora..." />
+				</h:panelGrid>
+				<p:commandButton value="Enviar"
+					actionListener="#{paramReportController.checkBiometrico}"
+					styleClass="ui-priority-primary"
+					update="mensajes pn1 png1 pn2 png2 png3" />
+				<p:outputLabel id="salida1"
+					value="#{paramReportController.timbres.size()} registros encontrados!!" />
+	
+			</p:panel>
+			
+			<p:panel id="pn2" header="Datos Personales">
+				<p:panelGrid columns="2">
+					<p:graphicImage value="#{paramReportController.myImage}"
+						alt="sin imagen" id="pic1" style="width:200px;width:200px"
+						cache="false">
+					</p:graphicImage>
+					<div class="grid-example col s12">
+						<span style="color: black; font-size: 200%">#{paramReportController.nombre_pdf}
+							- #{paramReportController.nom_dept}</span>
+					</div>
+				</p:panelGrid>
+			</p:panel>
+		
+		</p:panelGrid>
 
 		<p:panelGrid id="png1" columns="1">
 			<p:dataTable id="tbl" var="tim"
@@ -97,30 +97,28 @@ Notas:
 			</p:dataTable>
 		</p:panelGrid>
 		<h:commandLink id="excel1">
-			<p:graphicImage url="resources/images/excel.png" />
+			<p:graphicImage url="/resources/images/excel.png"/>
 			<p:dataExporter type="xlsx" target="tbl"
 				fileName="reporteTimbrePersona"
 				postProcessor="#{paramReportController.postProcessXLS}" />
 		</h:commandLink>
 
 		<h:commandLink id="pdf1">
-			<p:graphicImage url="resources/images/pdf.png" />
+			<p:graphicImage url="/resources/images/pdf.png" />
 			<p:dataExporter type="pdf" target="tbl"
 				fileName="reporteTimbrePersona"
 				preProcessor="#{paramReportController.preProcessPDF}" />
 		</h:commandLink>
-		<p:separator />
-		<br />
+		
+		<p:separator style="height:400"/>
+	
 		<!--<p:commandButton  value="Actualizar " update=":f1:png2"/> -->
 		<p:panelGrid id="png2" columns="1">
+			<p:panel header="Justificaciones" style="margin-bottom:20px">
 			<p:dataTable id="tbl1" var="just"
 				value="#{paramReportController.justificaciones}"
-				paginatorTemplate="{CurrentPageReport} {PageLinks}"
 				paginatorPosition="top" paginator="true" rows="20"
 				style="margin-bottom:30px" class="responsive-table">
-				<f:facet name="header">
-			 		JUSTIFICACIONES
-				</f:facet>
 				<p:column headerText="Fecha">
 					<h:outputText
 						value="#{paramReportController.checkTiempo(just.FECHA)}" />
@@ -141,17 +139,15 @@ Notas:
 					<h:outputText value="#{just.OBSERVACIONES}" />
 				</p:column>
 			</p:dataTable>
+			</p:panel>
 		</p:panelGrid>
 
 		<p:panelGrid id="png3" columns="1">
+			<p:panel header="Acciones del Personal" style="margin-bottom:20px">
 			<p:dataTable id="tbl2" var="acc"
 				value="#{paramReportController.acciones}"
-				paginatorTemplate="{CurrentPageReport} {PageLinks}"
 				paginatorPosition="top" paginator="true" rows="20"
 				style="margin-bottom:30px" class="responsive-table">
-				<f:facet name="header">
-					ACCIONES DE PERSONAL
-				</f:facet>
 				<p:column headerText="Servidor_Id">
 					<h:outputText value="#{acc.SER_CODIGO}" />
 				</p:column>
@@ -174,8 +170,9 @@ Notas:
 					<h:outputText value="#{acc.EXPLICACION}" />
 				</p:column>
 			</p:dataTable>
+			</p:panel>
 		</p:panelGrid>
-
+	</p:panel>
 	</ui:define>
 
 

@@ -14,62 +14,54 @@ Modificaciones
 Fecha Modificacion
 Notas:
 -->
+<h:head>
+
+</h:head>
+
 <ui:composition
 	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
 
 	<ui:define name="cuerpo">
-		<p:panel header="Añadir Empleado">
-		<p:fieldset legend="Lista de Servidor por Áreas"
+		<p:panel header="Añadir Empleado" >
+		<p:panel header="Lista de Servidor por Áreas"
 			style="margin-bottom:20px">
 			<p:inputText value="#{servidorAreaController.vCodigoServidor}" />
 			<p:commandButton value="Buscar"
 				action="#{servidorAreaController.loadServidorCargo()}" ajax="false"/>
-			<p:panelGrid id="servidor">
-				<p:row>
-					<p:column>Código Servidor:</p:column>
-					<p:column>
-						<p:outputLabel
-							value="#{servidorAreaController.servidorAreaSQL.codigoServidor}" />
-					</p:column>
-				</p:row>
-				<p:row>
-					<p:column>Cédula:</p:column>
-					<p:column>
+			<p:panelGrid id="servidor" columns="2">
+				
+					Código Servidor:
+					
+					<p:outputLabel value="#{servidorAreaController.servidorAreaSQL.codigoServidor}" />
+					
+				
+					Cédula:
+					
 						<p:outputLabel
 							value="#{servidorAreaController.servidorAreaSQL.cedulaServidor}" />
-					</p:column>
-				</p:row>
-				<p:row>
-					<p:column>Nombres:</p:column>
-					<p:column>
+					
+				
+					Nombres:
+					
 						<p:outputLabel
 							value="#{servidorAreaController.servidorAreaSQL.nombres}" />
-					</p:column>
-				</p:row>
-				<p:row>
-					<p:column>Dirección:</p:column>
-					<p:column>
+					
+				
+					Dirección:
 						<p:outputLabel
 							value="#{servidorAreaController.servidorAreaSQL.direccion}" />
-					</p:column>
-				</p:row>
-				<p:row>
-					<p:column>Cargo:</p:column>
-					<p:column>
+					
+				
+					Cargo:
+					
 						<p:outputLabel
 							value="#{servidorAreaController.servidorAreaSQL.cargo}" />
-					</p:column>
-				</p:row>
-
 			</p:panelGrid>
-
-
-		</p:fieldset>
+		</p:panel>
 		
-		<p:commandButton value="Enviar"
-			action="#{servidorAreaController.enviarFullTime()}" update="mensajes"/>
-			
+		<p:panel >
 		<p:panelGrid columns="2">
+			
 			<p:panel header="Datos Personales">
 				<p:panelGrid columns="2">
 					<p:outputLabel value="Código Reloj"/>
@@ -107,7 +99,7 @@ Notas:
 				
 				</p:panelGrid>
 			</p:panel>
-			
+		
 			<p:panel header="Datos Laborales">
 				<p:panelGrid columns="2">
 					<p:outputLabel value="Foto"/>
@@ -144,8 +136,11 @@ Notas:
 				</p:panelGrid>
 			</p:panel>
 			
-			<p:panel header="Seguridad">
-				<p:panelGrid columns="4">
+		</p:panelGrid>
+		</p:panel>
+		
+		<p:panel header="Seguridad">
+				<p:panelGrid columns="6">
 					<p:outputLabel value="Rol"/>
 					<p:inputText />
 					
@@ -166,11 +161,6 @@ Notas:
 				</p:panelGrid>
 				
 			</p:panel>
-			
-			<p:panel>
-			
-			</p:panel>
-		</p:panelGrid>
 		
 		</p:panel>
 	

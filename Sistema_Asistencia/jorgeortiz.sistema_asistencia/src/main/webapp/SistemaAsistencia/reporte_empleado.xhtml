@@ -100,14 +100,14 @@ Notas:
 			</p:dataTable>
 		</p:panelGrid>
 		<h:commandLink id="excel11">
-			<p:graphicImage url="resources/images/excel.png" />
+			<p:graphicImage url="/resources/images/excel.png"/>
 			<p:dataExporter type="xlsx" target="tbl1"
 				fileName="reporteTimbreDepartamento"
 				postProcessor="#{paramReportController.postProcessXLS}" />
 		</h:commandLink>
 
 		<h:commandLink id="pdf11">
-			<p:graphicImage url="resources/images/pdf.png" />
+			<p:graphicImage url="/resources/images/pdf.png" />
 			<p:dataExporter type="pdf" target="tbl1"
 				fileName="reporteTimbreDepartamento"
 				preProcessor="#{paramReportController.preProcessPDF}" />
