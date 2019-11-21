@@ -107,9 +107,9 @@ public class ParamReportController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		empleados = mdao.getEmpleados();
-		departamentos = mdao.getDepartamentos();
-		cargos = mdao.getCargos();
+		//empleados = mdao.getEmpleados();
+		//departamentos = mdao.getDepartamentos();
+		//cargos = mdao.getCargos();
 	}
 
 	public void getRestServidor1(String cedula) {

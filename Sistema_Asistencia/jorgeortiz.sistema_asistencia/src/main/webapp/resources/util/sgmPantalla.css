@@ -149,7 +149,7 @@ tr {
 }
 
 .ui-panelgrid td, .ui-panelgrid tr {
-	border-style: none;
+	border-style: 2px solid #999999;
 }
 
 table tbody .ui-widget-content {
