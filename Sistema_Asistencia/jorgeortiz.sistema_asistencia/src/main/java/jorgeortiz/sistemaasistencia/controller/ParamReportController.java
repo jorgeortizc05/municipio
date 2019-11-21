@@ -32,6 +32,11 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.primefaces.model.DefaultStreamedContent;
 
 import com.lowagie.text.BadElementException;
@@ -64,7 +69,7 @@ import javax.ws.rs.core.MediaType;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class ParamReportController implements Serializable {
 
@@ -102,9 +107,9 @@ public class ParamReportController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		//empleados = mdao.getEmpleados();
-		//departamentos = mdao.getDepartamentos();
-		//cargos = mdao.getCargos();
+		empleados = mdao.getEmpleados();
+		departamentos = mdao.getDepartamentos();
+		cargos = mdao.getCargos();
 	}
 
 	public void getRestServidor1(String cedula) {
@@ -140,23 +145,19 @@ public class ParamReportController implements Serializable {
 			Date rdate1 = formatter.parse(rDate);
 
 			justificaciones = justDAO.getBjustPersona(cedula, sdate, rdate1);
-			
+
 			this.checkACC_PER1(cedula);
-			
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
-		
-		
 	}
 
 	public void checkACC_PER1(String cedula) {
 		Date resta;
 		Date suma;
-		
+
 		System.out.println("CEDULAAACC > " + cedula);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String f1 = formatter.format(this.getFecha1());
@@ -165,27 +166,27 @@ public class ParamReportController implements Serializable {
 		try {
 			date = formatter.parse(f1);
 			Date date1 = formatter.parse(f2);
-		 	//restar y sumar dias
-				 	 Calendar c = Calendar.getInstance();
-				     c.setTime(date);
-				     c.add(Calendar.DATE, -30);
-				      resta = c.getTime();
-				   Calendar c1 = Calendar.getInstance();
-				     c1.setTime(date1);
-				     c1.add(Calendar.DATE, 30);
-				      suma = c1.getTime();
-			 //
-			 String sDate=formatter.format(resta);
-			 String rDate=formatter.format(suma);
-			 	Date sdate = formatter.parse(sDate);
-			 	Date rdate1 = formatter.parse(rDate);
-			 	
+			// restar y sumar dias
+			Calendar c = Calendar.getInstance();
+			c.setTime(date);
+			c.add(Calendar.DATE, -30);
+			resta = c.getTime();
+			Calendar c1 = Calendar.getInstance();
+			c1.setTime(date1);
+			c1.add(Calendar.DATE, 30);
+			suma = c1.getTime();
+			//
+			String sDate = formatter.format(resta);
+			String rDate = formatter.format(suma);
+			Date sdate = formatter.parse(sDate);
+			Date rdate1 = formatter.parse(rDate);
+
 			acciones = justDAO.getAccPer(cedula, sdate, rdate1);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	 	
+
 	}
 
 	public String checkNombresYapellidosServidor(Integer cod_servidor) {
@@ -531,16 +532,14 @@ public class ParamReportController implements Serializable {
 	}
 
 	public void postProcessXLS(Object document) {
-		HSSFWorkbook wb = (HSSFWorkbook) document;
-		HSSFSheet sheet = wb.getSheetAt(0);
-		HSSFRow header = sheet.getRow(0);
+		XSSFWorkbook wb = (XSSFWorkbook) document;
+		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFRow header = sheet.getRow(0);
 
-		HSSFCellStyle cellStyle = wb.createCellStyle();
-		cellStyle.setFillForegroundColor(HSSFColor.YELLOW.index);
-		cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+		XSSFCellStyle cellStyle = wb.createCellStyle();
 
 		for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
-			HSSFCell cell = header.getCell(i);
+			XSSFCell cell = header.getCell(i);
 			cell.setCellValue(cell.getStringCellValue().toUpperCase());
 			cell.setCellStyle(cellStyle);
 			sheet.autoSizeColumn(i);
@@ -564,8 +563,6 @@ public class ParamReportController implements Serializable {
 		pdf.add(new Phrase("Fecha: " + formato.format(new Date())));
 
 	}
-
-	
 
 	public List<TIMBRE> getTimbres() {
 		return timbres;
@@ -750,7 +747,5 @@ public class ParamReportController implements Serializable {
 	public void setMostrarMenuDep(MuestraOptionMenu[] mostrarMenuDep) {
 		this.mostrarMenuDep = mostrarMenuDep;
 	}
-	
-	
 
 }

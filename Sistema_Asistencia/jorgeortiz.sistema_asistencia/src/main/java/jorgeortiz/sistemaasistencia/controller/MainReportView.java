@@ -39,12 +39,11 @@ public class MainReportView implements Serializable {
 	private SesionController sesionController;
 	@Inject
 	private MainReporteDAO dao;
-	
+
 	private String codigo;
 	private String cedula;
 	private String apellido;
-	
-	
+
 	private List<EMPLEADO> empleados;
 	private List<CIUDAD> ciudades;
 	private List<PROVINCIA> provincias;
@@ -53,17 +52,16 @@ public class MainReportView implements Serializable {
 	private List<RELOJ> relojes;
 	private List<CARGO> cargos;
 	private List<TIPO_CARGO> tiposCargos;
-	
+
 	private List<EMPLEADO_GRUPO> empleados_grupos;
 	private List<DETALLE_GRUPO_CONTRATADO> detalle_g_contratados;
 	private List<TIMBRE> timbres;
 	private List<GRUPO_CONTRATADO> grupo_contratados;
 	private List<USUARIOS> usuarios;
 	private List<EMPLEADO> navEmpleados;
-	
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 //		empleados=dao.getEmpleados();
 //		ciudades=dao.getCiudades();
 //		provincias=dao.getProvincias();
@@ -78,62 +76,73 @@ public class MainReportView implements Serializable {
 //		grupo_contratados=dao.getGruposcontratados();
 //		usuarios=dao.getUsuarios();
 	}
-	public void busqNavEmpleado(ActionEvent actionEvent) throws IOException{
-		int cont=0;
-		try{
-			if(!this.getCodigo().isEmpty())cont=cont+1;
-			if(!this.getCedula().isEmpty())cont=cont+1;
-			if(!this.getApellido().isEmpty())cont=cont+1;
-			if(sesionController.isEstado()){
-				if(cont==1){
-					 navEmpleados=null;
-					if(!this.getCodigo().isEmpty()){
-					//	navEmpleados=dao.getEmpleadosNav(this.getCodigo(), 1);
+
+	public void busqNavEmpleado(ActionEvent actionEvent) throws IOException {
+		int cont = 0;
+		try {
+			if (!this.getCodigo().isEmpty())
+				cont = cont + 1;
+			if (!this.getCedula().isEmpty())
+				cont = cont + 1;
+			if (!this.getApellido().isEmpty())
+				cont = cont + 1;
+			if (sesionController.isEstado()) {
+				if (cont == 1) {
+					navEmpleados = null;
+					if (!this.getCodigo().isEmpty()) {
+						// navEmpleados=dao.getEmpleadosNav(this.getCodigo(), 1);
 						this.setNavEmpleados(dao.getEmpleadosNav(this.getCodigo(), 1));
-						if(!navEmpleados.isEmpty()){
+						if (!navEmpleados.isEmpty()) {
 //							for(EMPLEADO e:this.getNavEmpleados()){
 //								System.out.println("emp> "+e.getCEDULA());
 //								System.out.println("emp> "+e.getNOMBRE());
 //							}
-						}else addMessage("Sin resultados!!");
+						} else
+							addMessage("Sin resultados!!");
 					}
-					if(!this.getCedula().isEmpty()){
-						//navEmpleados=dao.getEmpleadosNav(this.getCedula(), 2);
+					if (!this.getCedula().isEmpty()) {
+						// navEmpleados=dao.getEmpleadosNav(this.getCedula(), 2);
 						this.setNavEmpleados(dao.getEmpleadosNav(this.getCedula(), 2));
-						if(!navEmpleados.isEmpty()){
+						if (!navEmpleados.isEmpty()) {
 //							for(EMPLEADO e:this.getNavEmpleados()){
 //								System.out.println("emp> "+e.getCEDULA());
 //								System.out.println("emp> "+e.getNOMBRE());
 //							}
-						}else addMessage("Sin resultados!!");
-						
+						} else
+							addMessage("Sin resultados!!");
+
 					}
-					if(!this.getApellido().isEmpty()){
-						//navEmpleados=dao.getEmpleadosNav(this.getApellido().toUpperCase(), 3);
+					if (!this.getApellido().isEmpty()) {
+						// navEmpleados=dao.getEmpleadosNav(this.getApellido().toUpperCase(), 3);
 						this.setNavEmpleados(dao.getEmpleadosNav(this.getApellido().toUpperCase(), 3));
-						if(!navEmpleados.isEmpty()){
+						if (!navEmpleados.isEmpty()) {
 //							for(EMPLEADO e:this.getNavEmpleados()){
 //								System.out.println("emp> "+e.getCEDULA());
 //								System.out.println("emp> "+e.getNOMBRE());
 //							}
-						}else addMessage("Sin resultados!!");
+						} else
+							addMessage("Sin resultados!!");
 					}
-					
-				}else addMessage("Admite solo un criterio de busqueda!!");
-				
-			}else addMessage("No logueado!!");
-		}catch(Exception e){
+
+				} else
+					addMessage("Admite solo un criterio de busqueda!!");
+
+			} else
+				addMessage("No logueado!!");
+		} catch (Exception e) {
 			addMessage("No logueado!!");
 			throw e;
 		}
-		
+
 	}
+
 	private void addMessage(String summary) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-	
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+		FacesContext.getCurrentInstance().addMessage(null, message);
+
 	}
-	public void doProcess(){
+
+	public void doProcess() {
 //		System.out.println("Entro a doProcess");
 //		int a1=0;
 //		for(EMPLEADO e:empleados){
@@ -174,7 +183,7 @@ public class MainReportView implements Serializable {
 //			}
 //			System.out.println("Registros>>>>>>>> "+a);
 //		
-	
+
 //		System.out.println("Entro a doProcess");
 //		int a1=0;
 //		for(DEPARTAMENTO e:departamentos){
@@ -209,7 +218,6 @@ public class MainReportView implements Serializable {
 //			
 //		}
 //		System.out.println("Registros>>>> "+a1);
-		
 
 //		System.out.println("Entro a doProcess");
 //		int a1=0;
@@ -230,8 +238,7 @@ public class MainReportView implements Serializable {
 //			a1++;
 //			
 //		}
-		
-		
+
 //		int a1=0;
 //		for(USUARIOS e:usuarios){
 //			System.out.print(e.getUSUARIO()+" ");
@@ -241,14 +248,12 @@ public class MainReportView implements Serializable {
 //			
 //		}
 //		System.out.println("Registros>>>> "+a1);
-		
-		
-		
-		
+
 	}
-	public String checkDepartamento(String id){
-		Integer aux=new Integer(id);
-		String dep=dao.getDepartamento(aux);
+
+	public String checkDepartamento(String id) {
+		Integer aux = new Integer(id);
+		String dep = dao.getDepartamento(aux);
 		return dep;
 	}
 
@@ -383,26 +388,29 @@ public class MainReportView implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	public List<EMPLEADO> getNavEmpleados() {
 		return navEmpleados;
 	}
+
 	public void setNavEmpleados(List<EMPLEADO> navEmpleados) {
 		this.navEmpleados = navEmpleados;
 	}
+
 	public SesionController getSesionController() {
 		return sesionController;
 	}
+
 	public void setSesionController(SesionController sesionController) {
 		this.sesionController = sesionController;
 	}
+
 	public MainReporteDAO getDao() {
 		return dao;
 	}
+
 	public void setDao(MainReporteDAO dao) {
 		this.dao = dao;
 	}
-	
-	
-	
 
 }

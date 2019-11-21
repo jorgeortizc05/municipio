@@ -4,7 +4,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:uti="http://java.sun.com/jsf/composite/util"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 <!-- 
 Autor: ING. JORGE LUIS ORTIZ CACERES
@@ -18,12 +19,6 @@ Notas:
 	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
 
 	<ui:define name="cuerpo">
-		<p:growl id="growl2" life="1000" />
-
-
-		<p:spacer width="25" />
-		<br />
-		<br />
 
 		<p:panel id="pn1" header="Reporte de timbres por departamento">
 
@@ -54,7 +49,10 @@ Notas:
 			</h:panelGrid>
 			<p:commandButton value="Enviar"
 				actionListener="#{paramReportController.checkDepartamento}"
-				update="growl2 pn1 png11" />
+				update="mensajes pn1 png11" />
+			<p:commandButton value="Generar Reporte"
+			actionListener="#{servidorAreaController.generarReporteDepartamentoTim()}"
+			ajax="false" />
 			<p:outputLabel id="salida11"
 				value="#{paramReportController.timbres.size()} registros encontrados!!" />
 		</p:panel>
@@ -66,8 +64,8 @@ Notas:
 				paginatorPosition="top" paginator="true" rows="20"
 				style="margin-bottom:30px" class="responsive-table">
 				<f:facet name="header">
-															 #{paramReportController.nombre_pdf}
-														 </f:facet>
+					 #{paramReportController.nombre_pdf}
+				 </f:facet>
 				<p:column headerText="Biometrico">
 					<h:outputText value="#{tim.CODIGO_EMPLEADO}" />
 				</p:column>
@@ -92,11 +90,11 @@ Notas:
 				</p:column>
 			</p:dataTable>
 		</p:panelGrid>
-		<h:commandLink id="excel11">
-			<p:graphicImage url="resources/images/excel.png" />
-			<p:dataExporter type="xls" target="tbl1"
-				fileName="reporteTimbreDepartamento" pageOnly="true" />
-		</h:commandLink>
+		
+			<h:commandLink>
+		        <p:graphicImage name="resources/images/excel.png" />
+		        <p:dataExporter type="xlsx" target="tbl1" fileName="reporteTimbreDepartamento" postProcessor="#{paramReportController.postProcessXLS}" pageOnly="true"/>
+		    </h:commandLink>
 
 		<h:commandLink id="pdf11">
 			<p:graphicImage url="resources/images/pdf.png" />

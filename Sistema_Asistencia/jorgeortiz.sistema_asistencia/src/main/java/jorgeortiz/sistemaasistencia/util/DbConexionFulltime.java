@@ -16,7 +16,7 @@ public class DbConexionFulltime
     try
     {
       Context ctx = new InitialContext();
-      DataSource ds = (DataSource)ctx.lookup("jboss/datasources/reporteMuni");
+      DataSource ds = (DataSource)ctx.lookup("jboss/datasources/fulltimeDS");
       con = ds.getConnection();
     }
     catch (Exception e)

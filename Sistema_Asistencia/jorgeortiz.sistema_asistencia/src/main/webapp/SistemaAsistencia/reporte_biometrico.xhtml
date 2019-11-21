@@ -18,12 +18,6 @@ Notas:
 	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
 
 	<ui:define name="cuerpo">
-		<p:growl id="growl2" life="1000" />
-
-		<p:spacer width="25" />
-		<br />
-		<br />
-
 		<p:panel id="pn1"
 			header="Reporte de timbres dado el código del biométrico">
 			<div class="grid-example col s12 m6">
@@ -54,7 +48,7 @@ Notas:
 			<p:commandButton value="Enviar"
 				actionListener="#{paramReportController.checkBiometrico}"
 				styleClass="ui-priority-primary"
-				update="growl2 pn1 png1 pn2 png2 png3" />
+				update="mensajes pn1 png1 pn2 png2 png3" />
 			<p:outputLabel id="salida1"
 				value="#{paramReportController.timbres.size()} registros encontrados!!" />
 
@@ -104,7 +98,7 @@ Notas:
 		</p:panelGrid>
 		<h:commandLink id="excel1">
 			<p:graphicImage url="resources/images/excel.png" />
-			<p:dataExporter type="xls" target="tbl"
+			<p:dataExporter type="xlsx" target="tbl"
 				fileName="reporteTimbrePersona"
 				postProcessor="#{paramReportController.postProcessXLS}" />
 		</h:commandLink>
@@ -117,7 +111,7 @@ Notas:
 		</h:commandLink>
 		<p:separator />
 		<br />
-		<!-- 											     <p:commandButton  value="Actualizar " update=":f1:png2"/> -->
+		<!--<p:commandButton  value="Actualizar " update=":f1:png2"/> -->
 		<p:panelGrid id="png2" columns="1">
 			<p:dataTable id="tbl1" var="just"
 				value="#{paramReportController.justificaciones}"

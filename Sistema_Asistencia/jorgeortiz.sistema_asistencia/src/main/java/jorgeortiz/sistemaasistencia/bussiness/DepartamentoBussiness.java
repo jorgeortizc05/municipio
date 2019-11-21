@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 import jorgeortiz.sistemaasistencia.dao.DepartamentoDAO;
 import jorgeortiz.sistemaasistencia.fulltime.model.DepartamentoSQL;
 
-
 /*
  * Realizado por: Jorge Ortiz
  * Fecha de modificacion: 14/11/2019
@@ -16,15 +15,15 @@ import jorgeortiz.sistemaasistencia.fulltime.model.DepartamentoSQL;
  */
 @Stateless
 public class DepartamentoBussiness {
-	
+
 	DepartamentoDAO depDAO = new DepartamentoDAO();
-	
-	public List<DepartamentoSQL> recuperarDatosDepartamento(String descripcion) throws Exception{
+
+	public List<DepartamentoSQL> recuperarDatosDepartamento(String descripcion) throws Exception {
 		List<DepartamentoSQL> departamentos = depDAO.recuperarDatosDepartamento(descripcion);
-		
-		if(!(departamentos == null)){
+
+		if (!(departamentos == null)) {
 			return departamentos;
-		}else
+		} else
 			throw new Exception("Sin datos de departamentos");
 	}
 

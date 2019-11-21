@@ -18,24 +18,12 @@ Notas:
 	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
 
 	<ui:define name="cuerpo">
-		<p:growl id="growl2" life="1000" />
-
-		<p:separator />
-
-		<ul class="tabs">
-			<li class="tab col s3"><a class="active" href="#dtest1">SERVIDOR AREA</a></li>
-		</ul>
-
-
-		<p:spacer width="25" />
-		<br />
-		<br />
-
+		<p:panel header="Añadir Empleado">
 		<p:fieldset legend="Lista de Servidor por Áreas"
 			style="margin-bottom:20px">
 			<p:inputText value="#{servidorAreaController.vCodigoServidor}" />
 			<p:commandButton value="Buscar"
-				action="#{servidorAreaController.loadServidorCargo()}" ajax="false" />
+				action="#{servidorAreaController.loadServidorCargo()}" ajax="false"/>
 			<p:panelGrid id="servidor">
 				<p:row>
 					<p:column>Código Servidor:</p:column>
@@ -77,52 +65,116 @@ Notas:
 
 
 		</p:fieldset>
-
-
-		<p:panel id="pn2">
-			<p:panelGrid columns="2">
-
-				<p:outputLabel for="cargo" value="Elija un cargo" />
-				<!-- <p:inputText id="cod_bio" value="#{paramReportController.biometrico}" /> -->
-				<p:selectOneListbox value="#{servidorAreaController.vCodigoCargo}"
-					id="cargo" style="width:550px" filter="true"
-					filterMatchMode="contains" scrollHeight="100" required="true"
-					requiredMessage="Debe eligir un cargo">
-					<f:selectItems value="#{servidorAreaController.cargos}" var="c"
-						itemLabel="#{c.CARG_ID} #{c.DESCRIPCION}" itemValue="#{c.CARG_ID}" />
-				</p:selectOneListbox>
-
-			</p:panelGrid>
-		</p:panel>
-
-
-		<p:panelGrid id="fulltime">
-
-			<p:dataTable resizableColumns="true"
-				value="#{servidorAreaController.departamentos}" var="dep"
-				id="dtDepartamentos" paginator="true" paginatorPosition="bottom"
-				rows="15" style="margin-bottom:20px">
-				<p:column>
-					<h:selectOneRadio group="foo"
-						value="#{servidorAreaController.vCodigoDepartamento}">
-						<f:selectItem itemValue="#{dep.codigoDepartamento}"
-							itemLabel="#{dep.codigoDepartamento}" />
-					</h:selectOneRadio>
-				</p:column>
-
-				<p:column headerText="Código" style="width:30px">
-					<h:outputText value="#{dep.codigoDepartamento}" />
-				</p:column>
-
-				<p:column headerText="Descripción" style="width:120px">
-					<h:outputText value="#{dep.descripcion}" />
-				</p:column>
-				<!-- oncomplete me sirve para eliminar con el filtro activado -->
-			</p:dataTable>
-
-		</p:panelGrid>
+		
 		<p:commandButton value="Enviar"
-			action="#{servidorAreaController.enviarFullTime()}" />
+			action="#{servidorAreaController.enviarFullTime()}" update="mensajes"/>
+			
+		<p:panelGrid columns="2">
+			<p:panel header="Datos Personales">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Código Reloj"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.codigoServidor}"/>
+					
+					<p:outputLabel value="#{servidorAreaController.servidorAreaSQL.cedulaServidor}"/>
+					<p:inputText />
+					
+					<p:outputLabel value="Nombre"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.nombres}" />
+					
+					<p:outputLabel value="Apellido"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.apellidos}"/>
+					
+					<p:outputLabel value="Correo Electrónico"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.email}"/>
+					
+					<p:outputLabel value="Correo Electrónico Alternativo"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.email_personal}"/>
+					
+					<p:outputLabel value="Fecha Nacimiento"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.fechaNacimiento}"/>
+					
+					<p:outputLabel value="Estado Civil"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.estadoCivil}"/>
+					
+					<p:outputLabel value="Género"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.sexo}"/>
+					
+					<p:outputLabel value="Ciudad"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.ciudad}"/>
+					
+					<p:outputLabel value="Estado"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.estado}"/>
+				
+				</p:panelGrid>
+			</p:panel>
+			
+			<p:panel header="Datos Laborales">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Foto"/>
+					<p:inputText />
+					
+					<p:outputLabel value="Unidad Administrativa"/>
+					<p:selectOneMenu id="omDepartamento" value="#{servidorAreaController.vCodigoDepartamento}" dynamic="true" style="width:125px">
+				         <f:selectItem itemLabel="Seleccione un departamento" itemValue="" />
+				         <f:selectItems value="#{servidorAreaController.departamentos}" var="dep"
+				         				itemLabel="#{dep.descripcion}" itemValue="#{dep.codigoDepartamento}" />
+				     </p:selectOneMenu>
+					
+					<p:outputLabel value="Cargo"/>
+					<p:selectOneListbox value="#{servidorAreaController.vCodigoCargo}"
+						id="cargo" style="width:300px" filter="true"
+						filterMatchMode="contains" scrollHeight="100" required="true"
+						requiredMessage="Debe eligir un cargo">
+						<f:selectItems value="#{servidorAreaController.cargos}" var="c"
+							itemLabel="#{c.CARG_ID} #{c.DESCRIPCION}" itemValue="#{c.CARG_ID}" />
+					</p:selectOneListbox>
+					
+					<p:outputLabel value="Régimen Laboral"/>
+					<p:inputText />
+					
+					<p:outputLabel value="Horas Trabaja"/>
+					<p:inputText />
+					
+					<p:outputLabel value="Sueldo"/>
+					<p:inputText />
+					
+					<p:outputLabel value="Controla Vacaciones"/>
+					<p:inputText />
+				
+				</p:panelGrid>
+			</p:panel>
+			
+			<p:panel header="Seguridad">
+				<p:panelGrid columns="4">
+					<p:outputLabel value="Rol"/>
+					<p:inputText />
+					
+					<p:outputLabel value="Usuario"/>
+					<p:inputText />
+					
+					<p:outputLabel value="Clave"/>
+					<p:inputText value="#{servidorAreaController.servidorAreaSQL.codigoServidor}"/>
+					
+					<p:outputLabel value="Fecha Vencimiento"/>
+					<p:datePicker></p:datePicker>
+					
+					<p:outputLabel value="Estado"/>
+					<p:inputText />
+					
+					
+				
+				</p:panelGrid>
+				
+			</p:panel>
+			
+			<p:panel>
+			
+			</p:panel>
+		</p:panelGrid>
+		
+		</p:panel>
+	
+		
 
 
 	</ui:define>
