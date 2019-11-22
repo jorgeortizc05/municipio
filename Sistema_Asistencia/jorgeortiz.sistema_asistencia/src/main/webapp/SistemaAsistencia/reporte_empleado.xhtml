@@ -18,17 +18,6 @@ Notas:
 	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
 
 	<ui:define name="cuerpo">
-		<p:growl id="growl2" life="1000" />
-
-		<p:separator />
-
-		<ul class="tabs">
-			<li class="tab col s3"><a class="active" href="#dtest1">Por Empleado</a></li>
-		</ul>
-
-		<p:spacer width="25" />
-		<br />
-		<br />
 
 		<p:panel id="pn1" header="Reporte de timbres por empleado">
 
@@ -61,7 +50,7 @@ Notas:
 			</h:panelGrid>
 			<p:commandButton value="Enviar"
 				actionListener="#{paramReportController.checkEmpleado}"
-				update="growl2 pn1 png11" />
+				update="mensajes pn1 png11" />
 			<p:outputLabel id="salida11"
 				value="#{paramReportController.timbres.size()} registros encontrados!!" />
 		</p:panel>
@@ -73,8 +62,8 @@ Notas:
 				paginatorPosition="top" paginator="true" rows="20"
 				style="margin-bottom:30px" class="responsive-table">
 				<f:facet name="header">
-														 	#{paramReportController.nombre_pdf} - #{paramReportController.nom_dept}
-														 </f:facet>
+				 	#{paramReportController.nombre_pdf} - #{paramReportController.nom_dept}
+				 </f:facet>
 				<p:column headerText="Biometrico">
 					<h:outputText value="#{tim.CODIGO_EMPLEADO}" />
 				</p:column>

@@ -19,6 +19,7 @@ Notas:
 
 	<ui:define name="cuerpo">
 		<p:panel header="Relojes Biométricos" style="margin-bottom:20px" id="fReporteBiometrico">
+		<p:panel>
 		<p:panelGrid columns="2">
 			<p:panel id="pn1">
 					<p:outputLabel for="cod_bio" value="Elija a la persona a consultar" />
@@ -109,12 +110,12 @@ Notas:
 				fileName="reporteTimbrePersona"
 				preProcessor="#{paramReportController.preProcessPDF}" />
 		</h:commandLink>
-		
+		</p:panel>
 		<p:separator style="height:400"/>
 	
 		<!--<p:commandButton  value="Actualizar " update=":f1:png2"/> -->
+		<p:panel header="Justificaciones">
 		<p:panelGrid id="png2" columns="1">
-			<p:panel header="Justificaciones" style="margin-bottom:20px">
 			<p:dataTable id="tbl1" var="just"
 				value="#{paramReportController.justificaciones}"
 				paginatorPosition="top" paginator="true" rows="20"
@@ -139,11 +140,13 @@ Notas:
 					<h:outputText value="#{just.OBSERVACIONES}" />
 				</p:column>
 			</p:dataTable>
-			</p:panel>
+			
 		</p:panelGrid>
-
+		</p:panel>
+		
+		<p:panel header="Acciones del Personal">
 		<p:panelGrid id="png3" columns="1">
-			<p:panel header="Acciones del Personal" style="margin-bottom:20px">
+			
 			<p:dataTable id="tbl2" var="acc"
 				value="#{paramReportController.acciones}"
 				paginatorPosition="top" paginator="true" rows="20"
@@ -170,8 +173,9 @@ Notas:
 					<h:outputText value="#{acc.EXPLICACION}" />
 				</p:column>
 			</p:dataTable>
-			</p:panel>
+			
 		</p:panelGrid>
+		</p:panel>
 	</p:panel>
 	</ui:define>
 

@@ -55,8 +55,8 @@ Notas:
 			ajax="false" />
 			<p:outputLabel id="salida11"
 				value="#{paramReportController.timbres.size()} registros encontrados!!" />
-		</p:panel>
-
+		
+		<p:panel>
 		<p:panelGrid id="png11" columns="1">
 			<p:dataTable id="tbl1" var="tim"
 				value="#{paramReportController.timbres}"
@@ -102,8 +102,8 @@ Notas:
 				fileName="reporteTimbreDepartamento"
 				preProcessor="#{paramReportController.preProcessPDF}" />
 		</h:commandLink>
-		<p:separator />
-
+		</p:panel>
+		</p:panel>
 
 	</ui:define>
 
