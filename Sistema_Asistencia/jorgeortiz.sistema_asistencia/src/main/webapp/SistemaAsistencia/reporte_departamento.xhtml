@@ -22,34 +22,34 @@ Notas:
 
 		<p:panel id="pn1" header="Reporte de timbres por departamento">
 
-			<!-- <p:outputLabel value="Departamento: *" for="dep" />
-														        	<p:selectOneMenu value="#{paramReportController.filtro_dep}" id="dep">
-														   				<f:selectItems value="#{paramReportController.departamentos}" var="de"
-														   				itemLabel="#{de.DESCRIPCION}" itemValue="#{de.DEPA_ID}" />
-														   	   	 </p:selectOneMenu> -->
+			<p:outputLabel value="Elija el departamento a consultar" />
 			<p:selectOneListbox value="#{biometricoPersonaController.vCodigoDepartamento}"
-				id="dep" style="width:700px" filter="true"
+				id="dep" style="width:700px" filter="true" required="true" requiredMessage="Debe elegir un departamento"
 				filterMatchMode="contains" scrollHeight="100">
 				<f:selectItems value="#{biometricoPersonaController.departamentos}"
 					var="de" itemLabel="#{de.DEPA_ID} - #{de.DESCRIPCION}" itemValue="#{de.DEPA_ID}" />
 			</p:selectOneListbox>
 			<p:message for="dep" />
 
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="4">
 				<p:outputLabel for="cod_fecha11" value="Fecha desde:" />
 				<p:calendar id="cod_fecha11" value="#{biometricoPersonaController.vFechaDesde}"
-					pattern="dd/MM/yyyy" mask="true" locale="es"/>
+					pattern="dd/MM/yyyy" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
 				<p:inputMask id="tiempo11" value="#{paramReportController.tiempo1}"
 					mask="99.99" placeholder="Desde que hora..." />
+				<p:message for="cod_fecha11"/>
+					
 				<p:outputLabel for="cod_fecha22" value="Fecha hasta:" />
 				<p:calendar id="cod_fecha22" value="#{biometricoPersonaController.vFechaHasta}"
-					pattern="dd/MM/yyyy" mask="true" locale="es"/>
+					pattern="dd/MM/yyyy" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
 				<p:inputMask id="tiempo22" value="#{paramReportController.tiempo2}"
 					mask="99.99" placeholder="Hasta que hora..." />
+				<p:message for="cod_fecha22"/>
+					
 			</h:panelGrid>
 			<p:commandButton value="Enviar"
 				actionListener="#{biometricoPersonaController.recuperarBiometricoDepartamentos()}"
-				update="mensajes tbl" />
+				update="mensajes tbl pn1" />
 		
 		<p:panel>
 		<p:panelGrid id="png1" columns="1">
@@ -76,7 +76,9 @@ Notas:
 					<h:outputText value="#{bd.departamento}" />
 				</p:column>
 				<p:column headerText="Fecha">
-					<p:calendar value="#{bd.fecha}" pattern="dd/MM/yyy"/>
+					<h:outputText value="#{bd.fecha}">
+						<f:convertDateTime pattern="dd/MM/yyy"/>
+					</h:outputText>
 				</p:column>
 				
 				<p:column headerText="Hora">

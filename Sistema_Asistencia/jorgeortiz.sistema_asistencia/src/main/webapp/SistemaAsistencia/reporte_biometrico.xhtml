@@ -33,17 +33,23 @@ Notas:
 							itemLabel="#{e.CODIGO_EMPLEADO} - #{e.APELLIDO} #{e.NOMBRE}"
 							itemValue="#{e.CODIGO_EMPLEADO}" />
 					</p:selectOneListbox>
-				<h:panelGrid columns="3">
+					<p:message for="cod_bio"/>
+					
+				<h:panelGrid columns="4">
 					<p:outputLabel for="cod_fecha1" value="Fecha desde:" />
 					<p:calendar id="cod_fecha1" value="#{biometricoPersonaController.vFechaDesde}"
-						pattern="dd/MM/yyyy" mask="true" locale="es"/>
+						pattern="dd/MM/yyyy" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
 					<p:inputMask id="tiempo1" value="#{paramReportController.tiempo1}"
 						mask="99.99" placeholder="Desde que hora..." />
+					<p:message for="cod_fecha1"/>	
+					
 					<p:outputLabel for="cod_fecha2" value="Fecha hasta:" title="Fecha Hasta"/>
 					<p:calendar id="cod_fecha2" value="#{biometricoPersonaController.vFechaHasta}"
-						pattern="dd/MM/yyyy" mask="true" locale="es"/>
+						pattern="dd/MM/yyyy" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
 					<p:inputMask id="tiempo2" value="#{paramReportController.tiempo2}"
 						mask="99.99" placeholder="Hasta que hora..." />
+					<p:message for="cod_fecha2"/>	
+					
 				</h:panelGrid>
 				<p:commandButton value="Enviar"
 					action="#{biometricoPersonaController.recuperarBiometricoPersonas()}"
