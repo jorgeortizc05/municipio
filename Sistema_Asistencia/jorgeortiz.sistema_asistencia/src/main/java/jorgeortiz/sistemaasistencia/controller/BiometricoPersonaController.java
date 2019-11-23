@@ -89,12 +89,12 @@ public class BiometricoPersonaController {
 		newBiometricoPersona = new BiometricoPersonaSQL();
 		newBiometricoDepartamento = new BiometricoDepartamentoSQL();
 		
-		departamentos = mdao.getDepartamentos();
+		//departamentos = mdao.getDepartamentos();
 		
 		prc = new ParamReportController();
 		
 		try {
-			empleados = bpBuss.getEmpleados();
+			//empleados = bpBuss.getEmpleados();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -138,6 +138,8 @@ public class BiometricoPersonaController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println(e.getMessage());
+			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Error");
+            facesContext.addMessage(null, m);
 		}
 		
 		return null;
@@ -150,6 +152,8 @@ public class BiometricoPersonaController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Error");
+            facesContext.addMessage(null, m);
 		}
 		
 		

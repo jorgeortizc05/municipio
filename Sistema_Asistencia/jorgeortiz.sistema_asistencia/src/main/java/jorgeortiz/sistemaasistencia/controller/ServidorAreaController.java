@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -29,6 +30,9 @@ public class ServidorAreaController {
 
 	@Inject
 	private CargoBussiness cargBuss;
+	
+	@Inject
+	private FacesContext facesContext;
 
 	// Servidor, cargo y departamentos
 	private ServidorAreaBussiness sercBuss;
@@ -67,6 +71,8 @@ public class ServidorAreaController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.err.println(e.getMessage());
+			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Error");
+            facesContext.addMessage(null, m);
 
 		}
 
