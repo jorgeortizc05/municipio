@@ -59,10 +59,10 @@
  		<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/alcaldia.png']}"/>
 	</header><!-- / #main-header -->
 	<!-- <f:loadBundle basename="jorgeortiz.fusionsystem.web.Componente" var="componente" /> -->
-	<h:panelGroup layout="block" id="pantalla" style="font-size:14px;">
+	<h:panelGroup layout="block" id="pantalla">
 		<p:growl id="mensajes" showDetail="true" globalOnly="true"/>
 		<h:panelGroup layout="block" id="cuerpo">
-			<h:form id="forma">
+			<h:form id="forma" rendered="#{sesionController.estado eq true}" >
 				
 					<p:menubar>
 							<p:menuitem>
@@ -77,13 +77,14 @@
 				        		<p:menuitem value="Reportes por empleado"  action="reporte_empleado?faces-redirect=true" immediate="true" ajax="false"/>
 				        		<p:menuitem value="Servidor Area"  action="servidor_area?faces-redirect=true" immediate="true" ajax="false"/>
 					        </p:submenu>
+					        <p:submenu label="Sesion" icon="fa fa-user">
+					        	<p:menuitem value="Salir"  action="login?faces-redirect=true" immediate="true" ajax="false"/>
+					        </p:submenu>
 					        <p:submenu label="Acerca de..." icon="fa fa-question">
 					        	<p:menuitem value="Acerca de..."  action="acerca-de" immediate="true" ajax="false"/>
 					        </p:submenu>
 					    </p:menubar>
-				
-				
-				
+
 				<ui:insert name="barra">
 				</ui:insert>
 				

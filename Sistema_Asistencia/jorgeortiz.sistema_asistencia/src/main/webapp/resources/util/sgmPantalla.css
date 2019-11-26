@@ -148,6 +148,10 @@ tr {
 	border-style: none;
 }
 
+.ui-widget .ui-widget{
+    font-size: 11px !important;
+}
+
 .ui-panelgrid td, .ui-panelgrid tr {
 	border-style: 2px solid #999999;
 }

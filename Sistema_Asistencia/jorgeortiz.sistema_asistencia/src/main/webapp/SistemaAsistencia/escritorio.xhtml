@@ -19,23 +19,7 @@ Notas:
 	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
 
 	<ui:define name="cuerpo">
-		<p:dataTable id="tbl1" var="serv"
-				value="#{servidorAreaController.servidores}"
-				paginatorTemplate="{CurrentPageReport} {PageLinks}"
-				paginatorPosition="top" paginator="true" rows="20"
-				style="margin-bottom:30px" class="responsive-table">
-				<f:facet name="header">
-					 #{paramReportController.nombre_pdf}
-				 </f:facet>
-				<p:column headerText="Cedula">
-					<h:outputText value="#{serv.CEDULA}" />
-				</p:column>
-				<p:column headerText="Apellido">
-					<h:outputText
-						value="#{serv.APELLIDO_PATERNO}" />
-				</p:column>
-				
-			</p:dataTable>
+		
 	
 	</ui:define>
 	

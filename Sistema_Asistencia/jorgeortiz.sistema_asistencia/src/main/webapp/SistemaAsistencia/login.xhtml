@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:uti="http://java.sun.com/jsf/composite/util">
+<!-- style="font-size:12px;" -->
+<h:head>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="util" name="sgmEstilos.css" />
+	<h:outputStylesheet library="util" name="sgmPantalla.css" />
+	<title><ui:insert name="titulo"> Municipio
+		</ui:insert></title>
+<script>
+            window.location.hash = "no-back-button";
+            window.location.hash = "Again-No-back-button";//again because google chrome don't insert first hash into history
+            window.onhashchange = function() {
+                window.location.hash = "no-back-button";
+            }
+</script>  
+	
+</h:head>
+<h:body style="margin: 0 auto;">
+	<header id="main-header">
+ 		<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/alcaldia.png']}"/>
+	</header><!-- / #main-header -->
+	<!-- <f:loadBundle basename="jorgeortiz.fusionsystem.web.Componente" var="componente" style="font-size:10px;" /> -->
+	<h:panelGroup layout="block" id="pantalla">
+		<p:growl id="mensajes" showDetail="true" globalOnly="true"/>
+		<h:panelGroup layout="block" id="cuerpo">
+			<h:form id="forma">
+					<p:panelGrid style="margin: 0 auto;" columns="1">
+						<p:graphicImage url="/resources/images/alcaldia.png"/>
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2" style="margin: 0 auto;">
+						
+						Usuario:
+						<p:inputText />
+						
+						Clave:
+						<p:inputText />
+						
+						<p:commandButton value="Iniciar Sesion"/>
+					
+					</p:panelGrid>
+				
+			</h:form>
+			<ui:insert name="listas">
+			</ui:insert>
+		</h:panelGroup>
+	</h:panelGroup>
+
+</h:body>
+</html>
