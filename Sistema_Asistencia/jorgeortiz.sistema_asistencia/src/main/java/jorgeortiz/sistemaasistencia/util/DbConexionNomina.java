@@ -16,7 +16,7 @@ public class DbConexionNomina
     try
     {
       Context ctx = new InitialContext();
-      DataSource ds = (DataSource)ctx.lookup("jboss/datasources/nominaDS");
+      DataSource ds = (DataSource)ctx.lookup("jboss/datasources/jorgeortiz.sistema_asistenciaDS");
       con = ds.getConnection();
     }
     catch (Exception e)

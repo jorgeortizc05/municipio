@@ -15,6 +15,10 @@ public class Resources {
 	@Produces
 	@PersistenceContext(unitName = "nomina")
 	private EntityManager emN;
+	
+	@Produces
+	@PersistenceContext(unitName = "gym")
+	private EntityManager emG;
 	   
 	@Produces
 	public Logger produceLog(InjectionPoint injectionPoint) {
