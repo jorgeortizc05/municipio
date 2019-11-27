@@ -4,7 +4,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:uti="http://java.sun.com/jsf/composite/util"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
 <!-- 
 Autor: ING. JORGE LUIS ORTIZ CACERES
@@ -62,10 +64,9 @@ Notas:
 			
 			<p:panel id="pn2" header="Datos Personales">
 				<p:panelGrid columns="2">
-					<p:graphicImage value="#{biometricoPersonaController.myImage}"
-						alt="sin imagen" id="pic1" style="width:200px;width:200px"
-						cache="false">
-					</p:graphicImage>
+					<o:graphicImage value="#{biometricoPersonaController.newServidor.NUEVA_FOTO}"
+						dataURI="true" style="width:200px;width:200px">
+					</o:graphicImage>
 					<div class="grid-example col s12">
 						<span style="color: black; font-size: 200%">#{biometricoPersonaController.nombresServidor}</span>
 					</div>
