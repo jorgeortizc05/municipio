@@ -98,11 +98,15 @@ Notas:
 					<h:outputText value="#{bp.departamento}" />
 				</p:column>
 				<p:column headerText="Fecha">
-					<p:calendar value="#{bp.fecha}" pattern="dd/MM/yyy"/>
+					<h:outputText value="#{bp.fecha}">
+						 <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+					</h:outputText>
 				</p:column>
 				
-				<p:column headerText="#{bp.fecha}">
-					<p:calendar value="#{bp.fecha}" pattern="HH:mm"/>
+				<p:column headerText="Hora">
+					<h:outputText value="#{bp.fecha}">
+						 <f:convertDateTime pattern="HH:mm" timeZone="EST"/>
+					</h:outputText>
 				</p:column>
 			</p:dataTable>
 		</p:panelGrid>
