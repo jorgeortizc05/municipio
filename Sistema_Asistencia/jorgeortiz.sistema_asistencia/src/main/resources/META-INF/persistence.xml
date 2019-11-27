@@ -59,6 +59,7 @@
          <property name="hibernate.hbm2ddl.auto" value="none" />
          <property name="hibernate.show_sql" value="true" />
          <property name="hibernate.format_sql" value="true"/>
+         <!-- Mejora de compatibilidad con ORACLE 18C -->
          <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
       </properties>
    </persistence-unit>
