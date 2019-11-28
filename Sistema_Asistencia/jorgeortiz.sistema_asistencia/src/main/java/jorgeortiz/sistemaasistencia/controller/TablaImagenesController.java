@@ -15,7 +15,6 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import jorgeortiz.sistemaasistencia.dao.TablaImagenessDAO;
-import oracle.sql.BLOB;
 import jorgeortiz.gimnasiosoliz.model.TablaImageness;
 
 @ManagedBean
@@ -26,12 +25,15 @@ public class TablaImagenesController {
 	private TablaImagenessDAO dao;
 	
 	private List<TablaImageness> imagenes;
-	private StreamedContent myImage = null;
+	private DefaultStreamedContent myImage;
 	
+	private InputStream is;
 	
 	@PostConstruct
 	public void init() {
+		
 		imagenes = dao.getImagenes();
+		
 	}
 	
 	
@@ -50,20 +52,13 @@ public class TablaImagenesController {
 	}
 
 
-	public StreamedContent getMyImage() {
+	public DefaultStreamedContent getMyImage() {
 		return myImage;
 	}
 
 
-	public void setMyImage(StreamedContent myImage) {
+	public void setMyImage(DefaultStreamedContent myImage) {
 		this.myImage = myImage;
 	}
-
-	
-	
-
-
-	
-	
 	
 }

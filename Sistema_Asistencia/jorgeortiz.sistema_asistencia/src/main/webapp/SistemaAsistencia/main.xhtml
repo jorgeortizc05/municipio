@@ -25,7 +25,7 @@ Notas:
 		<p:dataTable id="tbl" var="im"
 				value="#{tablaImagenesController.imagenes}"
 				paginatorPosition="top" paginator="true" rows="20"
-				style="margin-bottom:30px" class="responsive-table">
+				style="margin-bottom:30px" class="responsive-table" resizableColumns="true">
 				<p:column headerText="ID">
 					<h:outputText value="#{im.idImagen}"/>
 				</p:column>
@@ -33,7 +33,7 @@ Notas:
 					<h:outputText value="#{im.nombreImagen}" />
 				</p:column>
 				<p:column headerText="Foto">
-					<o:graphicImage value="#{im.imagen}" dataURI="true" style="width:200px;width:200px">
+					<o:graphicImage value="#{im.imagen}" dataURI="true"  rendered="#{not empty im.imagen}" style="width:200px;width:200px" alt="Imagen no disponible">
 					</o:graphicImage>
 				</p:column>
 				<p:column headerText="Fecha">

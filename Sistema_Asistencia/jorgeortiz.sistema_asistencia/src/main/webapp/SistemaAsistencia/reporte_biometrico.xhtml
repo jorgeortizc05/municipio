@@ -65,7 +65,7 @@ Notas:
 			<p:panel id="pn2" header="Datos Personales">
 				<p:panelGrid columns="2">
 					<o:graphicImage value="#{biometricoPersonaController.newServidor.NUEVA_FOTO}"
-						dataURI="true" style="width:200px;width:200px">
+						dataURI="true" style="width:200px;width:200px" alt="sin imagen" rendered="#{not empty biometricoPersonaController.newServidor.NUEVA_FOTO}">
 					</o:graphicImage>
 					<div class="grid-example col s12">
 						<span style="color: black; font-size: 200%">#{biometricoPersonaController.nombresServidor}</span>
