@@ -4,7 +4,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:uti="http://java.sun.com/jsf/composite/util"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
 <!-- 
 Autor: ING. JORGE LUIS ORTIZ CACERES
@@ -18,92 +20,106 @@ Notas:
 	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
 
 	<ui:define name="cuerpo">
+		<p:panel header="Relojes Biométricos" id="fReporteBiometrico">
+		<p:panel>
+		<p:panelGrid columns="2">
+			<p:panel id="pn1">
+					<p:outputLabel for="cod_bio" value="Elija a la persona a consultar" />
+					<!-- <p:inputText id="cod_bio" value="#{paramReportController.biometrico}" /> -->
+	
+					<p:selectOneListbox value="#{biometricoPersonaController.vCodigoBiometrico}"
+						id="cod_bio" style="width:550px" filter="true"
+						filterMatchMode="contains" scrollHeight="100" required="true"
+						requiredMessage="Debe eligir un empleado">
+						<f:selectItems value="#{biometricoPersonaController.empleados}" var="e"
+							itemLabel="#{e.CODIGO_EMPLEADO} - #{e.APELLIDO} #{e.NOMBRE}"
+							itemValue="#{e.CODIGO_EMPLEADO}" />
+					</p:selectOneListbox>
+					<p:message for="cod_bio"/>
+					
+				<h:panelGrid columns="3">
+					<p:outputLabel for="cod_fecha1" value="Fecha desde:" />
+					<p:calendar id="cod_fecha1" value="#{biometricoPersonaController.vFechaDesde}"
+						pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
+					<p:message for="cod_fecha1"/>	
+					
+					<p:outputLabel for="cod_fecha2" value="Fecha hasta:" title="Fecha Hasta"/>
+					<p:calendar id="cod_fecha2" value="#{biometricoPersonaController.vFechaHasta}"
+						pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
+					<p:message for="cod_fecha2"/>
+					
+				</h:panelGrid>
+				<p:commandButton value="Enviar"
+					action="#{biometricoPersonaController.recuperarBiometricoPersonas()}"
+					styleClass="ui-priority-primary"
+					update="mensajes pn1 png1 pn2" />
+			</p:panel>
+			
+			<p:panel id="pn2" header="Datos Personales">
+				<p:panelGrid columns="2">
+					<o:graphicImage value="#{biometricoPersonaController.newServidor.NUEVA_FOTO}"
+						dataURI="true" style="width:200px;width:200px" alt="sin imagen" rendered="#{not empty biometricoPersonaController.newServidor.NUEVA_FOTO}">
+					</o:graphicImage>
+					<div class="grid-example col s12">
+						<span style="color: black; font-size: 200%">#{biometricoPersonaController.nombresServidor}</span>
+					</div>
+				</p:panelGrid>
+			</p:panel>
+		
+		</p:panelGrid>
 
-		<p:panel id="pn1" header="Reporte de timbres por empleado">
-
-			<p:outputLabel value="Empleado *" for="dep" />
-			<!-- <p:selectOneMenu value="#{paramReportController.filtro_dep}" id="dep">
-													   				<f:selectItems value="#{paramReportController.empleados}" var="de"
-													   				itemLabel="#{de.APELLIDO} #{de.NOMBRE}" itemValue="#{de.CODIGO_EMPLEADO}" />
-													   	   	 	</p:selectOneMenu> -->
-			<p:selectOneListbox value="#{paramReportController.filtro_dep}"
-				id="dep" style="width:550px" filter="true"
-				filterMatchMode="contains" scrollHeight="100" required="true"
-				requiredMessage="Debe eligir un empleado">
-				<f:selectItems value="#{paramReportController.empleados}" var="e"
-					itemLabel="#{e.APELLIDO} #{e.NOMBRE}"
-					itemValue="#{e.CODIGO_EMPLEADO}" />
-			</p:selectOneListbox>
-			<p:message for="dep" />
-
-			<h:panelGrid columns="3">
-				<p:outputLabel for="cod_fecha11" value="Fecha desde:" />
-				<p:calendar id="cod_fecha11" value="#{paramReportController.fecha1}"
-					pattern="dd-MM-yyyy" mask="true" />
-				<p:inputMask id="tiempo11" value="#{paramReportController.tiempo1}"
-					mask="99.99" placeholder="Desde que hora..." />
-				<p:outputLabel for="cod_fecha22" value="Fecha hasta:" />
-				<p:calendar id="cod_fecha22" value="#{paramReportController.fecha2}"
-					pattern="dd-MM-yyyy" mask="true" />
-				<p:inputMask id="tiempo22" value="#{paramReportController.tiempo2}"
-					mask="99.99" placeholder="Hasta que hora..." />
-			</h:panelGrid>
-			<p:commandButton value="Enviar"
-				actionListener="#{paramReportController.checkEmpleado}"
-				update="mensajes pn1 png11" />
-			<p:outputLabel id="salida11"
-				value="#{paramReportController.timbres.size()} registros encontrados!!" />
-		</p:panel>
-
-		<p:panelGrid id="png11" columns="1">
-			<p:dataTable id="tbl1" var="tim"
-				value="#{paramReportController.timbres}"
-				paginatorTemplate="{CurrentPageReport} {PageLinks}"
+		<p:panelGrid id="png1" columns="1">
+			<p:dataTable id="tbl" var="bp"
+				value="#{biometricoPersonaController.biometricoPersonas}"
 				paginatorPosition="top" paginator="true" rows="20"
-				style="margin-bottom:30px" class="responsive-table">
-				<f:facet name="header">
-				 	#{paramReportController.nombre_pdf} - #{paramReportController.nom_dept}
-				 </f:facet>
+				style="margin-bottom:30px">
+				<p:column headerText="Cédula">
+					<h:outputText value="#{bp.cedula}"/>
+				</p:column>
 				<p:column headerText="Biometrico">
-					<h:outputText value="#{tim.CODIGO_EMPLEADO}" />
+					<h:outputText value="#{bp.codigoBiometrico}" />
 				</p:column>
-				<p:column headerText="Apellido" visible="false" exportable="false">
-					<h:outputText
-						value="#{paramReportController.checkRazonSocialEmpApellido(tim.CODIGO_EMPLEADO)}" />
+				<p:column headerText="Nombres">
+					<h:outputText value="#{bp.apellido} #{bp.nombre}" />
 				</p:column>
-				<p:column headerText="Nombre" visible="false" exportable="false">
-					<h:outputText
-						value="#{paramReportController.checkRazonSocialEmpNombre(tim.CODIGO_EMPLEADO)}" />
+				<p:column headerText="Código Reloj">
+					<h:outputText value="#{bp.codigoReloj}" />
 				</p:column>
-				<p:column headerText="Nro_reloj">
-					<h:outputText value="#{tim.CODIGO_RELOJ}" />
+				<p:column headerText="Reloj">
+					<h:outputText value="#{bp.descripcionReloj}" />
+				</p:column>
+				<p:column headerText="Departamento">
+					<h:outputText value="#{bp.departamento}" />
 				</p:column>
 				<p:column headerText="Fecha">
-					<h:outputText
-						value="#{paramReportController.checkTiempo(tim.FECHA)}" />
+					<h:outputText value="#{bp.fecha}">
+						 <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+					</h:outputText>
 				</p:column>
+				
 				<p:column headerText="Hora">
-					<h:outputText
-						value="#{tim.FECHA_HORA_TIMBRE.hours}:#{tim.FECHA_HORA_TIMBRE.minutes}:#{tim.FECHA_HORA_TIMBRE.seconds}" />
+					<h:outputText value="#{bp.fecha}">
+						 <f:convertDateTime pattern="HH:mm" timeZone="EST"/>
+					</h:outputText>
 				</p:column>
 			</p:dataTable>
 		</p:panelGrid>
-		<h:commandLink id="excel11">
+		<h:commandLink id="excel1">
 			<p:graphicImage url="/resources/images/excel.png"/>
-			<p:dataExporter type="xlsx" target="tbl1"
-				fileName="reporteTimbreDepartamento"
+			<p:dataExporter type="xlsx" target="tbl"
+				fileName="reporteTimbrePersona"
 				postProcessor="#{paramReportController.postProcessXLS}" />
 		</h:commandLink>
 
-		<h:commandLink id="pdf11">
+		<h:commandLink id="pdf1">
 			<p:graphicImage url="/resources/images/pdf.png" />
-			<p:dataExporter type="pdf" target="tbl1"
-				fileName="reporteTimbreDepartamento"
+			<p:dataExporter type="pdf" target="tbl"
+				fileName="reporteTimbrePersona"
 				preProcessor="#{paramReportController.preProcessPDF}" />
 		</h:commandLink>
-		<p:separator />
-
-
+		</p:panel>
+		<p:separator style="height:400"/>
+	</p:panel>
 	</ui:define>
 
 

@@ -33,7 +33,7 @@ public class SesionController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		estado = false; // el h:form se renderiza cuando esta en true
+		estado = true; // el h:form se renderiza cuando esta en true
 	}
 
 	public String verificarLogin() throws IOException {

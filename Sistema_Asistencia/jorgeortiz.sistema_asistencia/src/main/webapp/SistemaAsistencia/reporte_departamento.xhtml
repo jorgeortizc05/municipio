@@ -31,19 +31,15 @@ Notas:
 			</p:selectOneListbox>
 			<p:message for="dep" />
 
-			<h:panelGrid columns="4">
+			<h:panelGrid columns="3">
 				<p:outputLabel for="cod_fecha11" value="Fecha desde:" />
 				<p:calendar id="cod_fecha11" value="#{biometricoPersonaController.vFechaDesde}"
-					pattern="dd/MM/yyyy" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
-				<p:inputMask id="tiempo11" value="#{paramReportController.tiempo1}"
-					mask="99.99" placeholder="Desde que hora..." />
+					pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
 				<p:message for="cod_fecha11"/>
 					
 				<p:outputLabel for="cod_fecha22" value="Fecha hasta:" />
 				<p:calendar id="cod_fecha22" value="#{biometricoPersonaController.vFechaHasta}"
-					pattern="dd/MM/yyyy" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
-				<p:inputMask id="tiempo22" value="#{paramReportController.tiempo2}"
-					mask="99.99" placeholder="Hasta que hora..." />
+					pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
 				<p:message for="cod_fecha22"/>
 					
 			</h:panelGrid>

@@ -37,20 +37,16 @@ Notas:
 					</p:selectOneListbox>
 					<p:message for="cod_bio"/>
 					
-				<h:panelGrid columns="4">
+				<h:panelGrid columns="3">
 					<p:outputLabel for="cod_fecha1" value="Fecha desde:" />
 					<p:calendar id="cod_fecha1" value="#{biometricoPersonaController.vFechaDesde}"
-						pattern="dd/MM/yyyy" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
-					<p:inputMask id="tiempo1" value="#{paramReportController.tiempo1}"
-						mask="99.99" placeholder="Desde que hora..." />
+						pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
 					<p:message for="cod_fecha1"/>	
 					
 					<p:outputLabel for="cod_fecha2" value="Fecha hasta:" title="Fecha Hasta"/>
 					<p:calendar id="cod_fecha2" value="#{biometricoPersonaController.vFechaHasta}"
-						pattern="dd/MM/yyyy" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
-					<p:inputMask id="tiempo2" value="#{paramReportController.tiempo2}"
-						mask="99.99" placeholder="Hasta que hora..." />
-					<p:message for="cod_fecha2"/>	
+						pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
+					<p:message for="cod_fecha2"/>
 					
 				</h:panelGrid>
 				<p:commandButton value="Enviar"
@@ -79,7 +75,7 @@ Notas:
 			<p:dataTable id="tbl" var="bp"
 				value="#{biometricoPersonaController.biometricoPersonas}"
 				paginatorPosition="top" paginator="true" rows="20"
-				style="margin-bottom:30px" class="responsive-table">
+				style="margin-bottom:30px">
 				<p:column headerText="Cédula">
 					<h:outputText value="#{bp.cedula}"/>
 				</p:column>
@@ -135,7 +131,9 @@ Notas:
 				paginatorPosition="top" paginator="true" rows="20"
 				style="margin-bottom:30px" class="responsive-table">
 				<p:column headerText="Fecha">
-					<p:calendar value="#{just.FECHA}" pattern="dd/MM/yyyy" readonly="true"/>
+					<p:outputLabel value="#{just.FECHA}">
+						<f:convertDateTime pattern="dd-MM-yyy" timeZone="EST"/>
+					</p:outputLabel>
 				</p:column>
 				<p:column headerText="Mañana Entrada">
 					<h:outputText value="#{just.MANENT}" />
@@ -159,7 +157,23 @@ Notas:
 		
 		<p:panel header="Acciones del Personal">
 		<p:panelGrid id="png3" columns="1">
-			
+			<p:dataTable id="tbl2" var="acc" value="#{biometricoPersonaController.acciones}" paginator="true" rows="20" style="margin-bottom:30px" paginatorTemplate="{CurrentPageReport} {PageLinks}" class="responsive-table">
+      		    <p:column headerText="Servidor_Id">
+		        	<h:outputText value="#{acc.SER_CODIGO}" />
+		     	</p:column>
+      			 <p:column headerText="Nombres">
+		        	 <h:outputText value="#{biometricoPersonaController.checkNombresYapellidosServidor(acc.SER_CODIGO)}" />
+		     	</p:column>  
+		     	<p:column headerText="Motivo Permiso">
+		        	<h:outputText value="#{acc.ACCION}" />
+		     	</p:column>
+		     	<p:column headerText="Fecha Vigencia">
+		        	<h:outputText value="#{biometricoPersonaController.checkTiempo(acc.FECHA_VIGENCIA)}" />
+		     	</p:column>
+		     	<p:column headerText="Explicación">
+		        	<h:outputText value="#{acc.EXPLICACION}" />
+		     	</p:column>
+      		</p:dataTable>
 			
 			
 		</p:panelGrid>

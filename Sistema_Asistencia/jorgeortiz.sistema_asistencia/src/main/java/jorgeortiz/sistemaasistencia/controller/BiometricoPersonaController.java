@@ -3,6 +3,7 @@ package jorgeortiz.sistemaasistencia.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ import jorgeortiz.sistemaasistencia.dao.MainJustDAO;
 import jorgeortiz.sistemaasistencia.dao.MainReporteDAO;
 import jorgeortiz.sistemaasistencia.fulltime.model.BiometricoDepartamentoSQL;
 import jorgeortiz.sistemaasistencia.fulltime.model.BiometricoPersonaSQL;
+import jorgeortiz.sistemaasistencia.fulltime.model.CARGO;
 import jorgeortiz.sistemaasistencia.fulltime.model.DEPARTAMENTO;
 import jorgeortiz.sistemaasistencia.fulltime.model.EMPLEADO;
 import jorgeortiz.sistemaasistencia.nomina.model.ACC_PER;
@@ -69,6 +71,8 @@ public class BiometricoPersonaController {
 	
 	private List<ACC_PER> acciones;
 	
+	private List<CARGO> cargos;
+	
 	private SERVIDOR newServidor;
 	
 	private EMPLEADO newEmpleado;
@@ -93,12 +97,14 @@ public class BiometricoPersonaController {
 		
 		prc = new ParamReportController();
 		
+		cargos = mdao.getCargos();
+		
 		try {
 			empleados = bpBuss.getEmpleados();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Error");
+			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "No hay empleados");
             facesContext.addMessage(null, m);
 		}
 	}
@@ -109,29 +115,19 @@ public class BiometricoPersonaController {
 			System.out.println("Fecha Desde controller: "+vFechaDesde);
 			System.out.println("Fecha Hasta controller: "+vFechaHasta);
 			biometricoPersonas = bpBuss.getBiometricoPersonas(vCodigoBiometrico, vFechaDesde, vFechaHasta);
-			
-			newBiometricoPersona = biometricoPersonas.get(0);
-			
-			if(newBiometricoPersona == null) {
-				nombresServidor = "";
-			}
-			
-			newServidor = seraBuss.getServidor(newBiometricoPersona.getCedula());
+			newEmpleado = empBuss.getEmpleadoCodigo(vCodigoBiometrico);
+			newServidor = seraBuss.getServidor(newEmpleado.getCEDULA());
 			nombresServidor = newServidor.getAPELLIDO_PATERNO()+" "+newServidor.getAPELLIDO_MATERNO()+" "+newServidor.getPRIMER_NOMBRE()+" "+newServidor.getSEGUNDO_NOMBRE();
 			
-			InputStream is = new ByteArrayInputStream((byte[]) newServidor.getNUEVA_FOTO());
-			System.out.println("Informacion IS:"+is);
-			this.setMyImage(new DefaultStreamedContent(is, "image/jpeg"));
-			System.out.println("Informacion MyImage"+myImage);
-			
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			String fd = FormatterDate.formatearFecha(vFechaDesde);
 			String fh = FormatterDate.formatearFecha(vFechaHasta);
 			Date sdate = formatter.parse(fd);
 			Date rdate1 = formatter.parse(fh);
-			justificaciones = justDAO.getBjustPersona(newBiometricoPersona.getCedula(), sdate, rdate1);
+			justificaciones = justDAO.getBjustPersona(newServidor.getCEDULA(), vFechaDesde, vFechaHasta);
 			
-			acciones = justDAO.getAccPer(newBiometricoPersona.getCedula(), sdate, rdate1);
+			acciones = justDAO.getAccPer(newServidor.getCEDULA(), sdate, rdate1);
+			checkMotivoPermiso(acciones);
 			
 			return null;
 		} catch (Exception e) {
@@ -160,42 +156,119 @@ public class BiometricoPersonaController {
 		return null;
 	}
 	
-	/*
-	public String checkMotivoPermiso() {
-		for (ACC_PER a : acciones) {
+	
+	public void checkMotivoPermiso(List<ACC_PER> items) {
+		for (ACC_PER a : items) {
 			if (a.getACCION().equals("LSM")) {
-				return "AP LICENCIA CON MATERNIDAD";
+				a.setACCION("AP LICENCIA CON MATERNIDAD");
+			}
+			if (a.getACCION().equals("TC1")) {
+				a.setACCION("TERMINACION DEL CONTRATO OCASIONAL");
+			}
+			if (a.getACCION().equals("TN1")) {
+				a.setACCION("TERMINACION DE NOMBRAMIENTO PROVISIONAL A PRUEBA");
+			}
+			if (a.getACCION().equals("TA6")) {
+				a.setACCION("TERMINACION ANTICIPADA DE COMISION DE SERVICIOS CON REMUNERACIONES");
+			}
+			if (a.getACCION().equals("TNR")) {
+				a.setACCION("TERMINACION DE NOMBRAMIENTO REGULAR");
+			}
+			if (a.getACCION().equals("TAC")) {
+				a.setACCION("TERMINACION ANTICIPADA DE COMISION DE SERVICIOS SIN REMUNERACION");
+			}
+			if (a.getACCION().equals("PCF")) {
+				a.setACCION("PERMISO PARA EL CUIDADO DE FAMILIARES");
+			}
+			if (a.getACCION().equals("TSE")) {
+				a.setACCION("TERMINACION DE SUBROGACION O ENCARGO");
+			}
+			if (a.getACCION().equals("CNP")) {
+				a.setACCION("TERMINACION DEL NOMBRAMIENTO PROVISIONAL");
+			}
+			if (a.getACCION().equals("FIN")) {
+				a.setACCION("REINTEGRO/CONCLUSION DE COMISION DE SERVICIOS");
+			}
+			if (a.getACCION().equals("RNL")) {
+				a.setACCION("TERMINACION DE NOMBRAMIENTO DE LIBRE REMOCION");
+			}
+			if (a.getACCION().equals("LAL")) {
+				a.setACCION("PERMISO PARA EL CUIDADO DEL RECIEN NACIDO");
+			}
+			if (a.getACCION().equals("ACR")) {
+				a.setACCION("ACEPTACION DE LA RENUNCIA");
+			}
+			if (a.getACCION().equals("VBU")) {
+				a.setACCION("TERMINACION DE RELACION LABORAL");
+			}
+			if (a.getACCION().equals("A_R")) {
+				a.setACCION("ACEPTAR LA RENUNCIA");
 			}
 			if (a.getACCION().equals("LSP")) {
-				return "AP LICENCIA CON PATERNIDAD";
+				a.setACCION("AP LICENCIA CON PATERNIDAD");
 			}
 			if (a.getACCION().equals("VAC")) {
-				return "AP VACACIONES";
+				a.setACCION("AP VACACIONES");
 			}
 			if (a.getACCION().equals("CAP")) {
-				return "CAPACITACION";
+				a.setACCION("CAPACITACION");
 			}
 			if (a.getACCION().equals("LSL")) {
-				return "LICENCIA CON REMUNERACION";
+				a.setACCION("LICENCIA CON REMUNERACION");
 			}
 			if (a.getACCION().equals("LSS")) {
-				return "LICENCIA SIN REMUNERACION";
+				a.setACCION("LICENCIA SIN REMUNERACION");
 			}
 			if (a.getACCION().equals("Z")) {
-				return "OTRAS";
+				a.setACCION("OTRAS");
 			}
 			if (a.getACCION().equals("DCS")) {
-				return "DECLARAR EN COMISION DE SERVICIO";
+				a.setACCION("DECLARAR EN COMISION DE SERVICIO");
 			}
 			if (a.getACCION().equals("CCR")) {
-				return "COMISION DE SERVICIOS CON REMUNERACION";
+				a.setACCION("COMISION DE SERVICIOS CON REMUNERACION");
 			}
 			if (a.getACCION().equals("CSR")) {
-				return "COMISION DE SERVICIOS SIN REMUNERACION";
+				a.setACCION("COMISION DE SERVICIOS SIN REMUNERACION");
 			}
 		}
-		return "Sin decode";
-	}*/
+	}
+	
+	public String checkCargo(Integer cod_servidor) {
+		Integer cargo = null;
+		for (EMPLEADO e : this.getEmpleados()) {
+			if (e.getCEDULA().equals(newServidor.getCEDULA())) {
+				cargo = e.getCARG_ID();
+			}
+		}
+
+		for (CARGO c : cargos) {
+			if (c.getCARG_ID().equals(cargo)) {
+				return c.getDESCRIPCION();
+			}
+		}
+		return "Sin cargo";
+	}
+	
+	public String checkNombresYapellidosServidor(Integer cod_servidor) {
+		if (newServidor.getCODIGO().equals(cod_servidor)) {
+			String n = newServidor.getAPELLIDO_PATERNO() + " " + newServidor.getAPELLIDO_MATERNO() + " " + newServidor.getPRIMER_NOMBRE() + " "
+					+ newServidor.getSEGUNDO_NOMBRE();
+			return n;
+		}
+		
+		return "Sin código servidor";
+	}
+	
+	public String checkTiempo(Date fecha) throws ParseException {
+		if (fecha != null) {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date dates = fecha;
+			return formatter.format(dates);
+		} else
+			return "sin fecha";
+
+	}
 
 
 	public String getvCodigoBiometrico() {
@@ -308,10 +381,14 @@ public class BiometricoPersonaController {
 	public void setAcciones(List<ACC_PER> acciones) {
 		this.acciones = acciones;
 	}
-	
-	
 
-	
+	public String getvMotivoPermiso() {
+		return vMotivoPermiso;
+	}
+
+	public void setvMotivoPermiso(String vMotivoPermiso) {
+		this.vMotivoPermiso = vMotivoPermiso;
+	}
 	
 	
 }

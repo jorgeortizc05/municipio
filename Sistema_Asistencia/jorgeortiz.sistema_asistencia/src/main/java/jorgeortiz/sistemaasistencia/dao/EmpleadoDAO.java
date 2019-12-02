@@ -22,7 +22,7 @@ public class EmpleadoDAO {
 			Query query=emF.createQuery("select s from EMPLEADO s where s.CODIGO_EMPLEADO = :codigo",EMPLEADO.class);
 			System.out.println("Codigo empleado:"+codigo);
 			query.setParameter("codigo", codigo);
-			EMPLEADO empleado= (EMPLEADO) query.getResultList();
+			EMPLEADO empleado= (EMPLEADO) query.getSingleResult();
 			return empleado;
 			}catch(Exception e){
 				System.out.println("nulo");

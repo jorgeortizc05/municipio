@@ -39,7 +39,7 @@ public class BiometricoPersonaDAO {
 					"       and timbre.codigo_empleado= "+codigoBiometrico+"\r\n" + 
 					"       and reloj.relo_id = timbre.codigo_reloj\r\n" + 
 					"       and empleado.depa_id = departamento.depa_id \r\n" + 
-					"       and timbre.fecha_hora_timbre BETWEEN TO_DATE('"+fechaDesde+"', 'dd/MM/YYYY') AND TO_DATE('"+fechaHasta+"', 'dd/MM/YYYY')\r\n" + 
+					"       and timbre.fecha_hora_timbre BETWEEN TO_DATE('"+fechaDesde+"', 'dd/MM/YYYY HH24:MI:ss') AND TO_DATE('"+fechaHasta+"', 'dd/MM/YYYY HH24:MI:ss')\r\n" + 
 					"order by timbre.fecha_hora_timbre desc");
 
 			Statement stmt = null;
