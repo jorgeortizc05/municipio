@@ -25,8 +25,7 @@
          data source, this example data source is just for development and testing! -->
       <!-- The datasource is deployed as WEB-INF/jorgeortiz.sistema_asistencia-ds.xml, you
          can find it in the source at src/main/webapp/WEB-INF/jorgeortiz.sistema_asistencia-ds.xml -->
-      <jta-data-source>java:jboss/datasources/jorgeortiz.sistema_asistenciaDS</jta-data-source>
-      <class>jorgeortiz.gimnasiosoliz.model.TablaImageness</class>
+      <jta-data-source>java:jboss/datasources/fulltimeDS</jta-data-source>
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="none" />
@@ -40,7 +39,7 @@
          data source, this example data source is just for development and testing! -->
       <!-- The datasource is deployed as WEB-INF/jorgeortiz.sistema_asistencia-ds.xml, you
          can find it in the source at src/main/webapp/WEB-INF/jorgeortiz.sistema_asistencia-ds.xml -->
-      <jta-data-source>java:jboss/datasources/jorgeortiz.sistema_asistenciaDS</jta-data-source>
+      <jta-data-source>java:jboss/datasources/nominaDS</jta-data-source>
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="none" />
@@ -53,7 +52,7 @@
          data source, this example data source is just for development and testing! -->
       <!-- The datasource is deployed as WEB-INF/jorgeortiz.sistema_asistencia-ds.xml, you
          can find it in the source at src/main/webapp/WEB-INF/jorgeortiz.sistema_asistencia-ds.xml -->
-      <jta-data-source>java:jboss/datasources/gimnasiosolizDS</jta-data-source>
+      <jta-data-source>java:jboss/datasources/jorgeortiz.sistema_asistenciaDS</jta-data-source>
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="none" />

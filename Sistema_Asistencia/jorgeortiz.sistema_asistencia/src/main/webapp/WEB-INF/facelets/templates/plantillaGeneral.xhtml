@@ -78,7 +78,7 @@
 				        		<p:menuitem value="Servidor Area"  action="servidor_area?faces-redirect=true" immediate="true" ajax="false"/>
 					        </p:submenu>
 					        <p:submenu label="Sesion" icon="fa fa-user">
-					        	<p:menuitem value="Salir"  action="login?faces-redirect=true" immediate="true" ajax="false"/>
+					        	<p:menuitem value="Salir"  action="#{sesionController.salir()}" immediate="true" ajax="false"/>
 					        </p:submenu>
 					        <p:submenu label="Acerca de..." icon="fa fa-question">
 					        	<p:menuitem value="Acerca de..."  action="acerca-de" immediate="true" ajax="false"/>

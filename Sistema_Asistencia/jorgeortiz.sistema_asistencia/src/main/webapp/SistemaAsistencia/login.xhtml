@@ -30,7 +30,7 @@
 	</header><!-- / #main-header -->
 	<!-- <f:loadBundle basename="jorgeortiz.fusionsystem.web.Componente" var="componente" style="font-size:10px;" /> -->
 	<h:panelGroup layout="block" id="pantalla">
-		<p:growl id="mensajes" showDetail="true" globalOnly="true"/>
+		<p:growl id="mensajes"  life="3000" />
 		<h:panelGroup layout="block" id="cuerpo">
 			<h:form id="forma">
 					<p:panelGrid style="margin: 0 auto;" columns="1">
@@ -40,12 +40,12 @@
 					<p:panelGrid columns="2" style="margin: 0 auto;">
 						
 						Usuario:
-						<p:inputText />
+						<p:inputText value="#{sesionController.usuario}"/>
 						
 						Clave:
-						<p:inputText />
+						<p:inputText value="#{sesionController.pass}"/>
 						
-						<p:commandButton value="Iniciar Sesion"/>
+						<p:commandButton value="Iniciar Sesion" action="#{sesionController.verificarLogin()}" update="mensajes"/>
 					
 					</p:panelGrid>
 				

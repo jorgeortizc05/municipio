@@ -89,12 +89,12 @@ public class BiometricoPersonaController {
 		newBiometricoPersona = new BiometricoPersonaSQL();
 		newBiometricoDepartamento = new BiometricoDepartamentoSQL();
 		
-		//departamentos = mdao.getDepartamentos();
+		departamentos = mdao.getDepartamentos();
 		
 		prc = new ParamReportController();
 		
 		try {
-			//empleados = bpBuss.getEmpleados();
+			empleados = bpBuss.getEmpleados();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

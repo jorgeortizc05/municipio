@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -33,22 +33,34 @@ public class SesionController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		estado = true; // el h:form se renderiza cuando esta en true
+		estado = false; // el h:form se renderiza cuando esta en true
 	}
 
-	public void verificarLogin(ActionEvent actionEvent) throws IOException {
+	public String verificarLogin() throws IOException {
 		try {
 			USUARIO = dao.getLoginU(this.getUsuario(), this.getPass());
 			if (USUARIO != null) {
-				this.setEstado(true);
+				estado = true;
+				System.out.println(estado);
 				addMessage("Bienvenido " + USUARIO.getUSUARIO());
-				FacesContext.getCurrentInstance().getExternalContext().redirect("reportes.xhtml");
-
+				//FacesContext.getCurrentInstance().getExternalContext().redirect("escritorio.xhtml");
+				return "escritorio?faces-redirect=true";
 			}
 		} catch (Exception e) {
 			addMessage("Usuario o clave incorrecta!!");
 		}
 		addMessage("Error en el inicio de sesión");
+		
+		return null;
+
+	}
+	
+	public String salir() throws IOException {
+		estado = false;
+		usuario = "";
+		pass = "";
+		return "login?faces-redirect=true";
+		
 
 	}
 
@@ -56,7 +68,7 @@ public class SesionController implements Serializable {
 		try {
 			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 			ec.invalidateSession();
-			ec.redirect(ec.getRequestContextPath() + "/inicio.xhtml");
+			ec.redirect(ec.getRequestContextPath() + "/login.xhtml");
 		} catch (Exception e) {
 			addMessage("no logueado");
 		}
@@ -67,22 +79,6 @@ public class SesionController implements Serializable {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 
-	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
 	}
 
 	public USUARIOS getUSUARIO() {
@@ -100,5 +96,23 @@ public class SesionController implements Serializable {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	
+	
 
 }
