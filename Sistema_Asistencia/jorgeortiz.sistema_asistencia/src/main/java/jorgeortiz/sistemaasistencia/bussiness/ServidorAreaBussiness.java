@@ -28,10 +28,10 @@ public class ServidorAreaBussiness implements Serializable {
 	private ServidorAreaDAO seraDAO;
 
 	public ServidorAreaSQL recuperarServidorArea(int codigoServidor) throws Exception {
-		ServidorAreaSQL servidorArea = seraDAO.recuperarServidorArea(codigoServidor);
+		ServidorAreaSQL item = seraDAO.recuperarServidorArea(codigoServidor);
 
-		if (!(servidorArea == null)) {
-			return servidorArea;
+		if (!(item == null)) {
+			return item;
 		} else
 			throw new Exception("Sin datos de Servidor Area SQL");
 

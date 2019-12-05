@@ -43,7 +43,7 @@
 						<p:inputText value="#{sesionController.usuario}"/>
 						
 						Clave:
-						<p:inputText value="#{sesionController.pass}"/>
+						<p:password value="#{sesionController.pass}" />
 						
 						<p:commandButton value="Iniciar Sesion" action="#{sesionController.verificarLogin()}" update="mensajes"/>
 					

@@ -35,9 +35,9 @@ public class ServidorAreaController {
 	private FacesContext facesContext;
 
 	// Servidor, cargo y departamentos
-	private ServidorAreaBussiness sercBuss;
+	@Inject
+	private ServidorAreaBussiness servaBuss;
 	private List<ServidorAreaSQL> servidorAreas;
-	private List<ServidorAreaSQL> filterServidorArea; // Para filtrar cservidorAreas
 	private ServidorAreaSQL servidorAreaSQL;
 	private SERVIDOR servidor;
 	private List<SERVIDOR> servidores;
@@ -59,7 +59,6 @@ public class ServidorAreaController {
 	@PostConstruct
 	public void init() {
 		vCodigoServidor = 0;
-		sercBuss = new ServidorAreaBussiness();
 		depBuss = new DepartamentoBussiness();
 		servidorAreaSQL = new ServidorAreaSQL();
 		servidor = new SERVIDOR();
@@ -81,7 +80,7 @@ public class ServidorAreaController {
 	public String loadServidorCargo() {
 
 		try {
-			servidorAreaSQL = sercBuss.recuperarServidorArea(vCodigoServidor);
+			servidorAreaSQL = servaBuss.recuperarServidorArea(vCodigoServidor);
 			departamentos = depBuss
 					.recuperarDatosDepartamento((servidorAreaSQL.getDireccion().substring(0, 7)).toUpperCase());
 			// servidor = sercBuss.recuperarServidor(servidorAreaSQL.getCedulaServidor());

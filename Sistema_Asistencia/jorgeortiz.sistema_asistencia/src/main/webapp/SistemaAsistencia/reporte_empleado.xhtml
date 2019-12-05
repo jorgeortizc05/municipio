@@ -107,16 +107,16 @@ Notas:
 		<h:commandLink id="excel1">
 			<p:graphicImage url="/resources/images/excel.png"/>
 			<p:dataExporter type="xlsx" target="tbl"
-				fileName="reporteTimbrePersona"
-				postProcessor="#{paramReportController.postProcessXLS}" />
+				fileName="Reportes_timbres_por_empleado"
+				postProcessor="#{reportes.postProcessXLS}" />
 		</h:commandLink>
 
-		<h:commandLink id="pdf1">
+		<!-- <h:commandLink id="pdf1">
 			<p:graphicImage url="/resources/images/pdf.png" />
 			<p:dataExporter type="pdf" target="tbl"
 				fileName="reporteTimbrePersona"
 				preProcessor="#{paramReportController.preProcessPDF}" />
-		</h:commandLink>
+		</h:commandLink> -->
 		</p:panel>
 		<p:separator style="height:400"/>
 	</p:panel>

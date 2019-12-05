@@ -50,7 +50,7 @@ public class ServidorAreaDAO implements Serializable{
 		con = DbConexionNomina.getConexion();
 		try {
 			String sentencia = ("select i.codigo, i.cedula, i.apellido_paterno ||' '|| i.apellido_materno as APELLIDO, i.primer_nombre ||' '||i.segundo_nombre as NOMBRE, \n" + 
-					"       i.email, i.email_personal, i.fecha_nacimiento, i.estado_civil, i.sexo, 'CUENCA' as Ciudad, 'A' as estado,\n" + 
+					"       i.email, i.email_personal, i.fecha_nacimiento, i.estado_civil, i.sexo, 'CUENCA' as Ciudad, 'A' as estado, i.nueva_foto, \n" + 
 					"			nomina.da_secretaria (i.codigo,2) direccion, \n" + 
 					"			nomina.sacacargo(i.codigo) cargo \n" + 
 					"			from nomina.servidor i\n" + 
@@ -72,8 +72,9 @@ public class ServidorAreaDAO implements Serializable{
 				item.setSexo(rs.getString(9));
 				item.setCiudad(rs.getString(10));
 				item.setEstado(rs.getString(11));
-				item.setDireccion(rs.getString(12));
-				item.setCargo(rs.getString(5));
+				item.setNuevaFoto(rs.getBytes(12));
+				item.setDireccion(rs.getString(13));
+				item.setCargo(rs.getString(14));
 			}
 			
 

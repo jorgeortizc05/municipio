@@ -8,7 +8,7 @@ import java.util.Date;
  * Descripción: Recupera Servidor datos de DB Nomina sobre el departamento y su cargo.
  * Script oracle:
  * select i.codigo, i.cedula, i.apellido_paterno ||' '|| i.apellido_materno as APELLIDO, i.primer_nombre ||' '||i.segundo_nombre as NOMBRE, 
-       i.email, i.email_personal, i.fecha_nacimiento, i.estado_civil, i.sexo, 'CUENCA' as Ciudad, 'A' as estado,
+       i.email, i.email_personal, i.fecha_nacimiento, i.estado_civil, i.sexo, 'CUENCA' as Ciudad, 'A' as estado, i.nuevaFoto nuevaFoto
 			nomina.da_secretaria (i.codigo,2) direccion, 
 			nomina.sacacargo(i.codigo) cargo 
 			from nomina.servidor i
@@ -38,6 +38,8 @@ public class ServidorAreaSQL {
 	private String ciudad;
 	
 	private String estado;
+	
+	private byte[] nuevaFoto;
 	
 	private String direccion; //Direccion general del talento humano
 	
@@ -145,6 +147,16 @@ public class ServidorAreaSQL {
 
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
+	}
+	
+	
+
+	public byte[] getNuevaFoto() {
+		return nuevaFoto;
+	}
+
+	public void setNuevaFoto(byte[] nuevaFoto) {
+		this.nuevaFoto = nuevaFoto;
 	}
 
 	@Override

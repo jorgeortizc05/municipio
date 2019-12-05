@@ -4,7 +4,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:uti="http://java.sun.com/jsf/composite/util"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
 <!-- 
 Autor: ING. JORGE LUIS ORTIZ CACERES
@@ -27,7 +29,7 @@ Notas:
 			style="margin-bottom:20px">
 			<p:inputText value="#{servidorAreaController.vCodigoServidor}" />
 			<p:commandButton value="Buscar"
-				action="#{servidorAreaController.loadServidorCargo()}" ajax="false"/>
+				action="#{servidorAreaController.loadServidorCargo()}" update="servidor datosPersonales"/>
 			<p:panelGrid id="servidor" columns="2" styleClass="ui-panelgrid-blank ui-fluid">
 				
 					Código Servidor:
@@ -59,42 +61,43 @@ Notas:
 			</p:panelGrid>
 		</p:panel>
 		
-		<p:panel >
+		<p:panel id="datosPersonales">
 		<p:panelGrid columns="2">
 			
 			<p:panel header="Datos Personales">
 				<p:panelGrid columns="2">
-					<p:outputLabel value="Código Reloj"/>
+					<p:outputLabel value="Código Reloj: "/>
 					<p:inputText value="#{servidorAreaController.servidorAreaSQL.codigoServidor}"/>
 					
+					<p:outputLabel value="Cédula: "/>
 					<p:outputLabel value="#{servidorAreaController.servidorAreaSQL.cedulaServidor}"/>
-					<p:inputText />
 					
-					<p:outputLabel value="Nombre"/>
+					
+					<p:outputLabel value="Nombre: "/>
 					<p:inputText value="#{servidorAreaController.servidorAreaSQL.nombres}" />
 					
-					<p:outputLabel value="Apellido"/>
+					<p:outputLabel value="Apellido: "/>
 					<p:inputText value="#{servidorAreaController.servidorAreaSQL.apellidos}"/>
 					
-					<p:outputLabel value="Correo Electrónico"/>
+					<p:outputLabel value="Correo Electrónico: "/>
 					<p:inputText value="#{servidorAreaController.servidorAreaSQL.email}"/>
 					
-					<p:outputLabel value="Correo Electrónico Alternativo"/>
+					<p:outputLabel value="Correo Electrónico Alternativo: "/>
 					<p:inputText value="#{servidorAreaController.servidorAreaSQL.email_personal}"/>
 					
-					<p:outputLabel value="Fecha Nacimiento"/>
-					<p:inputText value="#{servidorAreaController.servidorAreaSQL.fechaNacimiento}"/>
+					<p:outputLabel value="Fecha Nacimiento: "/>
+					<p:outputLabel value="#{servidorAreaController.servidorAreaSQL.fechaNacimiento}"/>
 					
-					<p:outputLabel value="Estado Civil"/>
+					<p:outputLabel value="Estado Civil: "/>
 					<p:inputText value="#{servidorAreaController.servidorAreaSQL.estadoCivil}"/>
 					
-					<p:outputLabel value="Género"/>
+					<p:outputLabel value="Género: "/>
 					<p:inputText value="#{servidorAreaController.servidorAreaSQL.sexo}"/>
 					
-					<p:outputLabel value="Ciudad"/>
+					<p:outputLabel value="Ciudad: "/>
 					<p:inputText value="#{servidorAreaController.servidorAreaSQL.ciudad}"/>
 					
-					<p:outputLabel value="Estado"/>
+					<p:outputLabel value="Estado: "/>
 					<p:inputText value="#{servidorAreaController.servidorAreaSQL.estado}"/>
 				
 				</p:panelGrid>
@@ -103,7 +106,9 @@ Notas:
 			<p:panel header="Datos Laborales">
 				<p:panelGrid columns="2">
 					<p:outputLabel value="Foto"/>
-					<p:inputText />
+					<o:graphicImage value="#{servidorAreaController.servidorAreaSQL.nuevaFoto}"
+						dataURI="true" style="width:200px;width:200px" alt="sin imagen" rendered="#{not empty servidorAreaController.servidorAreaSQL.nuevaFoto}">
+					</o:graphicImage>
 					
 					<p:outputLabel value="Unidad Administrativa"/>
 					<p:selectOneMenu id="omDepartamento" value="#{servidorAreaController.vCodigoDepartamento}" dynamic="true" style="width:125px">
@@ -115,8 +120,7 @@ Notas:
 					<p:outputLabel value="Cargo"/>
 					<p:selectOneListbox value="#{servidorAreaController.vCodigoCargo}"
 						id="cargo" style="width:300px" filter="true"
-						filterMatchMode="contains" scrollHeight="100" required="true"
-						requiredMessage="Debe eligir un cargo">
+						filterMatchMode="contains" scrollHeight="100">
 						<f:selectItems value="#{servidorAreaController.cargos}" var="c"
 							itemLabel="#{c.CARG_ID} #{c.DESCRIPCION}" itemValue="#{c.CARG_ID}" />
 					</p:selectOneListbox>

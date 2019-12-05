@@ -13,8 +13,12 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import jorgeortiz.sistemaasistencia.bussiness.SessionBussiness;
+import jorgeortiz.sistemaasistencia.dao.ServidorAreaDAO;
+import jorgeortiz.sistemaasistencia.dao.ServidorDAO;
 import jorgeortiz.sistemaasistencia.dao.SesionReporteDAO;
 import jorgeortiz.sistemaasistencia.fulltime.model.USUARIOS;
+import jorgeortiz.sistemaasistencia.nomina.model.SERVIDOR;
 
 @ManagedBean
 @SessionScoped
@@ -26,9 +30,14 @@ public class SesionController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private SesionReporteDAO dao;
+	
+	@Inject
+	private SessionBussiness seBuss;
+	
 	private String usuario;
 	private String pass;
 	private USUARIOS USUARIO;
+	private SERVIDOR newServidor;
 	private boolean estado;
 
 	@PostConstruct
@@ -38,13 +47,16 @@ public class SesionController implements Serializable {
 
 	public String verificarLogin() throws IOException {
 		try {
-			USUARIO = dao.getLoginU(this.getUsuario(), this.getPass());
-			if (USUARIO != null) {
+			newServidor = seBuss.getServidor(getUsuario(), getPass());
+			System.out.println(newServidor);
+			if (newServidor != null) {
 				estado = true;
 				System.out.println(estado);
-				addMessage("Bienvenido " + USUARIO.getUSUARIO());
+				addMessage("Bienvenido " + newServidor.getPRIMER_NOMBRE());
 				//FacesContext.getCurrentInstance().getExternalContext().redirect("escritorio.xhtml");
-				return "escritorio?faces-redirect=true";
+				return "reporte_biometrico?faces-redirect=true";
+			}else {
+				addMessage("Usuario o clave incorrecta!!");
 			}
 		} catch (Exception e) {
 			addMessage("Usuario o clave incorrecta!!");

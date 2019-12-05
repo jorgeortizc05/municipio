@@ -8,11 +8,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import jorgeortiz.sistemaasistencia.fulltime.model.BiometricoPersonaSQL;
 import jorgeortiz.sistemaasistencia.util.DbConexionFulltime;
 
-public class BiometricoPersonaDAO {
-
+public class BiomPersDAO {
+	
+	@PersistenceContext(unitName = "fulltime")
+	private EntityManager emF;
+	
 	public List<BiometricoPersonaSQL> getBiometricoPersonas(String codigoBiometrico, String fechaDesde, String fechaHasta) {
 
 		BiometricoPersonaSQL item = null;

@@ -46,6 +46,9 @@ Notas:
 			<p:commandButton value="Enviar"
 				actionListener="#{biometricoPersonaController.recuperarBiometricoDepartamentos()}"
 				update="mensajes tbl pn1" />
+			<p:commandButton value="Todos Departamentos"
+				actionListener="#{biometricoPersonaController.recuperarTodosDepartamentos()}"
+				update="mensajes tbl pn1" />
 		
 		<p:panel>
 		<p:panelGrid id="png1" columns="1">
@@ -87,8 +90,8 @@ Notas:
 		<h:commandLink id="excel1">
 			<p:graphicImage url="/resources/images/excel.png"/>
 			<p:dataExporter type="xlsx" target="tbl"
-				fileName="reporteTimbrePersona"
-				postProcessor="#{paramReportController.postProcessXLS}" />
+				fileName="Reportes_timbres_por_departamento"
+				postProcessor="#{reportes.postProcessXLS}" />
 		</h:commandLink>
 		</p:panel>
 		</p:panel>

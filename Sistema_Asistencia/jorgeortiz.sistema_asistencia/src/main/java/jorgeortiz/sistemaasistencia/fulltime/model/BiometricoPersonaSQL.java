@@ -2,10 +2,15 @@ package jorgeortiz.sistemaasistencia.fulltime.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class BiometricoPersonaSQL {
 	
 	private String cedula;
 	
+	@Id
 	private String codigoBiometrico;
 	
 	private String apellido;
@@ -20,8 +25,6 @@ public class BiometricoPersonaSQL {
 	
 	private Date fecha;
 	
-	private Date hora;
-
 	public String getCedula() {
 		return cedula;
 	}
@@ -54,8 +57,6 @@ public class BiometricoPersonaSQL {
 		this.nombre = nombre;
 	}
 
-	
-
 	public String getCodigoReloj() {
 		return codigoReloj;
 	}
@@ -87,24 +88,5 @@ public class BiometricoPersonaSQL {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-
-	public Date getHora() {
-		return hora;
-	}
-
-	public void setHora(Date hora) {
-		this.hora = hora;
-	}
-
-	@Override
-	public String toString() {
-		return "BiometricoPersonaSQL [cedula=" + cedula + ", codigoBiometrico=" + codigoBiometrico + ", apellido="
-				+ apellido + ", nombre=" + nombre + ", codigoReloj=" + codigoReloj + ", departamento=" + departamento
-				+ ", descripcionReloj=" + descripcionReloj + ", fecha=" + fecha + ", hora=" + hora + "]";
-	}
-
-	
-	
-	
 
 }

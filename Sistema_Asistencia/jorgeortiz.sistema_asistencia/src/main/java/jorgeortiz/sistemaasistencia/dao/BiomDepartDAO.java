@@ -8,14 +8,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import jorgeortiz.sistemaasistencia.fulltime.model.BiometricoDepartamentoSQL;
 import jorgeortiz.sistemaasistencia.util.DbConexionFulltime;
 
 @Stateless
-public class BiometricoDepartamentoDAO {
+public class BiomDepartDAO {
+	
+	@PersistenceContext(unitName = "fulltime")
+	EntityManager emF;
 	
 	public List<BiometricoDepartamentoSQL> getBiometricoDepartamentos(int codigoDepartamento, String fechaDesde, String fechaHasta) {
+
+		Query query = emF.createNamedQuery("queryBiometricoDepartamento", BiometricoDepartamentoSQL.class);
+		query.setParameter("codigoDepartamento", codigoDepartamento);
+		query.setParameter("fechaDesde", fechaDesde);
+		query.setParameter("fechaHasta", fechaHasta);
+		List<BiometricoDepartamentoSQL> items = query.getResultList();
+		
+		return items;
+	}
+	
+	public List<BiometricoDepartamentoSQL> getFechaDepartamentos(String fechaDesde, String fechaHasta){
+		Query query = emF.createNativeQuery("select empleado.cedula cedula,\r\n" + 
+				"       empleado.codigo_empleado codigoBiometrico,\r\n" + 
+				"       empleado.apellido apellido,\r\n" + 
+				"       empleado.nombre nombre,\r\n" + 
+				"       timbre.codigo_reloj codigoReloj,\r\n" + 
+				"       reloj.descripcion as descripcionReloj,\r\n" + 
+				"       departamento.descripcion departamento,\r\n" + 
+				"       timbre.fecha_hora_timbre fecha\r\n" + 
+				"  from timbre,\r\n" + 
+				"       empleado,\r\n" + 
+				"       departamento,\r\n" + 
+				"       reloj\r\n" + 
+				" where empleado.codigo_empleado = timbre.codigo_empleado \r\n" + 
+				"       and reloj.relo_id = timbre.codigo_reloj\r\n" + 
+				"       and empleado.depa_id = departamento.depa_id \r\n" + 
+				"       and timbre.fecha_hora_timbre BETWEEN TO_DATE(:fechaDesde, 'dd/MM/YYYY HH24:MI:ss') AND TO_DATE(:fechaHasta, 'dd/MM/YYYY HH24:MI:ss')\r\n" + 
+				"order by timbre.fecha_hora_timbre desc", BiometricoDepartamentoSQL.class);
+		query.setParameter("fechaDesde", fechaDesde);
+		query.setParameter("fechaHasta", fechaHasta);
+		
+		List<BiometricoDepartamentoSQL> items = query.getResultList();
+		
+		return items;
+	}
+	
+	public List<BiometricoDepartamentoSQL> getBiometricoDepartamentos1(int codigoDepartamento, String fechaDesde, String fechaHasta) {
 
 		BiometricoDepartamentoSQL item = null;
 		List<BiometricoDepartamentoSQL> items = new ArrayList<>();

@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 import org.primefaces.model.DefaultStreamedContent;
 
-import jorgeortiz.sistemaasistencia.bussiness.ReporteBiometricoBussiness;
+import jorgeortiz.sistemaasistencia.bussiness.ReporteTimbresBussiness;
 import jorgeortiz.sistemaasistencia.bussiness.EmpleadoBussiness;
 import jorgeortiz.sistemaasistencia.bussiness.ServidorAreaBussiness;
 import jorgeortiz.sistemaasistencia.dao.MainJustDAO;
@@ -31,6 +31,7 @@ import jorgeortiz.sistemaasistencia.nomina.model.ACC_PER;
 import jorgeortiz.sistemaasistencia.nomina.model.BJUSTIF;
 import jorgeortiz.sistemaasistencia.nomina.model.SERVIDOR;
 import jorgeortiz.sistemaasistencia.util.FormatterDate;
+import jorgeortiz.sistemaasistencia.util.Mensajes;
 
 @ManagedBean
 @ViewScoped
@@ -40,7 +41,7 @@ public class BiometricoPersonaController {
 	private FacesContext facesContext;
 	
 	@Inject
-	private ReporteBiometricoBussiness bpBuss;
+	private ReporteTimbresBussiness rbBuss;
 	
 	@Inject
 	private ServidorAreaBussiness seraBuss;
@@ -53,9 +54,6 @@ public class BiometricoPersonaController {
 	
 	@Inject
 	private MainReporteDAO mdao;
-	
-	
-	private ParamReportController prc;
 	
 	private List<BiometricoPersonaSQL> biometricoPersonas;
 	private BiometricoPersonaSQL newBiometricoPersona;
@@ -95,12 +93,10 @@ public class BiometricoPersonaController {
 		
 		departamentos = mdao.getDepartamentos();
 		
-		prc = new ParamReportController();
-		
 		cargos = mdao.getCargos();
 		
 		try {
-			empleados = bpBuss.getEmpleados();
+			empleados = rbBuss.getEmpleados();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,7 +110,7 @@ public class BiometricoPersonaController {
 		try {
 			System.out.println("Fecha Desde controller: "+vFechaDesde);
 			System.out.println("Fecha Hasta controller: "+vFechaHasta);
-			biometricoPersonas = bpBuss.getBiometricoPersonas(vCodigoBiometrico, vFechaDesde, vFechaHasta);
+			biometricoPersonas = rbBuss.getBiometricoPersonas(vCodigoBiometrico, vFechaDesde, vFechaHasta);
 			newEmpleado = empBuss.getEmpleadoCodigo(vCodigoBiometrico);
 			newServidor = seraBuss.getServidor(newEmpleado.getCEDULA());
 			nombresServidor = newServidor.getAPELLIDO_PATERNO()+" "+newServidor.getAPELLIDO_MATERNO()+" "+newServidor.getPRIMER_NOMBRE()+" "+newServidor.getSEGUNDO_NOMBRE();
@@ -128,6 +124,7 @@ public class BiometricoPersonaController {
 			
 			acciones = justDAO.getAccPer(newServidor.getCEDULA(), sdate, rdate1);
 			checkMotivoPermiso(acciones);
+			Mensajes.addMessage("Solicitud Procesada");
 			
 			return null;
 		} catch (Exception e) {
@@ -144,7 +141,24 @@ public class BiometricoPersonaController {
 	public String recuperarBiometricoDepartamentos() {
 		
 		try {
-			biometricoDepartamentos = bpBuss.getBiometricoDepartamentos(vCodigoDepartamento, vFechaDesde, vFechaHasta);
+			biometricoDepartamentos = rbBuss.getBiometricoDepartamentos(vCodigoDepartamento, vFechaDesde, vFechaHasta);
+			Mensajes.addMessage("Solicitud Procesada");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Error");
+            facesContext.addMessage(null, m);
+		}
+		
+		
+		return null;
+	}
+	
+	public String recuperarTodosDepartamentos() {
+		
+		try {
+			biometricoDepartamentos = rbBuss.getFechaDepartamentos(vFechaDesde, vFechaHasta);
+			Mensajes.addMessage("Solicitud Procesada");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -389,6 +403,7 @@ public class BiometricoPersonaController {
 	public void setvMotivoPermiso(String vMotivoPermiso) {
 		this.vMotivoPermiso = vMotivoPermiso;
 	}
+	
 	
 	
 }

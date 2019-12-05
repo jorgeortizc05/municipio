@@ -6,8 +6,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import jorgeortiz.sistemaasistencia.dao.BiometricoDepartamentoDAO;
-import jorgeortiz.sistemaasistencia.dao.BiometricoPersonaDAO;
+import jorgeortiz.sistemaasistencia.dao.BiomDepartDAO;
+import jorgeortiz.sistemaasistencia.dao.BiomPersDAO;
 import jorgeortiz.sistemaasistencia.dao.MainReporteDAO;
 import jorgeortiz.sistemaasistencia.fulltime.model.BiometricoDepartamentoSQL;
 import jorgeortiz.sistemaasistencia.fulltime.model.BiometricoPersonaSQL;
@@ -16,14 +16,15 @@ import jorgeortiz.sistemaasistencia.nomina.model.ACC_PER;
 import jorgeortiz.sistemaasistencia.util.FormatterDate;
 
 @Stateless
-public class ReporteBiometricoBussiness {
+public class ReporteTimbresBussiness {
 	
 	@Inject
 	private MainReporteDAO mdao;
 	
-	private BiometricoPersonaDAO bpDAO = new BiometricoPersonaDAO();
+	private BiomPersDAO bpDAO = new BiomPersDAO();
 	
-	private BiometricoDepartamentoDAO bdDAO = new BiometricoDepartamentoDAO();
+	@Inject
+	private BiomDepartDAO bdDAO;
 	
 	public List<BiometricoPersonaSQL> getBiometricoPersonas(String codigoBiometrico, Date fechaDesde, Date fechaHasta) throws Exception{
 		
@@ -38,6 +39,17 @@ public class ReporteBiometricoBussiness {
 			throw new Exception("No hay datos");
 				
 				
+	}
+	
+	public List<BiometricoDepartamentoSQL> getFechaDepartamentos(Date fechaDesde, Date fechaHasta) throws Exception{
+		String fd = FormatterDate.formatearFecha(fechaDesde);
+		String fh = FormatterDate.formatearFecha(fechaHasta);
+		List<BiometricoDepartamentoSQL> items = bdDAO.getFechaDepartamentos(fd, fh);
+		if(!(items.isEmpty())) {
+			return items;
+		}else
+			throw new Exception("No hay datos de Biometrico Departamento");
+		
 	}
 	
 	
