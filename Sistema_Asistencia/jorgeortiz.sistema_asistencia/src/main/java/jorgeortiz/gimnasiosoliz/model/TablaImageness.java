@@ -18,6 +18,8 @@ public class TablaImageness implements Serializable {
 	@Id
 	@Column(name="ID_IMAGEN")
 	private int idImagen;
+	
+	
 
 	private byte[] imagen;
 
