@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:uti="http://java.sun.com/jsf/composite/util"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<!-- 
+Autor: ING. JORGE LUIS ORTIZ CACERES
+Fecha de Creacion:27/02/2019
+Notas: Vista para el codigo de barras
+Modificaciones
+Fecha Modificacion
+Notas:
+-->
+<ui:composition
+	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
+
+	<ui:define name="cuerpo">
+
+		<b:panel id="pn1" title="Reporte de Números de Personas por Reloj Biometrico">
+
+			<b:panelGrid columns="3">
+				<p:outputLabel for="cod_fecha11" value="Fecha desde:" />
+				<p:calendar id="cod_fecha11" value="#{reporteRelojesBiometricosController.vFechaDesde}"
+					pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
+				<p:message for="cod_fecha11"/>
+					
+				<p:outputLabel for="cod_fecha22" value="Fecha hasta:" />
+				<p:calendar id="cod_fecha22" value="#{reporteRelojesBiometricosController.vFechaHasta}"
+					pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
+				<p:message for="cod_fecha22"/>
+					
+			</b:panelGrid>
+			<b:commandButton value="Enviar"
+				actionListener="#{reporteRelojesBiometricosController.recuperarNumPersPorBiometrico()}"
+				update="mensajes" look="primary"/>
+		
+		<b:panel>
+		<p:panelGrid id="png1" columns="1">
+			<b:dataTable id="tbl" var="bd"
+				value="#{reporteRelojesBiometricosController.listNumPersPorBiometricos}" excel="true" pdf="true" autoUpdate="true">
+				<b:dataTableColumn label="Cédula" dataType="int">
+					<h:outputLabel value="#{bd.RELOJ_ID}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn value="#{bd.DESCRIPCION}" label="Biometrico"/>
+				<b:dataTableColumn value="#{bd.NUMERO_PERSONAS} #{bp.nombre}" label="Nombres"/>
+			</b:dataTable>
+		</p:panelGrid>
+		</b:panel>
+		</b:panel>
+
+	</ui:define>
+
+
+
+</ui:composition>
+</html>

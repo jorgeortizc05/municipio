@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:uti="http://java.sun.com/jsf/composite/util"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<!-- 
+Autor: ING. JORGE LUIS ORTIZ CACERES
+Fecha de Creacion:27/02/2019
+Notas: Vista para el codigo de barras
+Modificaciones
+Fecha Modificacion
+Notas:
+-->
+<ui:composition
+	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
+
+	<ui:define name="cuerpo">
+		<b:panel title="Relojes Biométricos" id="fReporteBiometrico" look="primary">
+		<b:panel>
+		<b:panelGrid columns="2">
+			<b:panel id="pn1" title="Búsqueda">
+					<p:outputLabel for="cod_bio" value="Elija a la persona a consultar" />
+					<!-- <p:inputText id="cod_bio" value="#{paramReportController.biometrico}" /> -->
+	
+					<p:selectOneListbox value="#{reporteRelojesBiometricosController.vCodigoBiometrico}"
+						id="cod_bio" style="width:500px" filter="true"
+						filterMatchMode="contains" scrollHeight="100" required="true"
+						requiredMessage="Debe eligir un empleado">
+						<f:selectItems value="#{reporteRelojesBiometricosController.empleados}" var="e"
+							itemLabel="#{e.CODIGO_EMPLEADO} - #{e.APELLIDO} #{e.NOMBRE}"
+							itemValue="#{e.CODIGO_EMPLEADO}" />
+					</p:selectOneListbox>
+					<b:message for="cod_bio"/>
+					
+				<h:panelGrid columns="3">
+					<p:outputLabel for="cod_fecha1" value="Fecha desde:" />
+					<p:calendar id="cod_fecha1" value="#{reporteRelojesBiometricosController.vFechaDesde}"
+						pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
+					<b:message for="cod_fecha1"/>	
+					
+					<p:outputLabel for="cod_fecha2" value="Fecha hasta:" title="Fecha Hasta"/>
+					<p:calendar id="cod_fecha2" value="#{reporteRelojesBiometricosController.vFechaHasta}"
+						pattern="dd/MM/yyyy HH:mm" mask="true" locale="es" required="true" requiredMessage="Fecha Requerida"/>
+					<b:message for="cod_fecha2"/>
+					
+				</h:panelGrid>
+				<b:commandButton value="Enviar"
+					action="#{reporteRelojesBiometricosController.recuperarBiometricoPersonas()}"
+					update="mensajes" look="primary"/>
+				<p:outputLabel id="salida1"
+					value="#{paramReportController.timbres.size()} registros encontrados!!" />
+	
+			</b:panel>
+			
+			<b:panel id="pn2" title="Datos Personales" >
+				<b:panelGrid columns="2">
+					<o:graphicImage value="#{reporteRelojesBiometricosController.newServidor.NUEVA_FOTO}"
+						dataURI="true" style="width:200px;width:200px" alt="sin imagen" rendered="#{not empty reporteRelojesBiometricosController.newServidor.NUEVA_FOTO}">
+					</o:graphicImage>
+					<div class="grid-example col s12">
+						<span style="color: black; font-size: 200%">#{reporteRelojesBiometricosController.nombresServidor}</span>
+					</div>
+				</b:panelGrid>
+			</b:panel>
+		
+		</b:panelGrid>
+
+		<p:panelGrid id="png1" columns="1">
+			<b:dataTable id="tbl" var="bp"
+				value="#{reporteRelojesBiometricosController.biometricoPersonas}"
+				autoUpdate="true" excel="true" pdf="true">
+				
+				<b:dataTableColumn value="#{bp.cedula}" label="Cédula"/>
+				<b:dataTableColumn value="#{bp.codigoBiometrico}" label="Biometrico"/>
+				<b:dataTableColumn value="#{bp.apellido} #{bp.nombre}" label="Nombres"/>
+				<b:dataTableColumn value="#{bp.codigoReloj}" label="Código Reloj"/>
+				<b:dataTableColumn value="#{bp.descripcionReloj}" label="Reloj"/>
+				<b:dataTableColumn value="#{bp.departamento}" label="Departamento"/>
+				<b:dataTableColumn label="Fecha" dataType="date">
+					<h:outputText value="#{bp.fecha}">
+						 <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+					</h:outputText>
+				</b:dataTableColumn>
+				<b:dataTableColumn label="Hora" dataType="true">
+					<h:outputText value="#{bp.fecha}">
+						 <f:convertDateTime pattern="HH:mm" timeZone="EST"/>
+					</h:outputText>
+				</b:dataTableColumn>
+				
+			</b:dataTable>
+		</p:panelGrid>
+		</b:panel>
+	</b:panel>
+	</ui:define>
+
+
+
+</ui:composition>
+</html>
