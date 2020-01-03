@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:uti="http://java.sun.com/jsf/composite/util"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<!-- 
+Autor: ING. JORGE LUIS ORTIZ CACERES
+Fecha de Creacion:27/02/2019
+Notas: Vista para el codigo de barras
+Modificaciones
+Fecha Modificacion
+Notas:
+-->
+<ui:composition
+	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
+
+	<ui:define name="cuerpo">
+
+		<p:panel id="pn1" header="Busqueda rápida de empleado" > 					 	
+	 		<b:dataTable id="tbl" var="emp" value="#{empleadoController.listEmp}">
+	 			<b:dataTableColumn value="#{emp.CODIGO_EMPLEADO}" label="Biométrico"/>
+	 			<b:dataTableColumn value="#{emp.CEDULA}" label="Cédula"/>
+	 			<b:dataTableColumn value="#{emp.NOMBRE}" label="Nombre"/>
+	 			<b:dataTableColumn value="#{emp.APELLIDO}" label="Apellido"/>
+			</b:dataTable>
+		</p:panel>
+
+	</ui:define>
+
+
+
+</ui:composition>
+</html>
