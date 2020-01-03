@@ -59,7 +59,7 @@ public class BiomDepartDAO {
 		return items;
 	}
 	
-	public List<BiometricoDepartamentoSQL> getBiometricoDepartamentos1(int codigoDepartamento, String fechaDesde, String fechaHasta) {
+	/*public List<BiometricoDepartamentoSQL> getBiometricoDepartamentos1(int codigoDepartamento, String fechaDesde, String fechaHasta) {
 
 		BiometricoDepartamentoSQL item = null;
 		List<BiometricoDepartamentoSQL> items = new ArrayList<>();
@@ -121,6 +121,6 @@ public class BiomDepartDAO {
 			return null;
 		}
 
-	}
+	}*/
 
 }

@@ -23,7 +23,8 @@ public class ReporteRelojesBiometricosBussiness {
 	@Inject
 	private MainReporteDAO mdao;
 	
-	private BiomPersDAO bpDAO = new BiomPersDAO();
+	@Inject
+	private BiomPersDAO bpDAO;
 	
 	@Inject
 	private BiomDepartDAO bdDAO;

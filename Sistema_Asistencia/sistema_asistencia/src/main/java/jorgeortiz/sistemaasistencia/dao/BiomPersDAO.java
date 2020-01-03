@@ -22,7 +22,33 @@ public class BiomPersDAO {
 	@PersistenceContext(unitName = "fulltime")
 	private EntityManager emF;
 	
-	public List<BiometricoPersonaSQL> getBiometricoPersonas(String codigoBiometrico, String fechaDesde, String fechaHasta) {
+	public List<BiometricoPersonaSQL> getBiometricoPersonas(String codigoBiometrico, String fechaDesde, String fechaHasta){
+		Query query = emF.createNativeQuery("select empleado.cedula,\r\n" + 
+					"       empleado.codigo_empleado codigoBiometrico,\r\n" + 
+					"       empleado.apellido apellido,\r\n" + 
+					"       empleado.nombre nombre,\r\n" + 
+					"       timbre.codigo_reloj codigoReloj,\r\n" + 
+					"       reloj.descripcion as descripcionReloj,\r\n" + 
+					"       departamento.descripcion departamento,\r\n" + 
+					"       timbre.fecha_hora_timbre fecha\r\n" +  
+					"  from timbre,\r\n" + 
+					"       empleado,\r\n" + 
+					"       departamento,\r\n" + 
+					"       reloj\r\n" + 
+					" where empleado.codigo_empleado = timbre.codigo_empleado \r\n" + 
+					"       and timbre.codigo_empleado= :codigoBiometrico\r\n" + 
+					"       and reloj.relo_id = timbre.codigo_reloj\r\n" + 
+					"       and empleado.depa_id = departamento.depa_id \r\n" + 
+					"       and timbre.fecha_hora_timbre BETWEEN TO_DATE(:fechaDesde, 'dd/MM/YYYY HH24:MI:ss') AND TO_DATE(:fechaHasta, 'dd/MM/YYYY HH24:MI:ss')\r\n" + 
+					"order by timbre.fecha_hora_timbre desc", BiometricoPersonaSQL.class);
+		query.setParameter("codigoBiometrico", codigoBiometrico);
+		query.setParameter("fechaDesde", fechaDesde);
+		query.setParameter("fechaHasta", fechaHasta);
+		List<BiometricoPersonaSQL> items = query.getResultList();
+		return items;
+	}
+	
+	/*public List<BiometricoPersonaSQL> getBiometricoPersonas(String codigoBiometrico, String fechaDesde, String fechaHasta) {
 
 		BiometricoPersonaSQL item = null;
 		List<BiometricoPersonaSQL> items = new ArrayList<>();
@@ -80,6 +106,6 @@ public class BiomPersDAO {
 			return null;
 		}
 
-	}
+	}*/
 
 }
