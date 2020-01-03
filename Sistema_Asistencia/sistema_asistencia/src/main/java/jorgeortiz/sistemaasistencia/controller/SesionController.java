@@ -86,13 +86,6 @@ public class SesionController implements Serializable {
 
 	}
 
-	public USUARIOS getUSUARIO() {
-		return USUARIO;
-	}
-
-	public void setUSUARIO(USUARIOS uSUARIO) {
-		USUARIO = uSUARIO;
-	}
 
 	public boolean isEstado() {
 		return estado;
@@ -117,5 +110,15 @@ public class SesionController implements Serializable {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
+
+	public SERVIDOR getNewServidor() {
+		return newServidor;
+	}
+
+	public void setNewServidor(SERVIDOR newServidor) {
+		this.newServidor = newServidor;
+	}
+	
+	
 
 }

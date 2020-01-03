@@ -89,7 +89,9 @@
 
 				<ui:insert name="barra">
 				</ui:insert>
+					
 					<p:panel rendered="#{sesionController.estado eq true}">
+					<p:outputLabel value="USUARIO: #{sesionController.newServidor.APELLIDO_PATERNO} #{sesionController.newServidor.PRIMER_NOMBRE}" style="text-align:right;align:right"/>
 					<ui:insert name="cuerpo">
 						
 						

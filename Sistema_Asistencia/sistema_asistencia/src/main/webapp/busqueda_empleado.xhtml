@@ -22,14 +22,14 @@ Notas:
 
 	<ui:define name="cuerpo">
 
-		<p:panel id="pn1" header="Busqueda rápida de empleado" > 					 	
+		<b:panel id="pn1" title="Busqueda rápida de empleado" look="primary"> 					 	
 	 		<b:dataTable id="tbl" var="emp" value="#{empleadoController.listEmp}">
 	 			<b:dataTableColumn value="#{emp.CODIGO_EMPLEADO}" label="Biométrico"/>
 	 			<b:dataTableColumn value="#{emp.CEDULA}" label="Cédula"/>
 	 			<b:dataTableColumn value="#{emp.NOMBRE}" label="Nombre"/>
 	 			<b:dataTableColumn value="#{emp.APELLIDO}" label="Apellido"/>
 			</b:dataTable>
-		</p:panel>
+		</b:panel>
 
 	</ui:define>
 
