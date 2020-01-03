@@ -14,7 +14,6 @@ import jorgeortiz.sistemaasistencia.fulltime.model.BiometricoDepartamentoSQL;
 import jorgeortiz.sistemaasistencia.fulltime.model.BiometricoPersonaSQL;
 import jorgeortiz.sistemaasistencia.fulltime.model.EMPLEADO;
 import jorgeortiz.sistemaasistencia.fulltime.model.NumPersonaPorBiometricoSQL;
-import jorgeortiz.sistemaasistencia.nomina.model.ACC_PER;
 import jorgeortiz.sistemaasistencia.util.FormatterDate;
 
 @Stateless

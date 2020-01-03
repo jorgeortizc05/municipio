@@ -11,12 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -27,12 +24,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -48,7 +39,6 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 
-import jorgeortiz.sistemaasistencia.dao.DiaReporteDAO;
 import jorgeortiz.sistemaasistencia.dao.MainReporteDAO;
 import jorgeortiz.sistemaasistencia.fulltime.model.DEPARTAMENTO;
 import jorgeortiz.sistemaasistencia.fulltime.model.EMPLEADO;
@@ -64,8 +54,6 @@ public class VecesController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private MainReporteDAO mdao;
-	@Inject
-	private DiaReporteDAO dao;
 	private List<EMPLEADO> empleados;
 	private List<DEPARTAMENTO> departamentos;
 	private List<TIMBRE> timbres;
@@ -83,7 +71,6 @@ public class VecesController implements Serializable {
 	}
 
 	public void checkPeriodoVeces(ActionEvent actionEvent) throws IOException, ParseException {
-		System.out.println("Maicoly Guerrero");
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		SimpleDateFormat formatter_send = new SimpleDateFormat("dd/MM/yyyy");
 //		String dateInString = "01/02/2017";

@@ -1,8 +1,5 @@
 package jorgeortiz.sistemaasistencia.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,10 +54,8 @@ public class ReporteRelojesBiometricosController {
 	private MainReporteDAO mdao;
 	
 	private List<BiometricoPersonaSQL> biometricoPersonas;
-	private BiometricoPersonaSQL newBiometricoPersona;
 	
 	private List<BiometricoDepartamentoSQL> biometricoDepartamentos;
-	private BiometricoDepartamentoSQL newBiometricoDepartamento;
 	
 	private List<DEPARTAMENTO> departamentos;
 	
@@ -91,8 +86,6 @@ public class ReporteRelojesBiometricosController {
 	public void init() {
 		
 		newServidor = new SERVIDOR();
-		newBiometricoPersona = new BiometricoPersonaSQL();
-		newBiometricoDepartamento = new BiometricoDepartamentoSQL();
 		
 		departamentos = mdao.getDepartamentos();
 		

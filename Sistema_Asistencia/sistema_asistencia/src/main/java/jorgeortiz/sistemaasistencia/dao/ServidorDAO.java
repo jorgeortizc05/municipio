@@ -20,7 +20,7 @@ public class ServidorDAO implements Serializable{
 	@PersistenceContext(unitName = "nomina")
 	private EntityManager emN;
 	
-	public SERVIDOR getServidor(String cedula, String pass) {
+	public SERVIDOR getServidorLogin(String cedula, String pass) {
 		
 		System.out.println(cedula+" "+pass);
 		Query query=emN.createQuery("select s from SERVIDOR s where s.CEDULA = :cedula and s.CLAVE = :pass",SERVIDOR.class);

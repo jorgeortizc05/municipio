@@ -9,14 +9,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import jorgeortiz.sistemaasistencia.bussiness.SessionBussiness;
-import jorgeortiz.sistemaasistencia.dao.ServidorAreaDAO;
-import jorgeortiz.sistemaasistencia.dao.ServidorDAO;
-import jorgeortiz.sistemaasistencia.dao.SesionReporteDAO;
 import jorgeortiz.sistemaasistencia.fulltime.model.USUARIOS;
 import jorgeortiz.sistemaasistencia.nomina.model.SERVIDOR;
 
@@ -28,8 +23,6 @@ public class SesionController implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Inject
-	private SesionReporteDAO dao;
 	
 	@Inject
 	private SessionBussiness seBuss;
@@ -47,7 +40,7 @@ public class SesionController implements Serializable {
 
 	public String verificarLogin() throws IOException {
 		try {
-			newServidor = seBuss.getServidor(getUsuario(), getPass());
+			newServidor = seBuss.getServidorLogin(getUsuario(), getPass());
 			System.out.println(newServidor);
 			if (newServidor != null) {
 				estado = true;

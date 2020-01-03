@@ -1,18 +1,14 @@
 package jorgeortiz.sistemaasistencia.controller;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import jorgeortiz.sistemaasistencia.bussiness.CargoBussiness;
 import jorgeortiz.sistemaasistencia.bussiness.DepartamentoBussiness;
@@ -36,18 +32,14 @@ public class ServidorAreaController {
 	// Servidor, cargo y departamentos
 	@Inject
 	private ServidorAreaBussiness servaBuss;
-	private List<ServidorAreaSQL> servidorAreas;
 	private ServidorAreaSQL servidorAreaSQL;
 	private SERVIDOR servidor;
 	private List<SERVIDOR> servidores;
 
 	private DepartamentoBussiness depBuss;
 	private List<DepartamentoSQL> departamentos;
-	private List<DepartamentoSQL> filterDepartamentos;
 
 	private List<CARGO> cargos;
-
-	private EMPLEADO empleado;
 
 	// Variables
 	private int vCodigoServidor;
@@ -61,7 +53,6 @@ public class ServidorAreaController {
 		depBuss = new DepartamentoBussiness();
 		servidorAreaSQL = new ServidorAreaSQL();
 		servidor = new SERVIDOR();
-		empleado = new EMPLEADO();
 
 		try {
 			cargos = cargBuss.recuperarCargos();

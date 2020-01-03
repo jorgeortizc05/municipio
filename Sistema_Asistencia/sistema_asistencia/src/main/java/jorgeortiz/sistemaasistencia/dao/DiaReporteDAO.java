@@ -35,15 +35,19 @@ public class DiaReporteDAO implements Serializable {
 	@PersistenceContext(unitName = "fulltime")
 	private EntityManager emF;
 	
-	public List<TIMBRE> getTimbres(Date fecha) throws NullPointerException{
+	public List<TIMBRE> getTimbres(Date fecha1, Date fecha2) throws NullPointerException{
 		try{
-			Query query=emF.createQuery("select r from TIMBRE r where r.FECHA = :fecha order by r.FECHA_HORA_TIMBRE",TIMBRE.class);
-			query.setParameter("fecha", fecha);
+			Query query=emF.createQuery("select r from TIMBRE r where r.FECHA_HORA_TIMBRE > :fecha1 and r.FECHA_HORA_TIMBRE< :fecha2 order by r.FECHA_HORA_TIMBRE",TIMBRE.class);
+			query.setParameter("fecha1", fecha1);
+			query.setParameter("fecha2", fecha2);
 			List<TIMBRE> timbres=query.getResultList();
 			return	timbres;
+
 		}catch(Exception e){
 			return null;
 		}
+		
+		
 	}
 	public List<EMPLEADO> getNoHanTimbrado(Date fecha1, Date fecha2) throws NullPointerException{
 		try{

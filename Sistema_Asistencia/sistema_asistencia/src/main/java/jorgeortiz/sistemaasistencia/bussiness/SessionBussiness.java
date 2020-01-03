@@ -12,9 +12,9 @@ public class SessionBussiness {
 	@Inject
 	private ServidorDAO servDAO;
 
-	public SERVIDOR getServidor(String cedula, String pass) throws Exception {
+	public SERVIDOR getServidorLogin(String cedula, String pass) throws Exception {
 		
-		SERVIDOR item = servDAO.getServidor(cedula, pass);
+		SERVIDOR item = servDAO.getServidorLogin(cedula, pass);
 		
 		if(!(item == null)) {
 			return item;

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:uti="http://java.sun.com/jsf/composite/util"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<!-- 
+Autor: ING. JORGE LUIS ORTIZ CACERES
+Fecha de Creacion:27/02/2019
+Notas: Vista para el codigo de barras
+Modificaciones
+Fecha Modificacion
+Notas:
+-->
+<ui:composition
+	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
+
+	<ui:define name="cuerpo">
+
+		<p:growl id="growl2" life="1000" />
+
+
+		<b:panel title="REPORTES DEL DIA" look="primary">
+			<p:separator />
+			
+			<b:panel title="Todo el día">
+			<b:commandButton value="Actualizar"
+				actionListener="#{diaReportController.checkTodoDia}" look="info"
+				update="png1 salida1" />
+			<p:spacer width="25" />
+			<p:outputLabel id="salida1"
+				value="#{diaReportController.timbres.size()} registros encontrados!!" />
+			<p:panelGrid id="png1" columns="1">
+				<b:dataTable id="tbl" var="tim"
+					value="#{diaReportController.timbres}"
+					excel="true" pdf="true">
+					<b:dataTableColumn value="#{tim.CODIGO_EMPLEADO}" label="Biométrico"/>
+					<b:dataTableColumn value="#{diaReportController.checkRazonSocialEmpApellido(tim.CODIGO_EMPLEADO)}" label="Apellido"/>
+					<b:dataTableColumn value="#{diaReportController.checkRazonSocialEmpNombre(tim.CODIGO_EMPLEADO)}" label="Nombre"/>
+					<b:dataTableColumn value="#{diaReportController.checkDepartamento(tim.CODIGO_EMPLEADO)}" label="Departamento"/>
+					<b:dataTableColumn value="#{tim.CODIGO_RELOJ}" label="Nro_reloj"/>
+					<b:dataTableColumn value="#{diaReportController.checkTiempo(tim.FECHA)}" label="Fecha"/>
+					<b:dataTableColumn value="#{tim.FECHA_HORA_TIMBRE.hours}:#{tim.FECHA_HORA_TIMBRE.minutes}:#{tim.FECHA_HORA_TIMBRE.seconds}" label="Hora"/>
+				</b:dataTable>
+
+			</p:panelGrid>
+			</b:panel>
+
+			<b:panel title="Mañana desde las 6:30">
+			<b:commandButton value="Actualizar" look="info"
+				actionListener="#{diaReportController.checkTempranoManiana}"
+				update="png2 salida2" />
+			<p:spacer width="25" />
+			<p:outputLabel id="salida2"
+				value="#{diaReportController.timbresTemp.size()} registros encontrados!!" />
+			<p:panelGrid id="png2" columns="1">
+				<b:dataTable id="tbl2" var="tim"
+					value="#{diaReportController.timbresTemp}" excel="true" pdf="true">
+					<b:dataTableColumn value="#{tim.CODIGO_EMPLEADO}" label="Biométrico"/>
+					<b:dataTableColumn value="#{diaReportController.checkRazonSocialEmpApellido(tim.CODIGO_EMPLEADO)}" label="Apellido"/>
+					<b:dataTableColumn value="#{diaReportController.checkRazonSocialEmpNombre(tim.CODIGO_EMPLEADO)}" label="Nombre"/>
+					<b:dataTableColumn value="#{diaReportController.checkDepartamento(tim.CODIGO_EMPLEADO)}" label="Departamento"/>
+					<b:dataTableColumn value="#{tim.CODIGO_RELOJ}" label="Nro_reloj"/>
+					<b:dataTableColumn value="#{diaReportController.checkTiempo(tim.FECHA)}" label="Fecha"/>
+					<b:dataTableColumn value="#{tim.FECHA_HORA_TIMBRE.hours}:#{tim.FECHA_HORA_TIMBRE.minutes}:#{tim.FECHA_HORA_TIMBRE.seconds}" label="Hora"/>
+	
+				</b:dataTable>
+			</p:panelGrid>
+			</b:panel>
+			
+			<b:panel title="Mañana desde las 8:00">
+			<b:commandButton value="Actualizar" look="info"
+				actionListener="#{diaReportController.checkTardeManiana}"
+				update="png3 salida3" />
+			<p:spacer width="25" />
+			<p:outputLabel id="salida3"
+				value="#{diaReportController.timbresAtrasado.size()} registros encontrados!!" />
+			<p:panelGrid id="png3" columns="1">
+				<b:dataTable id="tbl3" var="tim"
+					value="#{diaReportController.timbresAtrasado}" 
+					excel="true" pdf="true">
+					<b:dataTableColumn value="#{tim.CODIGO_EMPLEADO}" label="Biométrico"/>
+					<b:dataTableColumn value="#{diaReportController.checkRazonSocialEmpApellido(tim.CODIGO_EMPLEADO)}" label="Apellido"/>
+					<b:dataTableColumn value="#{diaReportController.checkRazonSocialEmpNombre(tim.CODIGO_EMPLEADO)}" label="Nombre"/>
+					<b:dataTableColumn value="#{diaReportController.checkDepartamento(tim.CODIGO_EMPLEADO)}" label="Departamento"/>
+					<b:dataTableColumn value="#{tim.CODIGO_RELOJ}" label="Nro_reloj"/>
+					<b:dataTableColumn value="#{diaReportController.checkTiempo(tim.FECHA)}" label="Fecha"/>
+					<b:dataTableColumn value="#{tim.FECHA_HORA_TIMBRE.hours}:#{tim.FECHA_HORA_TIMBRE.minutes}:#{tim.FECHA_HORA_TIMBRE.seconds}" label="Hora"/>
+				</b:dataTable>
+			</p:panelGrid>
+			</b:panel>
+			
+			<b:panel title="Sin Timbrar">
+			<b:commandButton value="Actualizar" look="info"
+				actionListener="#{diaReportController.checkNoHanTimbrado}"
+				update="png4 salida4" />
+			<p:spacer width="25" />
+			<p:outputLabel id="salida4"
+				value="#{diaReportController.emps_sin_timbres.size()} registros encontrados!!" />
+			<p:panelGrid id="png4" columns="1">
+				<b:dataTable id="tbl4" var="tim"
+					value="#{diaReportController.emps_sin_timbres}"
+					excel="true" pdf="true">
+					
+					<b:dataTableColumn value="#{tim.CODIGO_EMPLEADO}" label="Biométrico"/>
+					<b:dataTableColumn value="#{tim.APELLIDO}" label="Apellido"/>
+					<b:dataTableColumn value="#{tim.NOMBRE}" label="Nombre"/>
+					<b:dataTableColumn value="#{diaReportController.checkDepartamento(tim.CODIGO_EMPLEADO)}" label="Departamento"/>					
+				</b:dataTable>
+			</p:panelGrid>
+			</b:panel>
+			<p:separator />
+		</b:panel>
+
+
+
+
+	</ui:define>
+
+
+
+</ui:composition>
+</html>

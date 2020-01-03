@@ -44,7 +44,6 @@ public class MainReportView implements Serializable {
 	private String cedula;
 	private String apellido;
 
-	private List<EMPLEADO> empleados;
 	private List<CIUDAD> ciudades;
 	private List<PROVINCIA> provincias;
 	private List<REGION> regiones;
@@ -259,10 +258,6 @@ public class MainReportView implements Serializable {
 
 	public List<EMPLEADO> getEmpleados() {
 		return dao.getEmpleados();
-	}
-
-	public void setEmpleados(List<EMPLEADO> empleados) {
-		this.empleados = empleados;
 	}
 
 	public String getCodigo() {

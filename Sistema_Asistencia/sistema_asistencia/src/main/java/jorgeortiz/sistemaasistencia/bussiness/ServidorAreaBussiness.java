@@ -1,13 +1,10 @@
 package jorgeortiz.sistemaasistencia.bussiness;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import jorgeortiz.sistemaasistencia.dao.MainJustDAO;
 import jorgeortiz.sistemaasistencia.dao.ServidorAreaDAO;
 import jorgeortiz.sistemaasistencia.fulltime.model.EMPLEADO;
 import jorgeortiz.sistemaasistencia.nomina.model.SERVIDOR;
