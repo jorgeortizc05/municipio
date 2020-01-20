@@ -22,7 +22,7 @@ public class BiomPersDAO {
 	@PersistenceContext(unitName = "fulltime")
 	private EntityManager emF;
 	
-	public List<BiometricoPersonaSQL> getBiometricoPersonas(String codigoBiometrico, String fechaDesde, String fechaHasta){
+	/*public List<BiometricoPersonaSQL> getBiometricoPersonas(String codigoBiometrico, String fechaDesde, String fechaHasta){
 		Query query = emF.createNativeQuery("select empleado.cedula,\r\n" + 
 					"       empleado.codigo_empleado codigoBiometrico,\r\n" + 
 					"       empleado.apellido apellido,\r\n" + 
@@ -46,9 +46,9 @@ public class BiomPersDAO {
 		query.setParameter("fechaHasta", fechaHasta);
 		List<BiometricoPersonaSQL> items = query.getResultList();
 		return items;
-	}
+	}*/
 	
-	/*public List<BiometricoPersonaSQL> getBiometricoPersonas(String codigoBiometrico, String fechaDesde, String fechaHasta) {
+	public List<BiometricoPersonaSQL> getBiometricoPersonas(String codigoBiometrico, String fechaDesde, String fechaHasta) {
 
 		BiometricoPersonaSQL item = null;
 		List<BiometricoPersonaSQL> items = new ArrayList<>();
@@ -74,7 +74,8 @@ public class BiomPersDAO {
 					"       and timbre.codigo_empleado= "+codigoBiometrico+"\r\n" + 
 					"       and reloj.relo_id = timbre.codigo_reloj\r\n" + 
 					"       and empleado.depa_id = departamento.depa_id \r\n" + 
-					"       and timbre.fecha_hora_timbre BETWEEN TO_DATE('"+fechaDesde+"', 'dd/MM/YYYY HH24:MI:ss') AND TO_DATE('"+fechaHasta+"', 'dd/MM/YYYY HH24:MI:ss')\r\n" + 
+					"       and timbre.fecha_hora_timbre > TO_DATE('"+fechaDesde+"', 'dd/MM/YYYY HH24:MI:ss') \r\n"+
+					"		and timbre.fecha_hora_timbre < TO_DATE('"+fechaHasta+"', 'dd/MM/YYYY HH24:MI:ss')\r\n" + 
 					"order by timbre.fecha_hora_timbre desc");
 
 			Statement stmt = null;
@@ -91,7 +92,6 @@ public class BiomPersDAO {
 				item.setDescripcionReloj(rs.getString(6));
 				item.setDepartamento(rs.getString(7));
 				item.setFecha(rs.getDate(8));
-				//item.setHora(rs.getDate(9));
 				
 				items.add(item);
 			}
@@ -106,6 +106,6 @@ public class BiomPersDAO {
 			return null;
 		}
 
-	}*/
+	}
 
 }

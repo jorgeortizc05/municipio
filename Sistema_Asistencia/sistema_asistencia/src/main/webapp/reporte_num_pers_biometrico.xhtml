@@ -44,7 +44,7 @@ Notas:
 		<p:panelGrid id="png1" columns="1">
 			<b:dataTable id="tbl" var="bd"
 				value="#{reporteRelojesBiometricosController.listNumPersPorBiometricos}" autoUpdate="true"
-				excel="true" csv="true" pdf="true" columnVisibility="true" copy="true" print="true">
+				excel="true" csv="true" copy="true" print="true">
 				<b:dataTableColumn label="Código de Reloj" dataType="int">
 					<h:outputLabel value="#{bd.RELO_ID}" />
 				</b:dataTableColumn>

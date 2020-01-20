@@ -21,6 +21,9 @@ Notas:
 -->
 <ui:composition
 	template="/WEB-INF/facelets/templates/plantillaGeneral.xhtml">
+	<ui:define name="Titulo">
+		REPORTE SEVIDORES MUNICIPALES
+	</ui:define>
 
 	<ui:define name="cuerpo">
 		<b:panel title="Relojes Biométricos" id="fReporteBiometrico" look="primary">
@@ -76,7 +79,7 @@ Notas:
 		<p:panelGrid id="png1" columns="1">
 			<b:dataTable id="tbl" var="bp"
 				value="#{reporteRelojesBiometricosController.biometricoPersonas}"
-				autoUpdate="true" excel="true" csv="true" pdf="true" columnVisibility="true" copy="true" print="true">
+				autoUpdate="true" excel="true" csv="true" copy="true" print="true">
 				
 				<b:dataTableColumn value="#{bp.cedula}" label="Cédula"/>
 				<b:dataTableColumn value="#{bp.codigoBiometrico}" label="Biometrico"/>
@@ -104,8 +107,8 @@ Notas:
 		<b:panel title="Justificaciones">
 		<b:panelGrid id="png2" columns="1">
 			<b:dataTable id="tbl1" var="just"
-				value="#{reporteRelojesBiometricosController.justificaciones}" autoUpdate="true"
-				excel="true" csv="true" pdf="true" columnVisibility="true" copy="true" print="true">
+				value="#{reporteRelojesBiometricosController.justificaciones}"
+				 excel="true" csv="true" copy="true" print="true">
 				
 				<b:dataTableColumn label="Fecha" data-type="date">
 					<p:outputLabel value="#{just.FECHA}">
@@ -127,7 +130,7 @@ Notas:
 		<b:panel title="Acciones del Personal">
 		<p:panelGrid id="png3" columns="1">
 			<b:dataTable id="tbl2" var="acc" value="#{reporteRelojesBiometricosController.acciones}"
-							autoUpdate="true" excel="true" csv="true" pdf="true" columnVisibility="true" copy="true" print="true">
+							excel="true" csv="true" copy="true" print="true">
 				
 				<b:dataTableColumn value="#{acc.SER_CODIGO}" label="ID Servidor"/>
 				<b:dataTableColumn value="#{reporteRelojesBiometricosController.checkNombresYapellidosServidor(acc.SER_CODIGO)}" label="Nombres"/>

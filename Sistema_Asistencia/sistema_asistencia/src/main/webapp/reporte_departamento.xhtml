@@ -55,8 +55,8 @@ Notas:
 		<b:panel>
 		<p:panelGrid id="png1" columns="1">
 			<b:dataTable id="tbl" var="bd"
-				value="#{reporteRelojesBiometricosController.biometricoDepartamentos}" autoUpdate="true"
-				excel="true" csv="true" pdf="true" columnVisibility="true" copy="true" print="true" lang="es">
+				value="#{reporteRelojesBiometricosController.biometricoDepartamentos}"
+				excel="true" csv="true" copy="true" print="true" lang="es">
 				<b:dataTableColumn value="#{bd.cedula}" label="Cédula"/>
 				<b:dataTableColumn value="#{bd.codigoBiometrico}" label="Biometrico"/>
 				<b:dataTableColumn value="#{bd.apellido} #{bp.nombre}" label="Nombres"/>

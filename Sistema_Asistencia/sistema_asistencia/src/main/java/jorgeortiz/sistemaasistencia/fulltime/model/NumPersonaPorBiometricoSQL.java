@@ -13,7 +13,8 @@ query= "select r.relo_id,\r\n" +
 		"                 fulltime.empleado e\r\n" + 
 		"             where \r\n" + 
 		"                  e.codigo_empleado = t.codigo_empleado \r\n" + 
-		"                  and t.fecha_hora_timbre between TO_DATE(:fechaDesde, 'dd/MM/YYYY HH24:MI:ss') and TO_DATE(:fechaHasta, 'dd/MM/YYYY HH24:MI:ss')\r\n" + 
+		"                  and t.fecha_hora_timbre > TO_DATE(:fechaDesde, 'dd/MM/YYYY HH24:MI:ss') \r\n"+
+		"					and t.fecha_hora_timbre < TO_DATE(:fechaHasta, 'dd/MM/YYYY HH24:MI:ss')\r\n" + 
 		"                  and to_number(t.codigo_reloj) = r.relo_id \r\n" + 
 		"             ) numero_personas       \r\n" + 
 		"from fulltime.reloj r\r\n" + 
@@ -62,7 +63,5 @@ public class NumPersonaPorBiometricoSQL {
 		return "NumPersonaPorBiometricoSQL [RELO_ID=" + RELO_ID + ", DESCRIPCION=" + DESCRIPCION
 				+ ", NUMERO_PERSONAS=" + NUMERO_PERSONAS + "]";
 	}
-	
-	
-	
+		
 }

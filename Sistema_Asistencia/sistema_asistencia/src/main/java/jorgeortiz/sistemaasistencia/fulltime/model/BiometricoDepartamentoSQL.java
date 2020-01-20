@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedNativeQuery;
 
-@Entity
+/*@Entity
 @NamedNativeQuery(
 	    name="queryBiometricoDepartamento",
 	    query="select empleado.cedula cedula,\r\n" + 
@@ -28,9 +28,9 @@ import javax.persistence.NamedNativeQuery;
 	    		"and timbre.fecha_hora_timbre BETWEEN TO_DATE(:fechaDesde, 'dd/MM/YYYY HH24:MI:ss') AND TO_DATE(:fechaHasta, 'dd/MM/YYYY HH24:MI:ss')\r\n" + 
 	    		"order by timbre.fecha_hora_timbre desc",
 	    resultClass=BiometricoDepartamentoSQL.class
-	)
+	)*/
 public class BiometricoDepartamentoSQL {
-	@Id
+	
 	private String cedula;
 
 	private String codigoBiometrico;
@@ -77,9 +77,7 @@ public class BiometricoDepartamentoSQL {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	
+	}	
 
 	public String getCodigoReloj() {
 		return codigoReloj;

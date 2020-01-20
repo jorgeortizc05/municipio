@@ -5,12 +5,10 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
 public class BiometricoPersonaSQL {
 	
 	private String cedula;
 	
-	@Id
 	private String codigoBiometrico;
 	
 	private String apellido;
@@ -22,7 +20,7 @@ public class BiometricoPersonaSQL {
 	private String descripcionReloj;
 	
 	private String departamento;
-	
+
 	private Date fecha;
 	
 	public String getCedula() {

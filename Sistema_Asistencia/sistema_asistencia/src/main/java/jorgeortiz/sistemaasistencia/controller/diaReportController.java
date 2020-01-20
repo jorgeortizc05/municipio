@@ -229,7 +229,6 @@ public class diaReportController implements Serializable {
 			return formatter.format(dates);
 		}else return "sin fecha";
 		
-		
 	}
 	
 	public String checkRazonSocialEmpApellido(String cod_bio){
